@@ -1,0 +1,262 @@
+{
+	"ruid": "haxbotron-room-default",
+	"_config": {
+		"roomName": "⭐ SINDICATO DEL HAX ⭐ | #JueganTodosCon♿",
+		"playerName": "🤖",
+		"password": "",
+		"maxPlayers": 12,
+		"public": true,
+		"token": "",
+		"noPlayer": true
+	},
+	"settings": {
+		"maliciousBehaviourBanCriterion": 20,
+		"banVoteEnable": true,
+		"banVoteBanMillisecs": 1800000,
+		"banVoteAllowMinimum": 10,
+		"banVoteExecuteMinimum": 7,
+		"afkCountLimit": 12,
+		"afkCommandAutoKick": true,
+		"afkCommandAutoKickAllowMillisecs": 600000,
+		"chatFiltering": true,
+		"antiJoinFlood": true,
+		"joinFloodAllowLimitation": 2,
+		"joinFloodIntervalMillisecs": 30000,
+		"joinFloodBanMillisecs": 300000,
+		"antiChatFlood": true,
+		"chatFloodCriterion": 10,
+		"antiOgFlood": true,
+		"ogFloodCriterion": 3,
+		"ogFloodBanMillisecs": 300000,
+		"antiBanNoPermission": true,
+		"banNoPermissionBanMillisecs": 30000,
+		"antiInsufficientStartAbusing": true,
+		"insufficientStartAllowLimitation": 3,
+		"insufficientStartAbusingBanMillisecs": 300000,
+		"antiPlayerKickAbusing": true,
+		"playerKickAllowLimitation": 2,
+		"playerKickIntervalMillisecs": 30000,
+		"playerKickAbusingBanMillisecs": 300000,
+		"antiAFKFlood": true,
+		"antiAFKAbusing": true,
+		"antiMuteAbusing": true,
+		"muteAllowIntervalMillisecs": 180000,
+		"muteDefaultMillisecs": 180000,
+		"antiGameAbscond": false,
+		"gameAbscondBanMillisecs": 300000,
+		"gameAbscondRatingPenalty": 10,
+		"rerollWinStreak": true,
+		"rerollWinstreakCriterion": 5,
+		"guaranteePlayingTime": true,
+		"guaranteedPlayingTimeSeconds": 20,
+		"avatarOverridingByTier": true,
+		"nicknameLengthLimit": 30,
+		"chatLengthLimit": 80,
+		"forbidDuplicatedNickname": false,
+		"nicknameTextFilter": true,
+		"chatTextFilter": true
+	},
+	"rules": {
+		"ruleName": "default-rule",
+		"ruleDescription": "this is default rule. (Auto+Relay+Shuffle)",
+		"requisite": {
+			"minimumPlayers": 2,
+			"eachTeamPlayers": 4,
+			"timeLimit": 3,
+			"scoreLimit": 5,
+			"teamLock": true
+		},
+		"autoAdmin": false,
+		"autoOperating": true,
+		"statsRecord": true,
+		"defaultMapName": "4",
+		"readyMapName": "4"
+	},
+	"helo": {
+		"factor": {
+			"placement_match_chances": 10,
+			"factor_k_placement": 50,
+			"factor_k_normal": 40,
+			"factor_k_replace": 20
+		},
+		"tiers": [
+			{
+				"avatar": "❔",
+				"rating": 0,
+				"name": "Unranked"
+			},
+			{
+				"avatar": "🐣",
+				"rating": 700,
+				"name": "Ñoqui I"
+			},
+			{
+				"avatar": "🐣🐣",
+				"rating": 750,
+				"name": "Ñoqui II"
+			},
+			{
+				"avatar": "🐣🐣🐣",
+				"rating": 800,
+				"name": "Ñoqui III"
+			},
+			{
+				"avatar": "🥉",
+				"rating": 850,
+				"name": "Bronce I"
+			},
+			{
+				"avatar": "🥉🥉",
+				"rating": 900,
+				"name": "Bronce II"
+			},
+			{
+				"avatar": "🥉🥉🥉",
+				"rating": 950,
+				"name": "Bronce III"
+			},
+			{
+				"avatar": "🥈",
+				"rating": 1000,
+				"name": "Plata I"
+			},
+			{
+				"avatar": "🥈🥈",
+				"rating": 1050,
+				"name": "Plata II"
+			},
+			{
+				"avatar": "🥈🥈🥈",
+				"rating": 1100,
+				"name": "Plata III"
+			},
+			{
+				"avatar": "🥇",
+				"rating": 1150,
+				"name": "Oro I"
+			},
+			{
+				"avatar": "🥇🥇",
+				"rating": 1200,
+				"name": "Oro II"
+			},
+			{
+				"avatar": "🥇🥇🥇",
+				"rating": 1250,
+				"name": "Oro III"
+			},
+			{
+				"avatar": "🏅",
+				"rating": 1300,
+				"name": "Platino I"
+			},
+			{
+				"avatar": "🏅🏅",
+				"rating": 1350,
+				"name": "Platino II"
+			},
+			{
+				"avatar": "🏅🏅🏅",
+				"rating": 1400,
+				"name": "Platino III"
+			},
+			{
+				"avatar": "👑",
+				"rating": 1450,
+				"name": "Mas Capito I"
+			},
+			{
+				"avatar": "👑👑",
+				"rating": 1500,
+				"name": "Mas Capito II"
+			},
+			{
+				"avatar": "👑👑👑",
+				"rating": 1550,
+				"name": "Mas Capito III"
+			},
+			{
+				"avatar": "🏆",
+				"rating": 1700,
+				"name": "LEYENDA"
+			}
+		],
+		"tier": {
+			"class_tier_1": 500,
+			"class_tier_2": 700,
+			"class_tier_3": 800,
+			"class_tier_4": 900,
+			"class_tier_5": 1000,
+			"class_tier_6": 1100,
+			"class_tier_7": 1200,
+			"class_tier_8": 1300,
+			"class_tier_9": 1400
+		},
+		"avatar": {
+			"avatar_unknown": "❔",
+			"avatar_tier_new": "🌱",
+			"avatar_tier_1": "🕳️",
+			"avatar_tier_2": "🥚",
+			"avatar_tier_3": "🐣",
+			"avatar_tier_4": "🐥",
+			"avatar_tier_5": "🥉",
+			"avatar_tier_6": "🥈",
+			"avatar_tier_7": "🥇",
+			"avatar_tier_8": "🏆",
+			"avatar_tier_9": "👑"
+		}
+	},
+	"commands": {
+		"_commandPrefix": "!",
+		"_helpManabout": "about",
+		"_helpManafk": "afk",
+		"_helpManfreeze": "freeze",
+		"_helpManhelp": "help",
+		"_helpManlist": "list",
+		"_helpManmute": "mute",
+		"_helpManposs": "poss",
+		"_helpManscout": "scout",
+		"_helpManstats": "stats",
+		"_helpManstatsreset": "statsreset",
+		"_helpManstreak": "streak",
+		"_helpManvote": "vote",
+		"_helpMantier": "tier",
+		"_helpMansuper": "super",
+		"_helpManadmin": "admin",
+		"_helpMannotice": "notice",
+		"_listSubafk": "afk",
+		"_listSubmute": "mute",
+		"_listSubred": "red",
+		"_listSubblue": "blue",
+		"_listSubspec": "spec",
+		"_superSublogin": "login",
+		"_superSublogout": "logout",
+		"_superSubthor": "thor",
+		"_superSubthordeprive": "deprive",
+		"_superSubkick": "kick",
+		"_superSubban": "ban",
+		"_disabledCommandList": [
+			"SampleDisabledCommandName1",
+			"SampleDisabledCommandName2"
+		],
+		"about": "about",
+		"afk": "afk",
+		"freeze": "freeze",
+		"help": "help",
+		"list": "list",
+		"mute": "mute",
+		"poss": "poss",
+		"scout": "scout",
+		"stats": "stats",
+		"showstats": "showstats",
+		"statsreset": "statsreset",
+		"streak": "streak",
+		"super": "super",
+		"vote": "vote",
+		"tier": "tier",
+		"notice": "notice",
+		"hc": "hc",
+		"memide": "memide",
+		"ksk": "ksk"
+	}
+}

@@ -1,0 +1,6 @@
+.logs/
+.node-persist/
+node_modules/
+out/
+public/out/
+!webpack.config.js
