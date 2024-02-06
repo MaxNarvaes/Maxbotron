@@ -28,7 +28,7 @@ initRouter.post('/', async (ctx: Context, next: Next) => {
         }
 
         // register new admin account
-        const { username, password } = ctx.request.body;
+        const { username, password }: any = ctx.request.body;
         const token = generateToken(username);
 
         await saveAdminAccount({ accountName: username, hashedPassword: await makeHashedPassword(password)});

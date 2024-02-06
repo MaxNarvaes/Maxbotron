@@ -1,4 +1,4 @@
-import puppeteer, { ConsoleMessage } from "puppeteer";
+import puppeteer, { Browser, ConsoleMessage, Page } from "puppeteer";
 import { Player } from "../game/model/GameObject/Player";
 import { winstonLogger } from "../winstonLoggerSystem";
 import { BrowserHostRoomInitConfig } from "./browser.hostconfig";
@@ -9,7 +9,6 @@ import { TeamID } from "../game/model/GameObject/TeamID";
 import Discord from 'discord.js';
 import { DiscordWebhookConfig } from "./browser.interface";
 import * as maptraining from "./maps/training.hbs";
-import { listenPageErrors } from "./consoleHandler";
 
 function typedArrayToBuffer(array: Uint8Array): ArrayBuffer {
     return array.buffer.slice(array.byteOffset, array.byteLength + array.byteOffset)
@@ -28,8 +27,8 @@ export class HeadlessBrowser {
     /**
     * Container for headless browser.
     */
-    private _BrowserContainer: puppeteer.Browser | undefined;
-    private _PageContainer: Map<string, puppeteer.Page> = new Map();
+    private _BrowserContainer: Browser | undefined;
+    private _PageContainer: Map<string, Page> = new Map();
     private _SIOserver: SIOserver | undefined;
 
 
@@ -83,7 +82,7 @@ export class HeadlessBrowser {
     /**
     * Get all pages as array.
     */
-    private async fetchPages(): Promise<puppeteer.Page[]> {
+    private async fetchPages(): Promise<Page[]> {
         return await this._BrowserContainer!.pages();
     }
 
@@ -101,7 +100,7 @@ export class HeadlessBrowser {
     /**
     * Create new page.
     */
-    private async createPage(ruid: string, initConfig: BrowserHostRoomInitConfig): Promise<puppeteer.Page> {
+    private async createPage(ruid: string, initConfig: BrowserHostRoomInitConfig): Promise<Page> {
         if (process.env.TWEAKS_GEOLOCATIONOVERRIDE && JSON.parse(process.env.TWEAKS_GEOLOCATIONOVERRIDE.toLowerCase()) === true) {
             initConfig._config.geo = {
                 code: process.env.TWEAKS_GEOLOCATIONOVERRIDE_CODE || "KR"
@@ -112,11 +111,10 @@ export class HeadlessBrowser {
 
         if (!this._BrowserContainer) await this.initBrowser(); // open if browser isn't exist.
 
-        const page: puppeteer.Page = await this._BrowserContainer!.newPage(); // create new page(tab)
+        const page: Page = await this._BrowserContainer!.newPage(); // create new page(tab)
 
         const existPages = await this._BrowserContainer?.pages(); // get exist pages for check if first blank page is exist
         if (existPages?.length == 2 && this._PageContainer.size == 0) existPages[0].close(); // close useless blank page
-        await listenPageErrors(page);
         page.on('console', (msg: any) => {
             switch (msg.type()) {
                 case "log": {

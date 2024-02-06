@@ -57,7 +57,7 @@ export async function getAllList(ctx: Context) {
 
 export async function registerKey(ctx: Context) {
     const { ruid } = ctx.params;
-    const { key, description } = ctx.request.body;
+    const { key, description }: any = ctx.request.body;
     if(!key || !description) {
         ctx.status = 400; // Unfulfilled error
         return;

@@ -2,7 +2,7 @@ import { Context } from "koa";
 import { Player } from "../../../../game/model/GameObject/Player";
 import { TeamID } from "../../../../game/model/GameObject/TeamID";
 import { HeadlessBrowser } from "../../../../lib/browser";
-import { BrowserHostRoomInitConfig } from '../../../../lib/browser.hostconfig';
+import { BrowserHostRoomConfig, BrowserHostRoomInitConfig } from '../../../../lib/browser.hostconfig';
 import { discordWebhookConfigSchema } from "../../../schema/discordwebhook.validation";
 import { nestedHostRoomConfigSchema } from "../../../schema/hostroomconfig.validation";
 import { teamColourSchema } from "../../../schema/teamcolour.validation";
@@ -14,6 +14,7 @@ const browser = HeadlessBrowser.getInstance();
  */
 export async function createRoom(ctx: Context) {
     const validationResult = nestedHostRoomConfigSchema.validate(ctx.request.body);
+    const body: any = ctx.request.body
 
     if (validationResult.error) {
         ctx.status = 400;
@@ -23,11 +24,11 @@ export async function createRoom(ctx: Context) {
 
     const newRoomConfig: BrowserHostRoomInitConfig = {
         _LaunchDate: new Date()
-        , _RUID: ctx.request.body.ruid
-        , _config: ctx.request.body._config
-        , settings: ctx.request.body.settings
-        , rules: ctx.request.body.rules
-        , HElo: ctx.request.body.helo
+        , _RUID: body.ruid
+        , _config: body._config
+        , settings: body.settings
+        , rules: body.rules
+        , HElo: body.helo
         //, commands: ctx.request.body.commands
     }
 
@@ -130,7 +131,7 @@ export async function getPlayerInfo(ctx: Context) {
  */
 export async function kickOnlinePlayer(ctx: Context) {
     const { ruid, id } = ctx.params;
-    const { ban, seconds, message } = ctx.request.body;
+    const { ban, seconds, message }: any = ctx.request.body;
     if (ban === undefined || !seconds || !message) {
         ctx.status = 400; // Unfulfilled error
         return;
@@ -148,7 +149,8 @@ export async function kickOnlinePlayer(ctx: Context) {
  */
 export function broadcast(ctx: Context) {
     const { ruid } = ctx.params;
-    const message: string | undefined = ctx.request.body.message;
+    const body: any = ctx.body;
+    const message: string | undefined = body.message;
     ctx.status = 404;
     if (browser.checkExistRoom(ruid)) {
         if (message) {
@@ -165,7 +167,8 @@ export function broadcast(ctx: Context) {
  */
 export async function whisper(ctx: Context) {
     const { ruid, id } = ctx.params;
-    const message: string | undefined = ctx.request.body.message;
+    const body: any = ctx.body;
+    const message: string | undefined = body.message;
     const playerID: number = parseInt(id)
     ctx.status = 404;
     if (browser.checkExistRoom(ruid) && await browser.checkOnlinePlayer(ruid, playerID)) {
@@ -183,7 +186,8 @@ export async function whisper(ctx: Context) {
  */
 export async function setNotice(ctx: Context) {
     const { ruid } = ctx.params;
-    const message: string | undefined = ctx.request.body.message;
+    const body: any = ctx.body;
+    const message: string | undefined = body.message;
     ctx.status = 404;
     if (browser.checkExistRoom(ruid)) {
         if (message) {
@@ -227,7 +231,8 @@ export async function deleteNotice(ctx: Context) {
  */
 export async function setPassword(ctx: Context) {
     const { ruid } = ctx.params;
-    const password: string = ctx.request.body.password;
+    const body: any = ctx.body;
+    const password: string = body.password;
     ctx.status = 404;
 
     if (!password) {
@@ -287,7 +292,8 @@ export async function getChatTextFilteringPool(ctx: Context) {
  */
 export async function setNicknameTextFilter(ctx: Context) {
     const { ruid } = ctx.params;
-    const pool: string = ctx.request.body.pool;
+    const body: any = ctx.body;
+    const pool: string = body.pool;
     ctx.status = 404;
 
     if (!pool) {
@@ -306,7 +312,8 @@ export async function setNicknameTextFilter(ctx: Context) {
  */
 export async function setChatTextFilter(ctx: Context) {
     const { ruid } = ctx.params;
-    const pool: string = ctx.request.body.pool;
+    const body: any = ctx.body;
+    const pool: string = body.pool;
     ctx.status = 404;
 
     if (!pool) {
@@ -370,7 +377,7 @@ export async function checkPlayerMuted(ctx: Context) {
  */
 export async function mutePlayer(ctx: Context) {
     const { ruid, id } = ctx.params;
-    const { muteExpire } = ctx.request.body;
+    const { muteExpire }: any = ctx.request.body;
     ctx.status = 404;
 
     if (!muteExpire) {
@@ -459,7 +466,7 @@ export async function getTeamColours(ctx: Context) {
  */
 export async function setTeamColours(ctx: Context) {
     const { ruid } = ctx.params;
-    const { team, angle, textColour, teamColour1, teamColour2, teamColour3 } = ctx.request.body;
+    const { team, angle, textColour, teamColour1, teamColour2, teamColour3 }: any = ctx.request.body;
     ctx.status = 404;
 
     const validationResult = teamColourSchema.validate(ctx.request.body);
@@ -502,7 +509,7 @@ export async function getDiscordWebhookConfig(ctx: Context) {
  */
 export async function setDiscordWebhookConfig(ctx: Context) {
     const { ruid } = ctx.params;
-    const { feed, id, token, replayUpload } = ctx.request.body;
+    const { feed, id, token, replayUpload }: any = ctx.request.body;
     ctx.status = 404;
 
     const validationResult = discordWebhookConfigSchema.validate(ctx.request.body);
