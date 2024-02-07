@@ -53,7 +53,7 @@ export class HeadlessBrowser {
     */
     private async initBrowser() {
         const browserSettings = {
-            customArgs: ['--no-sandbox', '--disable-setuid-sandbox']
+            customArgs: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-features=WebRtcHideLocalIpsWithMdns']
             , openHeadless: true
         }
         if (process.env.TWEAKS_HEADLESSMODE && JSON.parse(process.env.TWEAKS_HEADLESSMODE.toLowerCase()) === false) {
