@@ -65,7 +65,7 @@ export class BanListController {
         }
 
         const { ruid } = ctx.params;
-        const banlistModel: BanListModel = ctx.request.body;
+        const banlistModel: BanListModel = {...ctx.request.body};
 
         return this._repository
             .addSingle(ruid, banlistModel)
@@ -88,7 +88,7 @@ export class BanListController {
         }
 
         const { ruid, conn } = ctx.params;
-        const banlistModel: BanListModel = ctx.request.body;
+        const banlistModel: BanListModel = {...ctx.request.body};
 
         return this._repository
             .updateSingle(ruid, conn, banlistModel)
