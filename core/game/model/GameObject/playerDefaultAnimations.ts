@@ -35,21 +35,7 @@ export function masterAnimations(): PlayerAnimations{
                         index: 3,
                         bitmaps: ["♿"],
                         animating: false,
-                        delayInMs: 500,
-                        startedTimestamp: getUnixTimestamp()
-                    },
-                    {
-                        index: 3,
-                        bitmaps: ["👨‍🦽"],
-                        animating: false,
-                        delayInMs: 500,
-                        startedTimestamp: getUnixTimestamp()
-                    },
-                    {
-                        index: 3,
-                        bitmaps: ["👩‍🦼"],
-                        animating: false,
-                        delayInMs: 500,
+                        delayInMs: 1500,
                         startedTimestamp: getUnixTimestamp()
                     }
                 ],
