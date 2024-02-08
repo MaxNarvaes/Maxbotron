@@ -65,7 +65,7 @@ export class SuperAdminController {
         }
 
         const { ruid } = ctx.params;
-        const superAdminModel: SuperAdminModel = ctx.request.body;
+        const superAdminModel: SuperAdminModel = ctx.request.body as SuperAdminModel;
 
         return this._repository
             .addSingle(ruid, superAdminModel)
@@ -88,7 +88,7 @@ export class SuperAdminController {
         }
 
         const { ruid, key } = ctx.params;
-        const superAdminModel: SuperAdminModel = ctx.request.body;
+        const superAdminModel: SuperAdminModel = ctx.request.body as SuperAdminModel;
 
         return this._repository
             .updateSingle(ruid, key, superAdminModel)
