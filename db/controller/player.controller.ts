@@ -65,7 +65,7 @@ export class PlayerController {
         }
 
         const { ruid } = ctx.params;
-        const playerModel: PlayerModel = {...ctx.request.body};
+        const playerModel: PlayerModel = ctx.request.body;
 
         return this._repository
             .addSingle(ruid, playerModel)
@@ -88,7 +88,7 @@ export class PlayerController {
         }
 
         const { ruid, auth } = ctx.params;
-        const playerModel: PlayerModel = {...ctx.request.body};
+        const playerModel: PlayerModel = ctx.request.body;
 
         return this._repository
             .updateSingle(ruid, auth, playerModel)
