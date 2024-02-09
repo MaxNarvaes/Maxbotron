@@ -5,7 +5,7 @@ import { IAdminAccount, isCorrectPassword, isExistAdminAccount, loadAdminAccount
 // export async function register(ctx: Context) { }
 
 export async function login(ctx: Context) {
-    const { username, password }: any = ctx.request.body;
+    const { username, password } = ctx.request.body;
 
     if (!username || !password) { // if no username or no password
         ctx.status = 401; // Unauthorized Error

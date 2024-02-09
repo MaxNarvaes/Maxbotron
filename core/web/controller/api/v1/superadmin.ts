@@ -1,4 +1,5 @@
 import { Context } from "koa";
+import koaBody from 'koa-bodyparser';
 import axios from "axios";
 
 interface IGivenSuperAdminKey {
@@ -57,7 +58,7 @@ export async function getAllList(ctx: Context) {
 
 export async function registerKey(ctx: Context) {
     const { ruid } = ctx.params;
-    const { key, description }: any = ctx.request.body;
+    const { key, description } = ctx.request.body;
     if(!key || !description) {
         ctx.status = 400; // Unfulfilled error
         return;
