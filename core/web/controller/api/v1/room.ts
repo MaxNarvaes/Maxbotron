@@ -2,7 +2,8 @@ import { Context } from "koa";
 import { Player } from "../../../../game/model/GameObject/Player";
 import { TeamID } from "../../../../game/model/GameObject/TeamID";
 import { HeadlessBrowser } from "../../../../lib/browser";
-import { BrowserHostRoomInitConfig } from '../../../../lib/browser.hostconfig';
+import bodyparser from 'koa-bodyparser'
+import { BrowserHostRoomConfig, BrowserHostRoomGameRule, BrowserHostRoomHEloConfig, BrowserHostRoomInitConfig, BrowserHostRoomSettings } from '../../../../lib/browser.hostconfig';
 import { discordWebhookConfigSchema } from "../../../schema/discordwebhook.validation";
 import { nestedHostRoomConfigSchema } from "../../../schema/hostroomconfig.validation";
 import { teamColourSchema } from "../../../schema/teamcolour.validation";
@@ -130,7 +131,7 @@ export async function getPlayerInfo(ctx: Context) {
  */
 export async function kickOnlinePlayer(ctx: Context) {
     const { ruid, id } = ctx.params;
-    const { ban, seconds, message } = ctx.request.body;
+    const { ban, seconds, message } = ctx.request.body as {ban:boolean, seconds:number, message:string};
     if (ban === undefined || !seconds || !message) {
         ctx.status = 400; // Unfulfilled error
         return;

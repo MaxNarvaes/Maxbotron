@@ -81,7 +81,7 @@ export async function getBanInfo(ctx: Context) {
 
 export async function banPlayer(ctx: Context) {
     const { ruid } = ctx.params;
-    const { conn, reason, seconds } = ctx.request.body;
+    const { conn, reason, seconds } = ctx.request.body as {conn:string, reason:string, seconds:number};
 
     if(!conn || !reason || !seconds) {
         ctx.status = 400; // Unfulfilled error
