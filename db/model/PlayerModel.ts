@@ -6,6 +6,7 @@ export interface PlayerModel {
     totals: number;
     disconns: number;
     wins: number;
+    loses: number;
     goals: number;
     assists: number;
     ogs: number;
@@ -17,6 +18,7 @@ export interface PlayerModel {
     rejoinCount: number;
     superadmin: boolean;
     role: string;
+    roleExpire: number | null;
     joinDate: number;
     leftDate: number;
     malActCount: number;
@@ -24,4 +26,15 @@ export interface PlayerModel {
     goalsAgainstGk: number;
     hatTricks: number;
     perfectGk: number;
+    username: string | null;
+    password: string | null;
+    warningCount: number;
+
+    goalsPlusAssistsPerGame: number;
+    goalsPerGame: number;
+    goalsAgainstPerGame: number;
+    oGsPerGame: number;
+    assistsPerGame: number;
+    winrate: number;
+    passPercentage: number;
 }

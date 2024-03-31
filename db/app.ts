@@ -13,9 +13,9 @@ import ip from "koa-ip";
 import logger from "koa-logger";
 import { createConnection } from "typeorm";
 import { winstonLogger } from "./utility/winstonLoggerSystem";
-import { Player } from "./entity/player.entity";
-import { BanList } from "./entity/banlist.entity";
-import { SuperAdmin } from "./entity/superadmin.entity";
+import { PlayerEntity } from "./entity/player.entity";
+import { BanEntity } from "./entity/banlist.entity";
+import { SuperAdminEntity } from "./entity/superadmin.entity";
 import { apiRouterV1 } from "./router/v1.api.router";
 // ========================================================
 //const _GitHublastestRelease = await axios.get('https://api.github.com/repos/dapucita/haxbotron/releases/latest');
@@ -38,7 +38,7 @@ const whiteListIPs: string[] = process.env.SERVER_WHITELIST_IP?.split(",") || ['
 createConnection({
     type: 'sqlite',
     database: path.join(__dirname, '..', process.env.DB_HOST || 'haxbotron.sqlite.db'),
-    entities: [Player, BanList, SuperAdmin],
+    entities: [PlayerEntity, BanEntity, SuperAdminEntity],
     logging: true,
     synchronize: true
 }).then(conn => {

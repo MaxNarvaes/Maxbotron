@@ -4,7 +4,7 @@
 		"roomName": "⭐ SINDICATO DEL HAX ⭐ | #JueganTodosCon♿",
 		"playerName": "🤖",
 		"password": "",
-		"maxPlayers": 12,
+		"maxPlayers": 21,
 		"public": true,
 		"token": "",
 		"noPlayer": true
@@ -46,11 +46,11 @@
 		"gameAbscondBanMillisecs": 300000,
 		"gameAbscondRatingPenalty": 10,
 		"rerollWinStreak": true,
-		"rerollWinstreakCriterion": 5,
+		"rerollWinstreakCriterion": 1,
 		"guaranteePlayingTime": true,
 		"guaranteedPlayingTimeSeconds": 20,
 		"avatarOverridingByTier": true,
-		"nicknameLengthLimit": 30,
+		"nicknameLengthLimit": 50,
 		"chatLengthLimit": 80,
 		"forbidDuplicatedNickname": false,
 		"nicknameTextFilter": true,
@@ -61,9 +61,9 @@
 		"ruleDescription": "this is default rule. (Auto+Relay+Shuffle)",
 		"requisite": {
 			"minimumPlayers": 2,
-			"eachTeamPlayers": 4,
-			"timeLimit": 3,
-			"scoreLimit": 5,
+			"eachTeamPlayers": 10,
+			"timeLimit": 10,
+			"scoreLimit": 0,
 			"teamLock": true
 		},
 		"autoAdmin": false,
@@ -92,119 +92,95 @@
 			},
 			{
 				"avatar": "🐣🐣",
-				"rating": 750,
+				"rating": 800,
 				"name": "Ñoqui II"
 			},
 			{
 				"avatar": "🐣🐣🐣",
-				"rating": 800,
+				"rating": 900,
 				"name": "Ñoqui III"
 			},
 			{
 				"avatar": "🥉",
-				"rating": 850,
+				"rating": 1000,
 				"name": "Bronce I"
 			},
 			{
 				"avatar": "🥉🥉",
-				"rating": 900,
+				"rating": 1100,
 				"name": "Bronce II"
 			},
 			{
 				"avatar": "🥉🥉🥉",
-				"rating": 950,
+				"rating": 1200,
 				"name": "Bronce III"
 			},
 			{
 				"avatar": "🥈",
-				"rating": 1000,
+				"rating": 1300,
 				"name": "Plata I"
 			},
 			{
 				"avatar": "🥈🥈",
-				"rating": 1050,
+				"rating": 1400,
 				"name": "Plata II"
 			},
 			{
 				"avatar": "🥈🥈🥈",
-				"rating": 1100,
+				"rating": 1500,
 				"name": "Plata III"
 			},
 			{
 				"avatar": "🥇",
-				"rating": 1150,
+				"rating": 1600,
 				"name": "Oro I"
 			},
 			{
 				"avatar": "🥇🥇",
-				"rating": 1200,
+				"rating": 1700,
 				"name": "Oro II"
 			},
 			{
 				"avatar": "🥇🥇🥇",
-				"rating": 1250,
+				"rating": 1800,
 				"name": "Oro III"
 			},
 			{
 				"avatar": "🏅",
-				"rating": 1300,
+				"rating": 1900,
 				"name": "Platino I"
 			},
 			{
 				"avatar": "🏅🏅",
-				"rating": 1350,
+				"rating": 2000,
 				"name": "Platino II"
 			},
 			{
 				"avatar": "🏅🏅🏅",
-				"rating": 1400,
+				"rating": 2100,
 				"name": "Platino III"
 			},
 			{
 				"avatar": "👑",
-				"rating": 1450,
+				"rating": 2200,
 				"name": "Mas Capito I"
 			},
 			{
 				"avatar": "👑👑",
-				"rating": 1500,
+				"rating": 2300,
 				"name": "Mas Capito II"
 			},
 			{
 				"avatar": "👑👑👑",
-				"rating": 1550,
+				"rating": 2400,
 				"name": "Mas Capito III"
 			},
 			{
 				"avatar": "🏆",
-				"rating": 1700,
+				"rating": 2800,
 				"name": "LEYENDA"
 			}
-		],
-		"tier": {
-			"class_tier_1": 500,
-			"class_tier_2": 700,
-			"class_tier_3": 800,
-			"class_tier_4": 900,
-			"class_tier_5": 1000,
-			"class_tier_6": 1100,
-			"class_tier_7": 1200,
-			"class_tier_8": 1300,
-			"class_tier_9": 1400
-		},
-		"avatar": {
-			"avatar_unknown": "❔",
-			"avatar_tier_new": "🌱",
-			"avatar_tier_1": "🕳️",
-			"avatar_tier_2": "🥚",
-			"avatar_tier_3": "🐣",
-			"avatar_tier_4": "🐥",
-			"avatar_tier_5": "🥉",
-			"avatar_tier_6": "🥈",
-			"avatar_tier_7": "🥇",
-			"avatar_tier_8": "🏆",
-			"avatar_tier_9": "👑"
-		}
+		]
 	},
 	"commands": {
 		"_commandPrefix": "!",

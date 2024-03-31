@@ -6,6 +6,7 @@ import { roomActivePlayersNumber } from "../model/OperateHelper/Quorum";
 import { findStadiumByPlayersLength } from "../../lib/maps";
 import { stadiumInfo } from "../../lib/maps/stadiumInfo";
 import { StayCurrentLandscape } from "@material-ui/icons";
+import { ClipInfo } from "../model/RoomObject/ClipInfo";
 
 export function setDefaultStadiums(): void {
     // set stadium maps as default setting
@@ -104,4 +105,24 @@ export function shuffleArray<T>(array: T[]): T[] {
 export function getCookieFromHeadless(name: string): string {
     let result = new RegExp('(?:^|; )' + encodeURIComponent(name) + '=([^;]*)').exec(document.cookie);
     return result ? result[1] : '';
+}
+export function registerHighlight(relato: string, author: string) {
+    const estimatedTime = (window.gameRoom._room.getScores()!.time - 5);
+    
+    const highligth: ClipInfo = {
+        author: author,
+        created: formatTime(estimatedTime),
+        description: relato
+    } 
+    window.gameRoom.clips.push(highligth);
+}
+
+function formatTime(seconds: number) {
+    return [
+        Math.floor(seconds / 60 / 60),
+        Math.floor(seconds / 60 % 60),
+        Math.floor(seconds % 60)
+    ]
+        .join(":")
+        .replace(/\b(\d)\b/g, "0$1")
 }

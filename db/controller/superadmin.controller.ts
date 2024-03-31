@@ -1,13 +1,13 @@
 import { Context } from "koa";
-import { SuperAdmin } from '../entity/superadmin.entity';
+import { SuperAdminEntity } from '../entity/superadmin.entity';
 import { SuperAdminModel } from '../model/SuperAdminModel';
 import { superAdminModelSchema } from "../model/Validator";
 import { IRepository } from '../repository/repository.interface';
 
 export class SuperAdminController {
-    private readonly _repository: IRepository<SuperAdmin>;
+    private readonly _repository: IRepository<SuperAdminEntity>;
 
-    constructor(repository: IRepository<SuperAdmin>) {
+    constructor(repository: IRepository<SuperAdminEntity>) {
         this._repository = repository;
     }
 

@@ -1,76 +1,25 @@
 import * as LangRes from "../../resource/strings";
 import { PlayerObject } from "../../model/GameObject/PlayerObject";
+import { Command } from "./commandInterface";
+import { commandList } from "./commandList";
 
-export function cmdHelp(byPlayer: PlayerObject, message: string[]): void {
-
-    if(message[1] !== undefined) {
-        switch(message[1]) {
-            case window.gameRoom.config.commands._helpManabout: {
-                window.gameRoom._room.sendAnnouncement(LangRes.command.helpman.about, byPlayer.id, 0x479947, "normal", 1);
-                break;
-            }
-            case window.gameRoom.config.commands._helpManhelp: {
-                window.gameRoom._room.sendAnnouncement(LangRes.command.helpman.help, byPlayer.id, 0x479947, "normal", 1);
-                break;
-            }
-            case window.gameRoom.config.commands._helpManstats: {
-                window.gameRoom._room.sendAnnouncement(LangRes.command.helpman.stats, byPlayer.id, 0x479947, "normal", 1);
-                break;
-            }
-            case window.gameRoom.config.commands._helpManstatsreset: {
-                window.gameRoom._room.sendAnnouncement(LangRes.command.helpman.statsreset, byPlayer.id, 0x479947, "normal", 1);
-                break;
-            }
-            case window.gameRoom.config.commands._helpManstreak: {
-                window.gameRoom._room.sendAnnouncement(LangRes.command.helpman.streak, byPlayer.id, 0x479947, "normal", 1);
-                break;
-            }
-            case window.gameRoom.config.commands._helpManscout: {
-                window.gameRoom._room.sendAnnouncement(LangRes.command.helpman.scout, byPlayer.id, 0x479947, "normal", 1);
-                break;
-            }
-            case window.gameRoom.config.commands._helpManposs: {
-                window.gameRoom._room.sendAnnouncement(LangRes.command.helpman.poss, byPlayer.id, 0x479947, "normal", 1);
-                break;
-            }
-            case window.gameRoom.config.commands._helpManafk: {
-                window.gameRoom._room.sendAnnouncement(LangRes.command.helpman.afk, byPlayer.id, 0x479947, "normal", 1);
-                break;
-            }
-            case window.gameRoom.config.commands._helpManlist: {
-                window.gameRoom._room.sendAnnouncement(LangRes.command.helpman.list, byPlayer.id, 0x479947, "normal", 1);
-                break;
-            }
-            case window.gameRoom.config.commands._helpManfreeze: {
-                window.gameRoom._room.sendAnnouncement(LangRes.command.helpman.freeze, byPlayer.id, 0x479947, "normal", 1);
-                break;
-            }
-            case window.gameRoom.config.commands._helpManmute: {
-                window.gameRoom._room.sendAnnouncement(LangRes.command.helpman.mute, byPlayer.id, 0x479947, "normal", 1);
-                break;
-            }
-            case window.gameRoom.config.commands._helpManadmin: {
-                window.gameRoom._room.sendAnnouncement(LangRes.command.helpadmin, byPlayer.id, 0x479947, "normal", 1);
-                break;
-            }
-            case window.gameRoom.config.commands._helpManvote: {
-                window.gameRoom._room.sendAnnouncement(LangRes.command.helpman.vote, byPlayer.id, 0x479947, "normal", 1);
-                break;
-            }
-            case window.gameRoom.config.commands._helpMantier: {
-                window.gameRoom._room.sendAnnouncement(LangRes.command.helpman.tier, byPlayer.id, 0x479947, "normal", 1);
-                break;
-            }
-            case window.gameRoom.config.commands._helpMannotice: {
-                window.gameRoom._room.sendAnnouncement(LangRes.command.helpman.notice, byPlayer.id, 0x479947, "normal", 1);
-                break;
-            }
-            default: {
-                window.gameRoom._room.sendAnnouncement(LangRes.command.helpman._ErrorWrongMan, byPlayer.id, 0xFF7777, "normal", 2);
-                break;
-            }
+export class CmdHelp extends Command {
+    public commandId: string = "help";
+    public helpMan: string = "Comando de ayuda";
+    public timeout: number = 0;
+    execute(byPlayer: PlayerObject, message: string[]): void {
+        if(message.length == 1) {
+            let helpMan: string = "Para ver la ayuda de un comando escribi !help <nombre de comando>. \n Comandos: "
+            Object.keys(commandList).forEach((c) => {
+                helpMan += c + " - "
+            })
+            LangRes.message(helpMan, byPlayer.id)
+        } else if (message.length > 1 && Object.keys(commandList).includes(message[1])) {
+            let commandName = message[1]
+            let helpMan = commandList[commandName as keyof typeof commandList].helpMan
+            LangRes.message(helpMan, byPlayer.id)
+        } else {
+            LangRes.importantMessage("Comando " + message[1] + " no encontrado!", byPlayer.id)
         }
-    } else {
-        window.gameRoom._room.sendAnnouncement(LangRes.command.help, byPlayer.id, 0x479947, "normal", 1);
     }
 }

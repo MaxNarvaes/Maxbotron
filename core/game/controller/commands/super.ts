@@ -3,24 +3,48 @@ import { PlayerObject } from "../../model/GameObject/PlayerObject";
 import { superAdminLogin } from "../SuperAdmin";
 import { convertToPlayerStorage, setPlayerDataToDB } from "../Storage";
 import { getRole } from "../../resource/roleDefinitions";
+import { getUnixTimestamp } from "../Statistics";
+import { Command } from "./commandInterface";
 
-export async function cmdSuper(byPlayer: PlayerObject, message: string[]): Promise<void> {
-    const submessage : string | undefined =  message[2]
+export class CmdSuper extends Command {
+    public commandId: string = "super";
+    public helpMan: string = "!super login <codigo> | !super logout | !super thor";
+    public timeout: number = 1000;
+    async execute(byPlayer: PlayerObject, message: string[]): Promise<void> {
+        const submessage : string | undefined =  message[2]
     if (message !== undefined) {
-        var player = window.gameRoom.playerList.get(byPlayer.id);
+        var player = window.gameRoom.playerList.get(byPlayer.id)!;
+        if (player.credentials.password == null || player.credentials.username == null) {
+            LangRes.message("No puedes usar este comando sin estar registrado! Registrate usando !register <usuario> <contraseña> (solo letras y numeros)", byPlayer.id);
+            return;
+        }
+        // te saca cuando usas el !help adm
+        // no podes empezar el partido con pocos jugadores
+        // fixear mensaje de error al registrar
+        // chat spam no anda
+
         switch (message[1]) {
             case 'login': {
                 if (player != undefined && player!.permissions.superadmin == false) { // only when not yet loginned
                     if (submessage !== undefined) { // key check and login
-                        var loginRole = await superAdminLogin(submessage) ;
-                        if (loginRole != "player") { // if login key is matched
+                        var login = await superAdminLogin(submessage) ;
+                        if (login.role != "player") { // if login key is matched
                             
-                            window.gameRoom.playerList.get(byPlayer.id)!.permissions.role = getRole(loginRole); // set super admin
-                            window.gameRoom.playerList.get(byPlayer.id)!.permissions.superadmin = window.gameRoom.playerList.get(byPlayer.id)!.permissions.role.superadmin;
-                            await setPlayerDataToDB(convertToPlayerStorage(window.gameRoom.playerList.get(byPlayer.id)!)); // register(or update) this player into DB
-                            window.gameRoom._room.sendAnnouncement(LangRes.command.super.loginSuccess, byPlayer.id, 0x479947, "normal", 2);
+                            player.permissions.role = getRole(login.role); // set super admin
+                            
+                            if (login.validDays && login.validDays > 0) {
+                                player.permissions.roleExpire = getUnixTimestamp() + (1000 * 60 * 60 * 24 * login.validDays);
+                            } else {
+                                player.permissions.roleExpire = null;
+                            }
+                            
+                            player.permissions.superadmin = player.permissions.role.superadmin;
+                            await setPlayerDataToDB(convertToPlayerStorage(player)); // register(or update) this player into DB
+                            window.gameRoom._room.sendAnnouncement(LangRes.command.super.loginSuccess + login.role, byPlayer.id, 0x479947, "normal", 2);
                             window.gameRoom.logger.i('super', `${byPlayer.name}#${byPlayer.id} did successfully login to super admin with the key. (KEY ${submessage})`);
-                            
+                            if (login.singleUse) {
+                                window._deleteSuperadminDB(window.gameRoom.config._RUID, submessage)
+                            }
                             window._emitSIOPlayerStatusChangeEvent(byPlayer.id);
                         } else {
                             window.gameRoom.playerList.get(byPlayer.id)!.permissions.malActCount++; // add malicious behaviour count
@@ -83,45 +107,6 @@ export async function cmdSuper(byPlayer: PlayerObject, message: string[]): Promi
                 break;
             }
 
-            case 'kick': {
-                if (window.gameRoom.playerList.get(byPlayer.id)!.permissions.superadmin == true) { // only when loginned
-                    if (submessage !== undefined && submessage.charAt(0) == "#") {
-                        let target: number = parseInt(submessage.substr(1), 10);
-                        if (isNaN(target) != true && window.gameRoom.playerList.has(target) == true) {
-                            window.gameRoom._room.kickPlayer(target, LangRes.command.super.kick.kickMsg, false); // kick
-                            window.gameRoom._room.sendAnnouncement(LangRes.command.super.kick.kickSuccess, byPlayer.id, 0x479947, "normal", 2);
-                        } else {
-                            window.gameRoom._room.sendAnnouncement(LangRes.command.super.kick.noID, byPlayer.id, 0xFF7777, "normal", 2);
-                        }
-                    } else {
-                        window.gameRoom._room.sendAnnouncement(LangRes.command.super.kick.noID, byPlayer.id, 0xFF7777, "normal", 2);
-                    }
-                } else {
-                    window.gameRoom._room.sendAnnouncement(LangRes.command.super._ErrorNoPermission, byPlayer.id, 0xFF7777, "normal", 2);
-                }
-
-                break;
-            }
-
-            case 'ban': {
-                if (window.gameRoom.playerList.get(byPlayer.id)!.permissions.superadmin == true) { // only when loginned
-                    if (submessage !== undefined && submessage.charAt(0) == "#") {
-                        let target: number = parseInt(submessage.substr(1), 10);
-                        if (isNaN(target) != true && window.gameRoom.playerList.has(target) == true) {
-                            window.gameRoom._room.kickPlayer(target, LangRes.command.super.ban.banMsg, true); // kick
-                            window.gameRoom._room.sendAnnouncement(LangRes.command.super.ban.banSuccess, byPlayer.id, 0x479947, "normal", 2);
-                        } else {
-                            window.gameRoom._room.sendAnnouncement(LangRes.command.super.ban.noID, byPlayer.id, 0xFF7777, "normal", 2);
-                        }
-                    } else {
-                        window.gameRoom._room.sendAnnouncement(LangRes.command.super.ban.noID, byPlayer.id, 0xFF7777, "normal", 2);
-                    }
-                } else {
-                    window.gameRoom._room.sendAnnouncement(LangRes.command.super._ErrorNoPermission, byPlayer.id, 0xFF7777, "normal", 2);
-                }
-
-                break;
-            }
             /*
             case window.gameRoom.config.commands._superSubbanclear: {
                 if (window.playerList.get(byPlayer.id)!.permissions.superadmin == true) { // only when loginned
@@ -166,4 +151,7 @@ export async function cmdSuper(byPlayer: PlayerObject, message: string[]): Promi
     } else {
         window.gameRoom._room.sendAnnouncement(LangRes.command.super.defaultMessage, byPlayer.id, 0xFF7777, "normal", 2);
     }
+    }
+
 }
+

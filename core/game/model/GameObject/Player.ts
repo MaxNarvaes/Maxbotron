@@ -1,6 +1,8 @@
+import uEmojiParser from "universal-emoji-parser";
 import { getUnixTimestamp } from "../../controller/Statistics";
+import { getRole } from "../../resource/roleDefinitions";
 import { PlayerAnimations, Animation } from "./Animation";
-import { PlayerObject, PlayerPosition, PlayerStats, PlayerPermissions, PlayerAfkTrace, PlayerEntryTime, PlayerMatchRecord } from "./PlayerObject";
+import { PlayerObject, PlayerPosition, PlayerStats, PlayerPermissions, PlayerAfkTrace, PlayerEntryTime, PlayerMatchRecord, PlayerCredentials, PlayerWarning } from "./PlayerObject";
 import { TeamID } from "./TeamID";
 import { defaultPlayerAnimations } from "./playerDefaultAnimations";
 export class Player implements PlayerObject {
@@ -51,21 +53,36 @@ export class Player implements PlayerObject {
     animations: PlayerAnimations;
 
     currentAnimation: Animation;
-    
+
+    credentials: PlayerCredentials;
+
+    warnings: PlayerWarning[];
+
 
     // kick(ban) vote
     voteTarget: number; //Who did this player vote for //this data will not be stored when left the room //default value is -1 (not 0, it means host)
     voteGet: number; //How many votes did this player get //this data will not be stored when left the room //default value is 0
 
     // init
-    constructor(player: PlayerObject, stats: PlayerStats, permissions: PlayerPermissions, entrytime: PlayerEntryTime, playerAnimation: PlayerAnimations = defaultPlayerAnimations()) {
+    constructor(
+        player: PlayerObject,
+        stats: PlayerStats,
+        permissions: PlayerPermissions,
+        entrytime: PlayerEntryTime,
+        playerAnimation: PlayerAnimations = defaultPlayerAnimations()) {
         this.id = player.id;
-        this.name = player.name;
+        this.name = uEmojiParser.parseToUnicode(player.name);
         this.auth = player.auth;
         this.conn = player.conn;
         this.admin = player.admin;
         this.team = player.team;
         this.position = player.position;
+        this.credentials = {
+            username: "",
+            password: "",
+            currentAuth: ""
+        };
+        this.warnings = [];
         this.matchRecord = { // Temporary stat record for current match
             goals: 0, // not contains OGs.
             assists: 0, // count for assist goal
@@ -77,18 +94,73 @@ export class Player implements PlayerObject {
             goalsAgainst: 0,
             hatTricks: 0,
             factorK: window.gameRoom.config.HElo.factor.factor_k_normal // K Factor for HElo rating
-        }
+        };
         this.stats = stats;
         this.permissions = permissions;
         this.afktrace = {
             exemption: true,
             count: 0
-        }
+        };
         this.entrytime = entrytime;
         this.voteTarget = -1; //default value is -1 (not 0, it means host)
         this.voteGet = 0; //default value is 0
         this.gk = false;
         this.animations = playerAnimation,
-        this.currentAnimation = {...playerAnimation.default[0]};
+            this.currentAnimation = { ...playerAnimation.default[0] };
+    }
+
+    static emptyPlayerObject(name: string): PlayerObject {
+        return {
+            name: name,
+            admin: false,
+            auth: "",
+            conn: "",
+            id: 0,
+            position: { x: 0, y: 0 },
+            team: TeamID.Spec
+        }
+    }
+
+    public static emptyPlayer(name: string): Player {
+        var playerObject = Player.emptyPlayerObject(name);
+        return new Player(playerObject, {
+            rating: 1000,
+            totals: 0,
+            disconns: 0,
+            wins: 0,
+            goals: 0,
+            assists: 0,
+            ogs: 0,
+            losePoints: 0,
+            balltouch: 0,
+            passed: 0,
+            gk: 0,
+            goalsAgainstGk: 0,
+            hatTricks: 0,
+            perfectGk: 0,
+            assistsPerGame: 0,
+            goalsAgainstPerGame: 0,
+            goalsPerGame: 0,
+            goalsPlusAssistsPerGame: 0,
+            loses: 0,
+            oGsPerGame: 0,
+            passPercentage: 0,
+            winrate: 0,
+        }, {
+            mute: false,
+            muteExpire: 0,
+            afkmode: false,
+            afkreason: '',
+            afkdate: 0,
+            malActCount: 0,
+            superadmin: false,
+            role: getRole("visitor"),
+            roleExpire: null
+        }, {
+            rejoinCount: 0,
+            joinDate: getUnixTimestamp(),
+            leftDate: 0,
+            matchEntryTime: 0
+        })
     }
 }

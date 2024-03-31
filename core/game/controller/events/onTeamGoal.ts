@@ -9,10 +9,12 @@ import { randomInteger } from "../RoomTools";
 import { Player } from "../../model/GameObject/Player";
 import { onTeamVictoryListener } from "./onTeamVictory";
 import { pickRandomElement } from "../../model/GameObject/Animation";
+import { registerHighlight } from "../RoomTools";
+
 
 export async function onTeamGoalListener(team: TeamID): Promise<void> {
     // Event called when a team scores a goal.
-    let scores: ScoresObject | null = window.gameRoom._room.getScores(); //get scores object (it includes time data about seconds elapsed)
+    let scores: ScoresObject= window.gameRoom._room.getScores()!; //get scores object (it includes time data about seconds elapsed)
     window.gameRoom.logger.i('onTeamGoal', `Goal time logger (secs):${Math.round(scores?.time || 0)}`);
 
     var placeholderGoal = createPlaceholder();
@@ -37,9 +39,8 @@ export async function onTeamGoalListener(team: TeamID): Promise<void> {
         }
     }
     
-    if (Math.abs(scores!.red - scores!.blue) >= 5) {
-        onTeamVictoryListener(scores!);
-        //setTimeout(() => { room.stopGame(); }, 3000);
+    if (Math.abs(scores.red - scores.blue) >= 5) {
+        onTeamVictoryListener(scores);
     }
 
     function createPlaceholder() {
@@ -86,11 +87,15 @@ function goal(placeholderGoal: { teamID: TeamID; teamName: string; scorerID: num
     window.gameRoom.logger.i("on goal", "on goal: set animatino to player " + scorer.id + scorer.currentAnimation.name);
 
     //goal message
-    LangRes.SendRelato(Tst.maketext(LangRes.onGoal.goal[randomInteger(0, LangRes.onGoal.goal.length - 1)], placeholderGoal));
+    let relato = Tst.maketext(LangRes.onGoal.goal[randomInteger(0, LangRes.onGoal.goal.length - 1)], placeholderGoal);
+    LangRes.commentary(relato);
+    registerHighlight(relato, LangRes.maxbotron.myName);
 
     if (scorer.matchRecord.goals == 3) {
         scorer.currentAnimation = { ...pickRandomElement(scorer.animations.onHatTrick) };
-        LangRes.SendRelato(Tst.maketext(pickRandomElement(LangRes.onGoal.hatTrick), placeholderGoal));
+        let relato = Tst.maketext(pickRandomElement(LangRes.onGoal.hatTrick), placeholderGoal);
+        LangRes.commentary(relato);
+        registerHighlight(relato, LangRes.maxbotron.myName);
         scorer.matchRecord.hatTricks++;
     }
 
@@ -107,19 +112,21 @@ async function ownGoal(placeholderGoal: { teamID: TeamID; teamName: string; scor
     window.gameRoom.playerList.get(touchPlayerId)!.matchRecord.ogs++; // record OG in match record
 
     //setPlayerData(window.playerList.get(touchPlayer)!);
-    LangRes.SendRelato(Tst.maketext(pickRandomElement(LangRes.onGoal.og), placeholderGoal));
+    let relato = Tst.maketext(pickRandomElement(LangRes.onGoal.og), placeholderGoal);
+    LangRes.commentary(relato);
+    registerHighlight(relato, LangRes.maxbotron.myName);
     window.gameRoom.logger.i('onTeamGoal', `${window.gameRoom.playerList.get(touchPlayerId)!.name}#${touchPlayerId} made an OG.`);
 
     await checkOgFlood(touchPlayerId);
     var players = [...window.gameRoom.playerList.values()];
     for (let i = 0; i < players.length; i++) {
         if (players[i].team === team) {
-            players[i].currentAnimation = { ...pickRandomElement(players[i].animations.ownGoalOponent) };
+            players[i].currentAnimation = {...pickRandomElement(players[i].animations.ownGoalOponent)};
         } else if (players[i].team != TeamID.Spec) {
-            players[i].currentAnimation = { ...pickRandomElement(players[i].animations.ownGoalTeam) };
+            players[i].currentAnimation = {...pickRandomElement(players[i].animations.ownGoalTeam)};
         }
     }
-    scorer.currentAnimation = { ...pickRandomElement(scorer.animations.onOwnGoal) };
+    scorer.currentAnimation = {...pickRandomElement(scorer.animations.onOwnGoal)};
 }
 
 function goalWithAssist(assistPlayerId: number, scorer: Player, placeholderGoal: { teamID: TeamID; teamName: string; scorerID: number; scorerName: string; assistID: number; assistName: string; ogID: number; ogName: string; gameRuleName: string; gameRuleLimitTime: number; gameRuleLimitScore: number; gameRuleNeedMin: number; possTeamRed: number; possTeamBlue: number; streakTeamName: string; streakTeamCount: number; }) {
@@ -134,7 +141,9 @@ function goalWithAssist(assistPlayerId: number, scorer: Player, placeholderGoal:
     //setPlayerData(window.playerList.get(assistPlayer)!);
     //assist message
     assist.currentAnimation = { ...pickRandomElement(assist.animations.onAssist) };
-    LangRes.SendRelato(Tst.maketext(LangRes.onGoal.goalWithAssist[randomInteger(0, LangRes.onGoal.goalWithAssist.length - 1)], placeholderGoal));
+    let relato = Tst.maketext(LangRes.onGoal.goalWithAssist[randomInteger(0, LangRes.onGoal.goalWithAssist.length - 1)], placeholderGoal);
+    LangRes.commentary(relato);
+    registerHighlight(relato, LangRes.maxbotron.myName);
 }
 
 async function checkOgFlood(touchPlayerId: number) {

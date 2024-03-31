@@ -7,7 +7,7 @@ export interface ScoresObject {
     // The number of goals scored by the blue team (int)
     blue: number;
 
-    // The number of seconds elapsed (seconds don't advance while the game is paused) (float)
+    // The number of seconds elapsed   (seconds don't advance while the game is paused) (float)
     time: number;
 
     // The score limit for the game. (int)

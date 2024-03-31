@@ -1,12 +1,12 @@
 import Router from "koa-router";
 import { Context } from "koa";
 import { BanListController } from "../controller/banlist.controller";
-import { BanList } from "../entity/banlist.entity";
+import { BanEntity } from "../entity/banlist.entity";
 import { BanListRepository } from "../repository/banlist.repository";
 import { IRepository } from "../repository/repository.interface";
 
 export const banlistRouter = new Router();
-const banlistRepository: IRepository<BanList> = new BanListRepository();
+const banlistRepository: IRepository<BanEntity> = new BanListRepository();
 const controller: BanListController = new BanListController(banlistRepository);
 
 // /v1/banlist GET

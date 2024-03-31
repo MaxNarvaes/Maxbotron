@@ -25,7 +25,7 @@ export function onGameStopListener(byPlayer: PlayerObject): void {
         streakTeamName: convertTeamID2Name(window.gameRoom.winningStreak.teamID),
         streakTeamCount: window.gameRoom.winningStreak.count
     };
-    if(byPlayer !== null) {
+    if (byPlayer !== null) {
         placeholderStop.playerID = byPlayer.id;
         placeholderStop.playerName = byPlayer.name;
     }
@@ -37,34 +37,15 @@ export function onGameStopListener(byPlayer: PlayerObject): void {
         msg += `(by ${byPlayer.name}#${byPlayer.id})`;
     }
     window.gameRoom.logger.i('onGameStop', msg);
-    
+
     setStadium(); // check number of players and auto-set stadium
     setDefaultRoomLimitation(); // score, time, teamlock set
 
-    window.gameRoom.ballStack.initTouchInfo(); // clear touch info
-    window.gameRoom.ballStack.clear(); // clear the stack.
-    window.gameRoom.ballStack.possClear(); // clear possession count
-
-    // stop replay record and send it
-    const replay = window.gameRoom._room.stopRecording();
-    
-    if(replay && window.gameRoom.social.discordWebhook.feed && window.gameRoom.social.discordWebhook.replayUpload && window.gameRoom.social.discordWebhook.id && window.gameRoom.social.discordWebhook.token) {
-        const placeholder = {
-            roomName: window.gameRoom.config._config.roomName
-            ,replayDate: Date().toLocaleString()
-        }
-
-        window._feedSocialDiscordWebhook(window.gameRoom.social.discordWebhook.id, window.gameRoom.social.discordWebhook.token, "replay", {
-            message: Tst.maketext(LangRes.onStop.feedSocialDiscordWebhook.replayMessage, placeholder)
-            ,data: JSON.stringify(Array.from(replay))
-        });
-    }
-
-    // when auto emcee mode is enabled
-    if(window.gameRoom.config.rules.autoOperating === true) {
+    if ((byPlayer == null || byPlayer == undefined) && window.gameRoom.config.rules.autoOperating === true) {
         recruitBothTeamFully();
         setTimeout(() => {
             window.gameRoom._room.startGame(); // start next new game
-        }, 3000);
+        }, 5000);
     }
+
 }

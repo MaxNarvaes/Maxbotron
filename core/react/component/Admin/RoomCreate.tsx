@@ -26,6 +26,7 @@ interface styleClass {
 const getSavedRoomConfig = (): ReactHostRoomInfo => {
     let savedRoomInfo: ReactHostRoomInfo = DefaultConfigSet;
     if (localStorage.getItem('_savedRoomInfo') !== null) savedRoomInfo = JSON.parse(localStorage.getItem('_savedRoomInfo')!);
+    savedRoomInfo.helo = DefaultConfigSet.helo;
     return savedRoomInfo;
 }
 
@@ -107,6 +108,7 @@ export default function RoomCreate({ styleClass }: styleClass) {
 
     useEffect(() => {
         // SAVE ONTO CONFIG COMPLEX WHEN EACH STATES ARE CHANGED
+        const loadedDefaultSettings: ReactHostRoomInfo = getSavedRoomConfig();
         setRoomConfigComplex({
             ruid: roomUIDFormField,
             _config: { ...configFormField, public: roomPublicFormField }, // include switch toggle component
@@ -118,8 +120,8 @@ export default function RoomCreate({ styleClass }: styleClass) {
                 ,autoOperating: rulesSwitchesFormField.autoOperating
                 ,statsRecord: rulesSwitchesFormField.statsRecord
             },
-            helo: heloFormField,
-            //commands: commandsFormField
+            helo: loadedDefaultSettings.helo,
+            commands: loadedDefaultSettings.commands
         });
     }, [roomUIDFormField, roomPublicFormField, configFormField, // include switch toggle component
         rulesFormField, rulesTeamLockField, rulesSwitchesFormField,

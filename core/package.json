@@ -8,7 +8,8 @@
     "build": "npm run build:ts && npm run build:bot && npm run build:web",
     "build:ts": "tsc",
     "build:bot": "webpack --config webpack.config.bot.js",
-    "build:web": "webpack --config webpack.config.react.js"
+    "build:web": "webpack --config webpack.config.react.js",
+    "postinstall": "patch-package"
   },
   "author": "dapucita",
   "license": "MIT",
@@ -26,10 +27,11 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "@types/cookie": "^0.4.0",
+    "@types/humanize-duration": "^3.27.4",
     "@types/jsonwebtoken": "^8.5.0",
+    "@types/koa__cors": "^3.0.2",
     "@types/koa-logger": "^3.1.1",
     "@types/koa-static": "^4.0.1",
-    "@types/koa__cors": "^3.0.2",
     "@types/react": "^17.0.0",
     "@types/react-color": "^3.0.4",
     "@types/react-dom": "^17.0.0",
@@ -39,7 +41,6 @@
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "cookie": "^0.4.1",
-    "discord.js": "^12.5.1",
     "dotenv": "^8.2.0",
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
@@ -50,6 +51,7 @@
     "koa-router": "^10.0.0",
     "koa-static": "^5.0.0",
     "node-persist": "^3.1.0",
+    "patch-package": "^8.0.0",
     "puppeteer": "^5.4.1",
     "react": "^17.0.1",
     "react-color": "^2.19.3",
@@ -57,6 +59,7 @@
     "react-router-dom": "^5.2.0",
     "socket.io": "^3.1.0",
     "socket.io-client": "^3.1.0",
+    "universal-emoji-parser": "^1.0.125",
     "winston": "^3.3.3",
     "winston-daily-rotate-file": "^4.5.0"
   },
@@ -67,10 +70,17 @@
     "@types/koa-router": "^7.4.1",
     "@types/node-persist": "^3.1.0",
     "@types/puppeteer": "^5.4.2",
+    "ascii-table3": "^0.9.0",
     "fork-ts-checker-webpack-plugin": "^6.1.0",
+    "humanize-duration": "^3.31.0",
     "ts-loader": "^8.0.14",
     "typescript": "^4.1.6",
     "webpack": "^5.4.0",
     "webpack-cli": "^4.2.0"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
   }
 }

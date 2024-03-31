@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class SuperAdmin {
+export class SuperAdminEntity {
     @PrimaryGeneratedColumn()
     uid!: number;
 
@@ -13,4 +13,10 @@ export class SuperAdmin {
 
     @Column()
     description!: string;
+
+    @Column()
+    validDays!: number;
+
+    @Column()
+    singleUse!: boolean;
 }

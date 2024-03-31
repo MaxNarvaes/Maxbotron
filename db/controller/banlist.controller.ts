@@ -1,13 +1,13 @@
 import { Context } from "koa";
 import { IRepository } from '../repository/repository.interface';
-import { BanList } from '../entity/banlist.entity';
+import { BanEntity } from '../entity/banlist.entity';
 import { BanListModel } from '../model/BanListModel';
 import { banListModelSchema } from "../model/Validator";
 
 export class BanListController {
-    private readonly _repository: IRepository<BanList>;
+    private readonly _repository: IRepository<BanEntity>;
 
-    constructor(repository: IRepository<BanList>) {
+    constructor(repository: IRepository<BanEntity>) {
         this._repository = repository;
     }
 

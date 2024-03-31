@@ -48,6 +48,7 @@ export interface PlayerStats {
     totals: number; // total games include wins and disconns
     disconns: number; // disconnected games
     wins: number; // the game wins
+    loses: number
     goals: number; // not contains OGs.
     assists: number; // count for assist goal
     ogs: number; // it means 'own goal' (in Korean, '자책골')
@@ -59,12 +60,30 @@ export interface PlayerStats {
     gk: number //gk matches
     perfectGk: number// matches without goals against
     goalsAgainstGk: number; //goals against gk
+
+    goalsPlusAssistsPerGame: number
+    goalsPerGame: number
+    goalsAgainstPerGame: number
+    oGsPerGame: number
+    assistsPerGame: number
+
+    winrate: number
+    passPercentage: number
 }
 
 export interface PlayerRole {
     key: string,
+
     superadmin: boolean, 
-    timeoutMultiplier: number
+    timeoutMultiplier: number,
+    label: string,
+    color: number,
+    style: string
+}
+
+export interface PlayerWarning {
+    reason: string,
+    time: number, 
 }
 
 export interface PlayerPosition {
@@ -81,6 +100,14 @@ export interface PlayerPermissions {
     malActCount: number; // count for malicious behaviour like Brute force attack
     superadmin: boolean; // Is this player super admin? It doesn't matter whether he/she is an admin.
     role : PlayerRole; //player role
+    roleExpire: number | null;
+    // admin permission is already decleared by admin: boolean.
+}
+
+export interface PlayerCredentials {
+    username: string; // Is this player muted? If true, his/her messages will ignored.
+    password: string; // expiration date of mute. -1 means Permanent mute.. (unix timestamp)
+    currentAuth: string; // Is this player away from keyboards? If the player sets afk mode, the value is true. It is not a mean for auto dectecting and kicking afk players.
     // admin permission is already decleared by admin: boolean.
 }
 
@@ -104,6 +131,7 @@ export interface PlayerStorage {
     totals: number; // total games include wins and disconns
     disconns: number; // disconnected games
     wins: number; // the game wins
+    loses: number
     goals: number; // not contains OGs.
     assists: number; // count for assist goal
     ogs: number; // it means 'own goal' (in Korean, '자책골')
@@ -112,6 +140,14 @@ export interface PlayerStorage {
     gk: number //gk matches
     perfectGk: number// matches without goals against
     goalsAgainstGk: number; //goals against gk
+    goalsPlusAssistsPerGame: number
+    goalsPerGame: number
+    goalsAgainstPerGame: number
+    oGsPerGame: number
+    assistsPerGame: number
+    winrate: number
+    passPercentage: number
+
 
     losePoints: number; // it means the points this player lost (in Korean, '실점')
     balltouch: number; // total count of touch(kick) ball
@@ -120,9 +156,14 @@ export interface PlayerStorage {
     muteExpire: number; // expiration date of mute. -1 means Permanent mute.. (unix timestamp)
     superadmin: boolean; // is this player super admin? // not save
     role: string; // player role
+    roleExpire: number | null;
     rejoinCount: number; // How many rejoins this player has made.
     joinDate: number; // player join time
     leftDate: number; // player left time
     malActCount: number; // count for malicious behaviour like Brute force attack
 
+    warningCount: number;
+
+    username: string;
+    password: string;
 }

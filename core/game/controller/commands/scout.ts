@@ -2,18 +2,24 @@ import * as LangRes from "../../resource/strings";
 import * as Tst from "../Translator";
 import * as StatCalc from "../Statistics";
 import { PlayerObject } from "../../model/GameObject/PlayerObject";
+import { Command } from "./commandInterface";
 
-export function cmdScout(byPlayer: PlayerObject, message: string[]): void {
-    if (window.gameRoom.config.rules.statsRecord == true && window.gameRoom.isStatRecord == true) {
-        let expectations: number[] = StatCalc.getTeamWinningExpectation();
-        let placeholder = {
-            teamExpectationSpec: expectations[0]
-            ,teamExpectationRed: expectations[1]
-            ,teamExpectationBlue: expectations[2]
+export class CmdScout extends Command {
+    public commandId: string = "scout";
+    public helpMan: string = "calcula las expectativas de victoria";
+    public timeout: number = 1000;
+    execute(byPlayer: PlayerObject, message: string[]): void {
+        if (window.gameRoom.config.rules.statsRecord == true && window.gameRoom.isStatRecord == true) {
+            let expectations: number[] = StatCalc.getTeamWinningExpectation();
+            let placeholder = {
+                teamExpectationSpec: expectations[0]
+                ,teamExpectationRed: expectations[1]
+                ,teamExpectationBlue: expectations[2]
+            }
+            window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.scout.scouting, placeholder), byPlayer.id, 0x479947, "normal", 1);
+        } else {
+            window.gameRoom._room.sendAnnouncement(LangRes.command.scout._ErrorNoMode, byPlayer.id, 0xFF7777, "normal", 2);
         }
-        window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.scout.scouting, placeholder), byPlayer.id, 0x479947, "normal", 1);
-    } else {
-        window.gameRoom._room.sendAnnouncement(LangRes.command.scout._ErrorNoMode, byPlayer.id, 0xFF7777, "normal", 2);
     }
-    
+
 }

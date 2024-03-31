@@ -13,9 +13,10 @@ import TableRow from '@material-ui/core/TableRow';
 import Title from './common/Widget.Title';
 import client from '../../lib/client';
 import { useParams } from 'react-router-dom';
-import { Button, IconButton, TextField, Typography } from '@material-ui/core';
+import { Button, Checkbox, FormControlLabel, IconButton, TextField, Typography } from '@material-ui/core';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import Alert, { AlertColor } from '../common/Alert';
+import { CheckBox } from '@material-ui/icons';
 
 interface styleClass {
     styleClass: any
@@ -24,6 +25,8 @@ interface styleClass {
 interface superAdminItem {
     key: string
     description: string
+    validDays: number
+    singleUse: boolean
 }
 
 interface matchParams {
@@ -56,6 +59,10 @@ export default function RoomSuperAdmin({ styleClass }: styleClass) {
 
     const [newAdminKeyDescription, setNewAdminKeyDescription] = useState('');
 
+    const [validDays, setValidDays] = useState(0);
+
+    const [singleUse, setSingleUse] = useState(false);
+
     const getSuperAdminKeyList = async () => {
         try {
             const result = await client.get(`/api/v1/superadmin/${matchParams.ruid}`);
@@ -73,6 +80,14 @@ export default function RoomSuperAdmin({ styleClass }: styleClass) {
                 setAlertStatus('error');
             }
         }
+    }
+
+    const onChangeSingleUse = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSingleUse(e.target.checked);
+    }
+
+    const onChangeValidDays = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setValidDays(e.target.valueAsNumber);
     }
 
     const onChangeNewAdminKey = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,8 +128,10 @@ export default function RoomSuperAdmin({ styleClass }: styleClass) {
         event.preventDefault();
         try {
             const result = await client.post(`/api/v1/superadmin/${matchParams.ruid}`, {
-                key: newAdminKey
-                , description: newAdminKeyDescription
+                key: newAdminKey,
+                description: newAdminKeyDescription,
+                singleUse: singleUse,
+                validDays: validDays
             } as superAdminItem);
             if (result.status === 204) {
                 setFlashMessage('Successfully added.');
@@ -174,6 +191,22 @@ export default function RoomSuperAdmin({ styleClass }: styleClass) {
                                     onChange={onChangeNewAdminKey}
                                     className={classes.halfInput}
                                 />
+                                <FormControlLabel 
+                                    control={<Checkbox checked={singleUse} 
+                                        onChange={onChangeSingleUse} 
+                                        name="singleUse" />} 
+                                    label="single use?" />
+                                <TextField
+                                    id="validDays"
+                                    label="valid days"
+                                    type="number"
+                                    value={validDays}
+                                    onChange={onChangeValidDays}
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                />
+
                                 <Button size="small" type="submit" variant="contained" color="primary" className={classes.submit}>Add</Button>
                                 <Button onClick={onClickKeyGenerate} size="small" type="button" variant="contained" color="inherit" className={classes.submit}>Generate</Button>
                             </form>
@@ -182,6 +215,8 @@ export default function RoomSuperAdmin({ styleClass }: styleClass) {
                                     <TableRow>
                                         <TableCell align="left">Key</TableCell>
                                         <TableCell>Description</TableCell>
+                                        <TableCell>Single use</TableCell>
+                                        <TableCell>Valid days</TableCell>
                                         <TableCell align="right"></TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -190,6 +225,8 @@ export default function RoomSuperAdmin({ styleClass }: styleClass) {
                                         <TableRow key={idx}>
                                             <TableCell align="left">{item.key}</TableCell>
                                             <TableCell>{item.description}</TableCell>
+                                            <TableCell>{item.singleUse}</TableCell>
+                                            <TableCell>{item.validDays}</TableCell>
                                             <TableCell align="right">
                                                 <IconButton name={item.key} onClick={() => onClickKeyDelete(item.key)} aria-label="delete" className={classes.margin}>
                                                     <BackspaceIcon fontSize="small" />

@@ -20,7 +20,7 @@ import { TeamInfo } from "./model/GameObject/TeamInfo";
 import { randomInteger } from "./controller/RoomTools";
 import { maps } from "../lib/maps";
 import { number } from "joi";
-import { Animator } from "./model/GameObject/Animation";
+import { Animator, pickRandomElement } from "./model/GameObject/Animation";
 // ====================================================================================================
 // load initial configurations
 const loadedConfig: GameRoomConfig = JSON.parse(localStorage.getItem('_initConfig')!);
@@ -43,6 +43,7 @@ window.gameRoom = {
     }
     , animator: new Animator()
     , currentStadium: maps[0]
+    , clips: []
     , bannedWordsPool: {
         nickname: []
         , chat: []
@@ -82,15 +83,17 @@ localStorage.removeItem('_readyMap');
 // start main bot script
 console.log(`Haxbotron loaded bot script. (UID ${window.gameRoom.config._RUID}, TOKEN ${window.gameRoom.config._config.token})`);
 
-window.document.title = `Haxbotron ${window.gameRoom.config._RUID}`;
+window.document.title = `Maxbotron ${window.gameRoom.config._RUID}`;
 
 makeRoom();
 // ====================================================================================================
 // set scheduling timers
 
-/* var scheduledTimer60 = setInterval(() => {
-    window.gameRoom._room.sendAnnouncement(LangRes.scheduler.advertise[randomInteger(0, LangRes.scheduler.advertise.length-1)], null, LangRes.style.colors.Green, "normal", 0); // advertisement
+var scheduledTimer150 = setInterval(() => {
+    window.gameRoom._room.sendAnnouncement(pickRandomElement(LangRes.scheduler.advertise), null, LangRes.style.colors.Golden, "bold", 1); // advertisement
+}, 150000); // 60secs 
 
+var scheduledTimer60 = setInterval(() => {
     refreshBanVoteCache(); // update banvote status cache
     if (window.gameRoom.banVoteCache.length >= 1) { // if there are some votes (include top voted players only)
         let placeholderVote = {
@@ -103,7 +106,19 @@ makeRoom();
         }
         window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.scheduler.banVoteAutoNotify, placeholderVote), null, LangRes.style.colors.Green, "normal", 0); //notify it
     }
-}, 60000); // 60secs */
+    window.gameRoom.playerList.forEach((v, k) => {
+        if(v.credentials.password == null || v.credentials.username == null) {
+            LangRes.importantMessage("No estas registrado y tus stats no se guardan! Registrate usando !register <usuario> <contraseña> (solo letras y numeros)", v.id);
+        }
+    })
+    if(window.gameRoom.currentTeams.blueGoalKeeper == null) {
+        LangRes.message("El equipo azul no tiene arquero. Ofrecete con el comando !gk")
+    }
+
+    if(window.gameRoom.currentTeams.redGoalKeeper == null) {
+        LangRes.message("El equipo rojo no tiene arquero. Ofrecete con el comando !gk")
+    }
+}, 60000); // 60secs 
 
 var scheduledTimer5 = setInterval(() => {
     const nowTimeStamp: number = getUnixTimestamp(); //get timestamp
@@ -132,9 +147,6 @@ var scheduledTimer5 = setInterval(() => {
                 window.gameRoom._room.kickPlayer(player.id, Tst.maketext(LangRes.scheduler.afkCommandTooLongKick, placeholderScheduler), false); // kick
             }
         }
-
-        /* var players = [...window.gameRoom.playerList.values()]
-        players.forEach((p: Player) => window.gameRoom.logger.e("scheduler:", "scheduler: player anim " + p.id + "-" + p.currentAnimation.name)); */
 
         // check afk
         checkAfk(player, placeholderScheduler);

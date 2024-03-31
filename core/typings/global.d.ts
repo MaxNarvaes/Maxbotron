@@ -11,6 +11,8 @@ import { PlayerStorage } from "../game/model/GameObject/PlayerObject";
 import { TeamInfo } from "../game/model/GameObject/TeamInfo";
 import { stadiumInfo } from "../lib/maps/stadiumInfo";
 import { Animator } from "../game/model/GameObject/Animation";
+import { ClipInfo } from "../game/model/RoomObject/ClipInfo";
+import { SuperAdminResponse } from "../lib/db.injection";
 
 declare global {
     interface Window {
@@ -71,6 +73,8 @@ declare global {
             playerTimeouts: Set<string> // player commands timeouts
             ballStack: KickStack // stack for ball tracing
 
+            clips: ClipInfo[]
+
             currentTeams: {
                 red: TeamInfo,
                 redGoalKeeper: Player | null
@@ -113,9 +117,11 @@ declare global {
         _emitSIOPlayerStatusChangeEvent(playerID: number): void
         _feedSocialDiscordWebhook(id: string, token: string, type: string, content: any): void
         // CRUD with DB Server via REST API
-        async _createPlayerDB(ruid: string, player: PlayerStorage): Promise<void>
-        async _readPlayerDB(ruid: string, playerAuth: string): Promise<PlayerStorage | undefined>
-        async _updatePlayerDB(ruid: string, player: PlayerStorage): Promise<void>
+        async _createPlayerDB(ruid: string, player: PlayerStorage): Promise<PlayerStorage | undefined>
+        async _findPlayerByAuth(ruid: string, playerAuth: string): Promise<PlayerStorage | undefined>
+        async _findPlayerByUsername(ruid: string, username: string): Promise<PlayerStorage | undefined>
+        async _existsPlayerByUsername(ruid: string, username: string): Promise<boolean>
+        async _updatePlayerDB(ruid: string, player: PlayerStorage): Promise<PlayerStorage | undefined>
         async _deletePlayerDB(ruid: string, playerAuth: string): Promise<void>
 
         async _createBanlistDB(ruid: string, banList: Ban): Promise<void>
@@ -124,7 +130,7 @@ declare global {
         async _deleteBanlistDB(ruid: string, playerConn: string): Promise<void>
 
         async _createSuperadminDB(ruid: string, key: string, description: string): Promise<void>
-        async _readSuperadminDB(ruid: string, key: string): Promise<string | undefined>
+        async _readSuperadminDB(ruid: string, key: string): Promise<SuperAdminResponse | undefined>
         //async updateSuperadminDB is not implemented.
         async _deleteSuperadminDB(ruid: string, key: string): Promise<void>
         // ==============================

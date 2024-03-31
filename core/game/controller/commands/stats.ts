@@ -4,7 +4,48 @@ import * as StatCalc from "../Statistics";
 import { PlayerObject } from "../../model/GameObject/PlayerObject";
 import { decideTier } from "../../model/Statistics/TierFunctions";
 import { Player } from "../../model/GameObject/Player";
+import { sendChat } from "../events/onPlayerChat";
+import { Command } from "./commandInterface";
 
+
+export class CmdStats extends Command {
+    public commandId: string = "stats";
+    public helpMan: string = "para ver tus stats";
+    public timeout: number = 1000;
+    execute(byPlayer: PlayerObject, message: string[]): void {
+        sendChat(byPlayer, "!showstats");
+        let player = window.gameRoom.playerList.get(byPlayer.id)!;
+        if (player.permissions.role.key == "visitor") {
+            LangRes.message("No estas registrado y tus stats no se guardan! Registrate usando !register <usuario> <contraseña> (solo letras y numeros)", byPlayer.id);
+            return;
+        }
+        let placeholder = createPlaceholder(byPlayer, player)
+        let resultMsg: string = (isOnMatchNow(byPlayer.id))
+            ? Tst.maketext(LangRes.command.stats.statsMsg + '\n' + LangRes.command.stats.matchAnalysis, placeholder)
+            : Tst.maketext(LangRes.command.stats.statsMsg, placeholder)
+
+        window.gameRoom._room.sendAnnouncement("📊 ¡STATS DE " + player?.name + "!", byPlayer.id, LangRes.style.colors.Orange, "bold", null);
+        window.gameRoom._room.sendAnnouncement(resultMsg, null, LangRes.style.colors.Green, "normal", 1);
+    }
+}
+
+export class CmdShowStats extends Command {
+    public commandId: string = "showstats";
+    public helpMan: string = "Muestra tus stats a toda la sala";
+    public timeout: number = 1000;
+    execute(byPlayer: PlayerObject, message: string[]): void {
+        sendChat(byPlayer, "!stats");
+        let player = window.gameRoom.playerList.get(byPlayer.id);
+        let placeholder = createPlaceholder(byPlayer, player)
+        let resultMsg: string = (isOnMatchNow(byPlayer.id))
+            ? Tst.maketext(LangRes.command.stats.statsMsg + '\n' + LangRes.command.stats.matchAnalysis, placeholder)
+            : Tst.maketext(LangRes.command.stats.statsMsg, placeholder)
+
+        window.gameRoom._room.sendAnnouncement("📊 ¡STATS DE " + player?.name + "!", byPlayer.id, LangRes.style.colors.Orange, "bold", null);
+        window.gameRoom._room.sendAnnouncement(resultMsg, byPlayer.id, LangRes.style.colors.Green, "normal", 1);
+    }
+
+}
 /**
  * Check if this player plays this match
  * @param id Player's ID
@@ -14,31 +55,6 @@ function isOnMatchNow(id: number): boolean {
     else return false;
 }
 
-export function cmdShowStats(byPlayer: PlayerObject, message: string[]) {
-    let player = window.gameRoom.playerList.get(byPlayer.id);
-    let placeholder = createPlaceholder(byPlayer, player)
-    let resultMsg: string = (isOnMatchNow(byPlayer.id))
-        ? Tst.maketext(LangRes.command.stats.statsMsg + '\n' + LangRes.command.stats.matchAnalysis, placeholder)
-        : Tst.maketext(LangRes.command.stats.statsMsg, placeholder)
-
-    window.gameRoom._room.sendAnnouncement("📊 ¡STATS DE " + player?.name + "!", byPlayer.id, LangRes.style.colors.Orange, "bold", null);
-    window.gameRoom._room.sendAnnouncement(resultMsg, null, LangRes.style.colors.Green, "normal", 1);
-}
-
-//TODO: refactor
-export function cmdStats(byPlayer: PlayerObject, message: string[]): void {
-    //\n🧤 Atajadas: " + stats[StatColumns.GK] + "  🥅 Vallas Invictas: " + stats[StatColumns.VI] + "  🥅 VI Por Partido: " + stats[StatColumns.CP] + "%"
-
-    let player = window.gameRoom.playerList.get(byPlayer.id);
-    let placeholder = createPlaceholder(byPlayer, player)
-    let resultMsg: string = (isOnMatchNow(byPlayer.id))
-        ? Tst.maketext(LangRes.command.stats.statsMsg + '\n' + LangRes.command.stats.matchAnalysis, placeholder)
-        : Tst.maketext(LangRes.command.stats.statsMsg, placeholder)
-
-    window.gameRoom._room.sendAnnouncement("📊 ¡STATS DE " + player?.name + "!", byPlayer.id, LangRes.style.colors.Orange, "bold", null);
-    window.gameRoom._room.sendAnnouncement(resultMsg, byPlayer.id, LangRes.style.colors.Green, "normal", 1);
-
-}
 function createPlaceholder(byPlayer: PlayerObject, player: Player | undefined) {
     return {
         ticketTarget: byPlayer.id,
@@ -58,7 +74,7 @@ function createPlaceholder(byPlayer: PlayerObject, player: Player | undefined) {
         targetPlayerGAPerGame: (player!.stats.goals + player!.stats.assists) / player!.stats.totals,
         targetStatsHatTricks: player!.stats.hatTricks,
         targetPlayerGks: player!.stats.gk,
-        targetPlayerPerfectGk: player!.stats.perfectGk,
+        targetPlayerCleanSheet: player!.stats.perfectGk,
         targetPlayerGoalsAgainst: player!.stats.goalsAgainstGk,
         targetPlayerGoalsAgainstPerGame: player!.stats.goalsAgainstGk / player!.stats.gk,
         targetStatsLosepoints: player!.stats.losePoints,

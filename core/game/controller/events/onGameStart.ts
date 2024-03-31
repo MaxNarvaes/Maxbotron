@@ -2,11 +2,11 @@ import * as Tst from "../Translator";
 import * as LangRes from "../../resource/strings";
 import { getTeamWinningExpectation, getUnixTimestamp } from "../Statistics";
 import { convertTeamID2Name, TeamID } from "../../model/GameObject/TeamID";
-import { PlayerObject } from "../../model/GameObject/PlayerObject";
+import { PlayerObject, PlayerWarning } from "../../model/GameObject/PlayerObject";
 import { roomTeamPlayersNumberCheck } from "../../model/OperateHelper/Quorum";
 import { decideTier} from "../../model/Statistics/TierFunctions";
 import { setBanlistDataToDB } from "../Storage";
-import { cmdKsk } from "../commands/ksk";
+import { CmdKsk } from "../commands/ksk";
 import { pickRandomElement } from "../../model/GameObject/Animation";
 
 export function onGameStartListener(byPlayer: PlayerObject | null): void {
@@ -38,6 +38,13 @@ export function onGameStartListener(byPlayer: PlayerObject | null): void {
     if (window.gameRoom.config.settings.antiOgFlood === true) { // if anti-OG flood option is enabled
         window.gameRoom.antiTrollingOgFloodCount = []; // clear and init again
     }
+
+    window.gameRoom.ballStack.initTouchInfo(); // clear touch info
+    window.gameRoom.ballStack.clear(); // clear the stack.
+    window.gameRoom.ballStack.possClear(); // clear possession count
+    window.gameRoom.clips = []; //clear clips
+    window.gameRoom.currentTeams.blueGoalKeeper = null;
+    window.gameRoom.currentTeams.redGoalKeeper = null;
 
     let msg = `The game(stat record:${window.gameRoom.isStatRecord}) has been started.`;
     if (byPlayer !== null && byPlayer.id !== 0) {
@@ -79,32 +86,36 @@ export function onGameStartListener(byPlayer: PlayerObject | null): void {
             }
         }
 
+        //reset some values
         allPlayersList
                 .filter((eachPlayer: PlayerObject) => eachPlayer.team !== TeamID.Spec)
                 .forEach((eachPlayer: PlayerObject) => { 
-                    window.gameRoom.playerList.get(eachPlayer.id)!.entrytime.matchEntryTime = 0; // init each player's entry match time
-                    if(window.gameRoom.playerList.get(eachPlayer.id)!.stats.totals < 10) {
-                        window.gameRoom.playerList.get(eachPlayer.id)!.matchRecord.factorK = window.gameRoom.config.HElo.factor.factor_k_placement; // set K Factor as a Placement match
+                    let player = window.gameRoom.playerList.get(eachPlayer.id)!;
+                    player.entrytime.matchEntryTime = 0; // init each player's entry match time
+                    if(player.stats.totals < 10) {
+                        player.matchRecord.factorK = window.gameRoom.config.HElo.factor.factor_k_placement; // set K Factor as a Placement match
                     } // or default value is Normal match
+                    player.warnings = [] as PlayerWarning[];
+                    player.gk = false;
                 });
 
-        // start game
+/*         // start game
         let expectations: number[] = getTeamWinningExpectation();
 
         placeholderStart.teamExpectationRed = expectations[1];
         placeholderStart.teamExpectationBlue = expectations[2];
 
         window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.onStart.startRecord, placeholderStart), null, 0x00FF00, "normal", 0);
-        window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.onStart.expectedWinRate, placeholderStart), null, 0x00FF00, "normal", 0);
+        window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.onStart.expectedWinRate, placeholderStart), null, 0x00FF00, "normal", 0); */
 
         if(window.gameRoom.config.rules.autoOperating === true) { // if game rule is set as auto operating mode
             window.gameRoom._room.pauseGame(true); // pause (and will call onGamePause event)
         }
     } else {
-        window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.onStart.stopRecord, placeholderStart), null, 0x00FF00, "normal", 0);
+        //window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.onStart.stopRecord, placeholderStart), null, 0x00FF00, "normal", 0);
     }
 
-    cmdKsk(byPlayer, []);
+    new CmdKsk().execute(byPlayer, []);
 
     // replay record start
     window.gameRoom._room.startRecording();

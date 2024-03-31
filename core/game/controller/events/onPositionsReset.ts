@@ -3,6 +3,7 @@ import { PlayerObject } from "../../model/GameObject/PlayerObject";
 import { ScoresObject } from "../../model/GameObject/ScoresObject";
 import { TeamID } from "../../model/GameObject/TeamID";
 import { recruitByOne } from "../../model/OperateHelper/Quorum";
+import { message } from "../../resource/strings";
 
 export function onPositionsResetListener(): void {
     window._emitSIOLogEvent("onPlayerJoinListener", "info", "onPlayerJoinListener: ");
@@ -18,12 +19,13 @@ export function onPositionsResetListener(): void {
     if(window.gameRoom.currentStadium.maxPlayers < activePlayersList.length
         || window.gameRoom.currentStadium.minPlayers > activePlayersList.length) {
         window.gameRoom.logger.i("onpositionsreset", "diferencia de jugadores para el mapa")
-        let scores: ScoresObject | null = window.gameRoom._room.getScores();
+        let scores: ScoresObject = window.gameRoom._room.getScores()!;
 
-        if(findStadiumByPlayersLength(window.gameRoom.playerList.size) !== window.gameRoom.currentStadium) {
-            if (Math.abs(scores!.red - scores!.blue) > 1) {//primer gol
-                //o un timeout para ver cuando resetear            
-                window.gameRoom._room.onTeamVictory(scores!);
+        if(findStadiumByPlayersLength(window.gameRoom.playerList.size) != window.gameRoom.currentStadium) {
+            if (Math.abs(scores!.red - scores!.blue) >= 2) {//primer gol
+                //o un timeout para ver cuando resetear  
+                message("Somos muchos o pocos para la cancha... cambiando...")          
+                window.gameRoom._room.onTeamVictory(scores);
             } 
         }
     }

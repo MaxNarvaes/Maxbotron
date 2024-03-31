@@ -33,12 +33,18 @@ export async function createSuperadminDB(ruid: string, key: string, description:
     }
 }
 
-export async function readSuperadminDB(ruid: string, key: string): Promise<string | undefined> {
+export interface SuperAdminResponse{
+    role: string,
+    validDays: number | undefined,
+    singleUse: boolean
+}
+
+export async function readSuperadminDB(ruid: string, key: string): Promise<SuperAdminResponse | undefined> {
     try {
         const result = await axios.get(`${dbConnAddr}room/${ruid}/superadmin/${key}`);
         if (result.status === 200 && result.data) {
             winstonLogger.info(`200 Succeed on readSuperadminDB: Read. key(${key})`);
-            return result.data.description;
+            return {role: result.data.description, validDays: result.data.validDays, singleUse: result.data.singleUse};
         }
     } catch (error) {
         if(error.response && error.response.status === 404) {
@@ -148,37 +154,11 @@ export async function createPlayerDB(ruid: string, player: PlayerStorage): Promi
     }
 }
 
-export async function readPlayerDB(ruid: string, playerAuth: string): Promise<PlayerStorage | undefined> {
+export async function findPlayerByAuth(ruid: string, playerAuth: string): Promise<PlayerStorage | undefined> {
     try {
         const result = await axios.get(`${dbConnAddr}room/${ruid}/player/${playerAuth}`);
         if (result.status === 200 && result.data) {
-            const player: PlayerStorage = {
-                auth: result.data.auth,
-                conn: result.data.conn,
-                name: result.data.name,
-                rating: result.data.rating,
-                totals: result.data.totals,
-                disconns: result.data.disconns,
-                wins: result.data.wins,
-                goals: result.data.goals,
-                assists: result.data.assists,
-                ogs: result.data.ogs,
-                losePoints: result.data.losePoints,
-                balltouch: result.data.balltouch,
-                passed: result.data.passed,
-                mute: result.data.mute,
-                muteExpire: result.data.muteExpire,
-                rejoinCount: result.data.rejoinCount,
-                superadmin: result.data.superadmin,
-                role: result.data.role,
-                joinDate: result.data.joinDate,
-                leftDate: result.data.leftDate,
-                malActCount: result.data.malActCount,
-                gk: result.data.gk,
-                goalsAgainstGk: result.data.goalsAgainstGk,
-                hatTricks: result.data.hatTricks,
-                perfectGk: result.data.perfectGk
-            }
+            const player: PlayerStorage = mapPlayer(result)
             winstonLogger.info(`${result.status} Succeed on readPlayerDB: Read. auth(${playerAuth})`);
             return player;
         }
@@ -187,6 +167,40 @@ export async function readPlayerDB(ruid: string, playerAuth: string): Promise<Pl
             winstonLogger.info(`${error.response.status} Failed on readPlayerDB: No exist. auth(${playerAuth})`);
         } else {
             winstonLogger.error(`Error caught on readPlayerDB: ${error}`);
+        }
+    }
+}
+
+export async function findPlayerByUsername(ruid: string, username: string): Promise<PlayerStorage | undefined> {
+    try {
+        const result = await axios.get(`${dbConnAddr}room/${ruid}/player/username/${username}`);
+        if (result.status === 200 && result.data) {
+            const player: PlayerStorage = mapPlayer(result);
+            winstonLogger.info(`${result.status} Succeed on findPlayerByUsername: Read. username(${username})`);
+            return player;
+        }
+    } catch (error) {
+        if(error.response && error.response.status === 404) {
+            winstonLogger.info(`${error.response.status} Failed on findPlayerByUsername: No exist. username(${username})`);
+            return undefined;
+        } else {
+            winstonLogger.error(`Error caught on findPlayerByUsername: ${error}`);
+        }
+    }
+}
+
+export async function existsPlayerByUsername(ruid: string, username: string): Promise<boolean | undefined> {
+    try {
+        const result = await axios.get(`${dbConnAddr}room/${ruid}/player/username/${username}`);
+        if (result.status === 200 && result.data) {
+            winstonLogger.info(`${result.status} Succeed on existsPlayerByUsername: Read. username(${username})`);
+            return true;
+        }
+    } catch (error) {
+        if(error.response && error.response.status === 404) {
+            winstonLogger.info(`${error.response.status} Failed on existsPlayerByUsername: No exist. username(${username})`);
+        } else {
+            winstonLogger.error(`Error caught on existsPlayerByUsername: ${error}`);
         }
     }
 }
@@ -219,4 +233,46 @@ export async function deletePlayerDB(ruid: string, playerAuth: string): Promise<
             winstonLogger.error(`Error caught on deletePlayerDB: ${error}`);
         }
     }
+}
+
+function mapPlayer(result: any): PlayerStorage {
+    return {
+        auth: result.data.auth,
+        conn: result.data.conn,
+        name: result.data.name,
+        rating: result.data.rating,
+        totals: result.data.totals,
+        disconns: result.data.disconns,
+        wins: result.data.wins,
+        goals: result.data.goals,
+        assists: result.data.assists,
+        ogs: result.data.ogs,
+        losePoints: result.data.losePoints,
+        balltouch: result.data.balltouch,
+        passed: result.data.passed,
+        mute: result.data.mute,
+        muteExpire: result.data.muteExpire,
+        rejoinCount: result.data.rejoinCount,
+        superadmin: result.data.superadmin,
+        role: result.data.role,
+        roleExpire: result.data.roleExpire,
+        joinDate: result.data.joinDate,
+        leftDate: result.data.leftDate,
+        malActCount: result.data.malActCount,
+        gk: result.data.gk,
+        goalsAgainstGk: result.data.goalsAgainstGk,
+        hatTricks: result.data.hatTricks,
+        perfectGk: result.data.perfectGk,
+        username: result.data.username,
+        password: result.data.password,
+        warningCount: result.data.warningCount,
+        assistsPerGame: result.data.assistsPerGame,
+        goalsAgainstPerGame: result.data.goalsAgainstPerGame,
+        goalsPerGame: result.data.goalsPerGame,
+        goalsPlusAssistsPerGame: result.data.goalsPlusAssistsPerGame,
+        loses: result.data.loses,
+        oGsPerGame: result.data.oGsPerGame,
+        passPercentage: result.data.passPercentage,
+        winrate: result.data.winrate
+    };
 }

@@ -3,10 +3,10 @@ import { Context } from "koa";
 import { PlayerController } from '../controller/player.controller';
 import { IRepository } from '../repository/repository.interface';
 import { PlayerRepository } from '../repository/player.repository';
-import { Player } from '../entity/player.entity';
+import { PlayerEntity } from '../entity/player.entity';
 
 export const playerRouter = new Router();
-const playersRepository: IRepository<Player> = new PlayerRepository();
+const playersRepository: PlayerRepository = new PlayerRepository();
 const controller: PlayerController = new PlayerController(playersRepository);
 
 // /v1/player GET
@@ -19,6 +19,10 @@ playerRouter.get('/', async (ctx: Context) => {
 // register new player
 playerRouter.post('/', async (ctx: Context) => {
     await controller.addPlayer(ctx)
+});
+
+playerRouter.get('/username/:username', async (ctx: Context) => {
+    await controller.getPlayerByUsername(ctx);
 });
 
 // /v1/player/:auth GET

@@ -52,6 +52,21 @@ export function fetchActiveSpecPlayers(): PlayerObject[] {
     return window.gameRoom._room.getPlayerList().filter((player: PlayerObject) => player.id !== 0 && window.gameRoom.playerList.get(player.id)!.permissions.afkmode === false && player.team === TeamID.Spec);
 }
 
+export function recruit(playerId: number) {
+    const activePlayersList: PlayerObject[] = window.gameRoom._room.getPlayerList().filter((player: PlayerObject) => player.id !== 0 && window.gameRoom.playerList.get(player.id)!.permissions.afkmode === false);
+    const redPlayers = activePlayersList.filter((player: PlayerObject) => player.team === TeamID.Red);
+    const redInsufficiency: number = window.gameRoom.config.rules.requisite.eachTeamPlayers - redPlayers.length;
+    const bluePlayers = activePlayersList.filter((player: PlayerObject) => player.team === TeamID.Blue);
+    const blueInsufficiency: number = window.gameRoom.config.rules.requisite.eachTeamPlayers - bluePlayers.length;
+
+    if (redInsufficiency >= blueInsufficiency && redInsufficiency > 0) {
+        window.gameRoom._room.setPlayerTeam(playerId, TeamID.Red);
+    }
+    if (redInsufficiency < blueInsufficiency && blueInsufficiency > 0) {
+        window.gameRoom._room.setPlayerTeam(playerId, TeamID.Blue);
+    }
+}
+
 export function recruitByOne() {
     const activePlayersList: PlayerObject[] = window.gameRoom._room.getPlayerList().filter((player: PlayerObject) => player.id !== 0 && window.gameRoom.playerList.get(player.id)!.permissions.afkmode === false);
     const activeSpecPlayersList: PlayerObject[] = activePlayersList.filter((player: PlayerObject) => player.team === TeamID.Spec);

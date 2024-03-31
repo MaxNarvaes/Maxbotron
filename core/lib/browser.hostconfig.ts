@@ -16,7 +16,7 @@ export interface ReactHostRoomInfo {
     settings: BrowserHostRoomSettings; // room settings data for set options
     rules: BrowserHostRoomGameRule; // game playing rule
     helo: BrowserHostRoomHEloConfig; // configuration for HElo rating and tier system
-    //commands: BrowserHostRoomCommands; // game commands configuration
+    commands: BrowserHostRoomCommands; // game commands configuration
 }
 
 export interface BrowserHostRoomConfig {

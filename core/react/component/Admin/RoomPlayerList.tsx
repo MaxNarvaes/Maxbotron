@@ -58,6 +58,7 @@ interface PlayerStorage {
     malActCount: number;
     superadmin: boolean;
     role: string;
+    roleExpire: number | null;
 }
 
 const useRowStyles = makeStyles({
@@ -268,7 +269,8 @@ function OnlinePlayerRow(props: { ruid: string, row: Player }) {
                             <Table size="small" aria-label="statistics">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Permissions</TableCell>
+                                        <TableCell>Role</TableCell>
+                                        <TableCell>Role expires</TableCell>
                                         <TableCell>AFK</TableCell>
                                         <TableCell>Mute</TableCell>
                                         <TableCell>Mute Expiration</TableCell>
@@ -278,7 +280,8 @@ function OnlinePlayerRow(props: { ruid: string, row: Player }) {
                                 </TableHead>
                                 <TableBody>
                                     <TableRow key={row.id}>
-                                        <TableCell component="th" scope="row">{row.admin + " " + row.permissions.superadmin + " " + row.permissions.role.key}</TableCell>
+                                        <TableCell component="th" scope="row">{"role: " + row.permissions.role.key}</TableCell>
+                                        <TableCell component="th" scope="row">{"expires: " + row.permissions.roleExpire? convertDate(row.permissions.roleExpire!) : ""}</TableCell>
                                         <TableCell>{row.permissions.afkmode ? 'Yes' : 'No'}</TableCell>
                                         <TableCell>{row.permissions.mute ? 'Yes' : 'No'}</TableCell>
                                         <TableCell>{row.permissions.muteExpire === 0 ? '-' : convertDate(row.permissions.muteExpire)}</TableCell>
@@ -354,7 +357,8 @@ function PlayerAccountRow(props: { idx: number, row: PlayerStorage }) {
                             <Table size="small" aria-label="player information">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Permissions</TableCell>
+                                        <TableCell>Role</TableCell>
+                                        <TableCell>Role expires</TableCell>
                                         <TableCell>Muted</TableCell>
                                         <TableCell>Mute Expiration</TableCell>
                                         <TableCell>Rejoin Count</TableCell>
@@ -365,7 +369,8 @@ function PlayerAccountRow(props: { idx: number, row: PlayerStorage }) {
                                 </TableHead>
                                 <TableBody>
                                     <TableRow key={idx}>
-                                        <TableCell>{row.superadmin ? "superadmin, ": "" + row.role}</TableCell>
+                                        <TableCell>{row.role ? row.role : ""}</TableCell>
+                                        <TableCell>{row.roleExpire ? convertDate(row.roleExpire) : ""}</TableCell>
                                         <TableCell component="th" scope="row">
                                             {row.mute ? 'Yes' : 'no'}
                                         </TableCell>

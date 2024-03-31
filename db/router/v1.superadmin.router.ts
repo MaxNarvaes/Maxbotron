@@ -1,12 +1,12 @@
 import Router from "koa-router";
 import { Context } from "koa";
 import { SuperAdminController } from "../controller/superadmin.controller";
-import { SuperAdmin } from "../entity/superadmin.entity";
+import { SuperAdminEntity } from "../entity/superadmin.entity";
 import { IRepository } from "../repository/repository.interface";
 import { SuperAdminRepository } from "../repository/superadmin.repository";
 
 export const superadminRouter = new Router();
-const superadminRepository: IRepository<SuperAdmin> = new SuperAdminRepository();
+const superadminRepository: IRepository<SuperAdminEntity> = new SuperAdminRepository();
 const controller: SuperAdminController = new SuperAdminController(superadminRepository);
 
 // /v1/superadmin POST

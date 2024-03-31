@@ -22,9 +22,12 @@ interface PlayerStorageList {
     rejoinCount: number;
     superadmin: boolean;
     role: string;
+    roleExpire: number | null;
     joinDate: number;
     leftDate: number;
     malActCount: number;
+    username: string | null;
+    password: string | null;
 }
 
 type PlayerStorage = Omit<PlayerStorageList, "uid"|"ruid">;

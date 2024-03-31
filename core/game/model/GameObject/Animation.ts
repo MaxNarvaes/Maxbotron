@@ -2,6 +2,7 @@ import { string } from "joi";
 import { randomInteger } from "../../controller/RoomTools";
 import { getUnixTimestamp } from "../../controller/Statistics";
 import { Player } from "./Player"
+import uEmojiParser from "universal-emoji-parser";
 
 export interface PlayerAnimations {
     default: Animation[],
@@ -65,7 +66,7 @@ export class Animator {
                 }
                 //window.gameRoom.logger.e("animate", "animate: set avatar " + playerId + player.currentAnimation!.currentFrame.bitmaps!.toString());
                 
-                window.gameRoom._room.setPlayerAvatar(player.id, emoji);
+                window.gameRoom._room.setPlayerAvatar(player.id, emoji ? uEmojiParser.parseToUnicode(emoji): emoji);
                 player.currentAnimation!.currentFrame.startedTimestamp = getUnixTimestamp();
                 player.currentAnimation!.currentFrame.animating = true;
             }

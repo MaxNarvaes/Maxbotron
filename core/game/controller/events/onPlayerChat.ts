@@ -7,6 +7,8 @@ import { getUnixTimestamp } from "../Statistics";
 import { convertTeamID2Name, TeamID } from "../../model/GameObject/TeamID";
 import { isIncludeBannedWords } from "../TextFilter";
 import { decideTier } from "../../model/Statistics/TierFunctions";
+import { AlignmentEnum, AsciiTable3 } from "ascii-table3";
+import uEmojiParser from "universal-emoji-parser";
 
 export function onPlayerChatListener(player: PlayerObject, message: string): boolean {
     // Event called when a player sends a chat message.
@@ -15,7 +17,7 @@ export function onPlayerChatListener(player: PlayerObject, message: string): boo
 
     //TODO: CHAT FILTERING : https://github.com/web-mech/badwords
 
-    window.gameRoom.logger.i('onPlayerChat', `[${player.name}#${player.id}] ${message}`);
+    //window.gameRoom.logger.i('onPlayerChat', `[${player.name}#${player.id}] ${message}`);
 
     var placeholderChat = {
         playerID: player.id,
@@ -92,46 +94,33 @@ export function onPlayerChatListener(player: PlayerObject, message: string): boo
     }
 }
 
-function sendChat(byPlayer: PlayerObject, message: string) {
-    let player = window.gameRoom.playerList.get(byPlayer.id);
+
+export function sendChat(byPlayer: PlayerObject, message: string) {
+    let player = window.gameRoom.playerList.get(byPlayer.id)!;
     let tier = decideTier(byPlayer.id)
-    if (player?.permissions.role.key != "player") {
+    let formattedTier = uEmojiParser.parseToUnicode(AsciiTable3.align(AlignmentEnum.CENTER, tier.avatar , 5));
+    let formattedRole =  "「" + player.permissions.role.label + "」"
+    if (player.permissions.role.key != "player") {
         //console.log("no es player?" + role);
-        if (player?.permissions.role.key == "master") {
-            window.gameRoom._room.sendAnnouncement(tier.avatar + "「𝐌𝐀𝐍𝐀𝐆𝐄𝐑」" + player.name + ": " + message + "", null, 0x00FF00, "bold", null);
-            return false;
-        }
-        if (player?.permissions.role.key == "head") {
-            window.gameRoom._room.sendAnnouncement(tier.avatar + "「𝐉𝐄𝐅𝐄-𝐀𝐃𝐌𝐈𝐍」" + player.name + ": " + message + "", null, 0xEAC274, "bold", null);
-            return false;
-        }
-        if (player?.permissions.role.key == "cm") {
-            window.gameRoom._room.sendAnnouncement(tier.avatar + "「𝐂-𝐌𝐀𝐍𝐀𝐆𝐄𝐑」" + player.name + ": " + message + "", null, 0xFF9100, "bold", null);
-            return false;
-        }
-        if (player?.permissions.role.key == "admin") {
-            window.gameRoom._room.sendAnnouncement(tier.avatar + "「𝐀𝐃𝐌」" + player.name + ": " + message + "", null, 0xFFFF00, "normal", null);
-            return false;
-        }
-        if (player?.permissions.role.key == "mod") {
-            window.gameRoom._room.sendAnnouncement(tier.avatar + "「𝐌𝐎𝐃」" + player.name + ": " + message + "", null, 0x6BFFB5, "normal", null);
-            return false;
-        }
-        if (player?.permissions.role.key == "vip") {
-            window.gameRoom._room.sendAnnouncement(tier.avatar + " [💎 𝐕𝐈𝐏] " + player.name + ": " + message + "", null, 0x3DA7FF, "normal", null);
-            return false;
-        }
-        if (player?.permissions.role.key == "svip") {
-            window.gameRoom._room.sendAnnouncement(tier.avatar + " [👑 𝐕𝐈𝐏-𝐒𝐔𝐏𝐑𝐄𝐌𝐎] " + player.name + ": " + message + "", null, 0xd733ff, "bold", null);
-            return false;
-        }
+        
+        let formattedChat = formattedTier + formattedRole + player!.name + ": " + message;
+        window.gameRoom._room.sendAnnouncement(
+            formattedChat,
+            null, 
+            player.permissions.role.color, 
+            player.permissions.role.style, 
+            null
+        );
+        return false;
     }
 
+    
+
     if (byPlayer.team == TeamID.Blue) {
-        window.gameRoom._room.sendAnnouncement(tier.avatar + " [🔵] " + byPlayer.name + ": " + message, null, 0x89cff0, "normal", null);
+        window.gameRoom._room.sendAnnouncement(formattedTier + " [🔵] " + byPlayer.name + ": " + message, null, 0x89cff0, "normal", null);
     } else if (byPlayer.team == TeamID.Red) {
-        window.gameRoom._room.sendAnnouncement(tier.avatar + " [🔴] " + byPlayer.name + ": " + message, null, 0xe38d7d, "normal", null);
+        window.gameRoom._room.sendAnnouncement(formattedTier + " [🔴] " + byPlayer.name + ": " + message, null, 0xe38d7d, "normal", null);
     } else {
-        window.gameRoom._room.sendAnnouncement(tier.avatar + " [⚪] " + byPlayer.name + ": " + message, null, 0x8F8F8F, "normal", null);
+        window.gameRoom._room.sendAnnouncement(formattedTier + " [⚪] " + byPlayer.name + ": " + message, null, 0x8F8F8F, "normal", null);
     }
 }

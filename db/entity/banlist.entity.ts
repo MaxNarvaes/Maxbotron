@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class BanList {
+export class BanEntity {
     @PrimaryGeneratedColumn()
     uid!: number;
 

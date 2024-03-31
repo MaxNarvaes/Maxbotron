@@ -1,46 +1,63 @@
-import { cmdAbout } from "./about";
-import { cmdAfk } from "./afk";
-import { cmdBan } from "./ban";
-import { cmdBb } from "./bb";
-import { cmdFreeze } from "./freeze";
-import { cmdGk } from "./gk";
-import { cmdHc } from "./hc";
-import { cmdHelp } from "./help";
-import { cmdKsk } from "./ksk";
-import { cmdList } from "./list";
-import { cmdMeMide } from "./memide";
-import { cmdMute } from "./mute";
-import { cmdNotice } from "./notice";
-import { cmdPoss } from "./poss";
-import { cmdScout } from "./scout";
-import { cmdShowStats, cmdStats } from "./stats";
-import { cmdStatsReset } from "./statsreset";
-import { cmdStreak } from "./streak";
-import { cmdSuper } from "./super";
-import { cmdTier } from "./tier";
-import { cmdVote } from "./vote";
+import { CmdAbout } from "./about";
+import { CmdAfk } from "./afk";
+import { CmdBan } from "./ban";
+import { CmdBb } from "./bb";
+import { CmdFreeze } from "./freeze";
+import { CmdGk } from "./gk";
+import { CmdHc } from "./hc";
+import { CmdHelp } from "./help";
+import { CmdKsk } from "./ksk";
+import { CmdList } from "./list";
+import { CmdMeMide } from "./memide";
+import { CmdMute } from "./mute";
+import { CmdNotice } from "./notice";
+import { CmdPoss } from "./poss";
+import { CmdScout } from "./scout";
+import { CmdShowStats, CmdStats } from "./stats";
+import { CmdStatsReset } from "./statsreset";
+import { CmdSuper } from "./super";
+import { CmdTier } from "./tier";
+import { CmdVote } from "./vote";
+import { CmdAdmin } from "./admin";
+import { CmdClip } from "./clip";
+import { CmdTeams } from "./teams";
+import { CmdField } from "./field";
+import { CmdLogin } from "./login";
+import { CmdMix } from "./mix";
+import { CmdWarn } from "./warn";
+import { CmdRegister } from "./register";
+import { CmdRestart } from "./restart";
+
 
 export const commandList = {
-    ["about"]: cmdAbout,
-    ["afk"]: cmdAfk,
-    ["ban"]: cmdBan,
-    ["bb"]: cmdBb,
-    ["freeze"]: cmdFreeze,
-    ["gk"]: cmdGk,
-    ["hc"]: cmdHc,
-    ["help"]: cmdHelp,
-    ["ksk"]: cmdKsk,
-    ["list"]: cmdList,
-    ["memide"]: cmdMeMide,
-    ["mute"]: cmdMute,
-    ["notice"]: cmdNotice,
-    ["poss"]: cmdPoss,
-    ["scout"]: cmdScout,
-    ["stats"]: cmdStats,
-    ["showstats"]: cmdShowStats,
-    ["statsreset"]: cmdStatsReset,
-    ["streak"]: cmdStreak,
-    ["super"]: cmdSuper,
-    ["tier"]: cmdTier,
-    ["vote"]: cmdVote,
+    ["about"]: new CmdAbout(),
+    ["afk"]: new CmdAfk(),
+    ["ban"]: new CmdBan,
+    ["bb"]: new CmdBb(),
+    ["freeze"]: new CmdFreeze(),
+    ["gk"]: new CmdGk(),
+    ["hc"]: new CmdHc(),
+    ["help"]: new CmdHelp(),
+    ["ksk"]: new CmdKsk(),
+    ["list"]: new CmdList(),
+    ["memide"]: new CmdMeMide(),
+    ["mute"]: new CmdMute(),
+    ["noticias"]: new CmdNotice(),
+    ["poss"]: new CmdPoss(),
+    ["scout"]: new CmdScout(),
+    ["stats"]: new CmdStats(),
+    ["showstats"]: new CmdShowStats(),
+    ["statsreset"]: new CmdStatsReset(),
+    ["super"]: new CmdSuper(),
+    ["elo"]: new CmdTier(),
+    ["vote"]: new CmdVote(),
+    ["admin"]: new CmdAdmin(),
+    ["clip"]: new CmdClip(),
+    ["teams"]: new CmdTeams(),
+    ["cancha"]: new CmdField(),
+    ["mix"]: new CmdMix(),
+    ["login"]: new CmdLogin(),
+    ["register"]: new CmdRegister(),
+    ["tarjeta"]: new CmdWarn(),
+    ["rr"]: new CmdRestart(),
 }

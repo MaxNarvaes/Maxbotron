@@ -6,7 +6,6 @@ import * as dbUtilityInject from "./db.injection";
 import { findStadiumByPlayersLength } from "./maps";
 import { Server as SIOserver, Socket as SIOsocket } from "socket.io";
 import { TeamID } from "../game/model/GameObject/TeamID";
-import Discord from 'discord.js';
 import { DiscordWebhookConfig } from "./browser.interface";
 import * as maptraining from "./maps/training.hbs";
 
@@ -172,7 +171,7 @@ export class HeadlessBrowser {
             this._SIOserver?.sockets.emit('statuschange', { ruid: ruid, playerID: event.playerID });
         });
         page.addListener('_SOCIAL.DiscordWebhook', (event: any) => {
-            const webhookClient = new Discord.WebhookClient(event.id, event.token);
+           /*  const webhookClient = new Discord.WebhookClient(event.id, event.token);
 
             switch (event.type as string) {
                 case "replay": {
@@ -186,7 +185,7 @@ export class HeadlessBrowser {
                     });
                     break;
                 }
-            }
+            } */
         });
         // ================================================================================
 
@@ -212,7 +211,9 @@ export class HeadlessBrowser {
         await page.exposeFunction('_deleteSuperadminDB', dbUtilityInject.deleteSuperadminDB);
 
         await page.exposeFunction('_createPlayerDB', dbUtilityInject.createPlayerDB);
-        await page.exposeFunction('_readPlayerDB', dbUtilityInject.readPlayerDB);
+        await page.exposeFunction('_findPlayerByAuth', dbUtilityInject.findPlayerByAuth);
+        await page.exposeFunction('_findPlayerByUsername', dbUtilityInject.findPlayerByUsername);
+        //await page.exposeFunction('_existsPlayerByUsername', dbUtilityInject.existsPlayerByUsername);
         await page.exposeFunction('_updatePlayerDB', dbUtilityInject.updatePlayerDB);
         await page.exposeFunction('_deletePlayerDB', dbUtilityInject.deletePlayerDB);
 

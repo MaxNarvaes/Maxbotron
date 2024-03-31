@@ -210,6 +210,36 @@ export function masterAnimations(): PlayerAnimations{
                     }
                 ],
                 currentFrame: null
+            },
+            {
+                animating: false,
+                name: "on kick gk",
+                repeats: false,
+                times: 1,
+                frames: [
+                    {
+                        index: 0,
+                        bitmaps: ["EL"],
+                        animating: false,
+                        delayInMs: 700,
+                        startedTimestamp: getUnixTimestamp()
+                    },
+                    {
+                        index: 1,
+                        bitmaps: ["1!"],
+                        animating: false,
+                        delayInMs: 700,
+                        startedTimestamp: getUnixTimestamp()
+                    },
+                    {
+                        index: 2,
+                        bitmaps: ["🦸🏻‍♂️​"],
+                        animating: false,
+                        delayInMs: 700,
+                        startedTimestamp: getUnixTimestamp()
+                    }
+                ],
+                currentFrame: null
             }
         ],
         onJoin: [
@@ -469,6 +499,36 @@ export function defaultPlayerAnimations(): PlayerAnimations{
                     {
                         index: 0,
                         bitmaps: ["😤", "😏", "🥴", "🤬", "🤪", "😠", "😃", "🧐", "🤷‍♀️", "🤦‍♂️", "🧙‍♂️", "😗", "😙", "😛", "🥱", "🗿"],
+                        animating: false,
+                        delayInMs: 700,
+                        startedTimestamp: getUnixTimestamp()
+                    }
+                ],
+                currentFrame: null
+            },
+            {
+                animating: false,
+                name: "on kick gk",
+                repeats: false,
+                times: 1,
+                frames: [
+                    {
+                        index: 0,
+                        bitmaps: ["EL"],
+                        animating: false,
+                        delayInMs: 700,
+                        startedTimestamp: getUnixTimestamp()
+                    },
+                    {
+                        index: 1,
+                        bitmaps: ["1!"],
+                        animating: false,
+                        delayInMs: 700,
+                        startedTimestamp: getUnixTimestamp()
+                    },
+                    {
+                        index: 2,
+                        bitmaps: ["🦸🏻‍♂️​"],
                         animating: false,
                         delayInMs: 700,
                         startedTimestamp: getUnixTimestamp()

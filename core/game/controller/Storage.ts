@@ -1,6 +1,7 @@
 import { Player } from "../model/GameObject/Player";
-import { PlayerStorage } from "../model/GameObject/PlayerObject";
+import { PlayerObject, PlayerStorage } from "../model/GameObject/PlayerObject";
 import { BanList } from "../model/PlayerBan/BanList";
+import { getRole } from "../resource/roleDefinitions";
 
 // Utilities
 export function convertToPlayerStorage(player: Player): PlayerStorage {
@@ -26,29 +27,98 @@ export function convertToPlayerStorage(player: Player): PlayerStorage {
         muteExpire: player.permissions.muteExpire, // expiration date of mute. -1 means Permanent mute.. (unix timestamp)
         superadmin: player.permissions.superadmin,
         role : player.permissions.role.key,
+        roleExpire: player.permissions.roleExpire,
         rejoinCount: player.entrytime.rejoinCount, // How many rejoins this player has made.
         joinDate: player.entrytime.joinDate, // player join time
         leftDate: player.entrytime.leftDate, // player left time
-        malActCount: player.permissions.malActCount // count for malicious behaviour like Brute force attack
+        malActCount: player.permissions.malActCount, // count for malicious behaviour like Brute force attack
+        username: player.credentials.username,
+        password: player.credentials.password,
+        warningCount: player.warnings.length,
+        assistsPerGame: player.stats.assistsPerGame,
+        goalsAgainstPerGame: player.stats.assistsPerGame,
+        goalsPerGame: player.stats.goalsPerGame,
+        goalsPlusAssistsPerGame: player.stats.goalsPlusAssistsPerGame,
+        loses: player.stats.loses,
+        oGsPerGame: player.stats.oGsPerGame,
+        passPercentage: player.stats.passPercentage,
+        winrate: player.stats.winrate
     }
+}
+
+export function convertToPlayer(player: PlayerObject, existPlayerData: PlayerStorage): Player{
+    var newPlayer: Player = new Player(player, {
+        rating: existPlayerData.rating,
+        totals: existPlayerData.totals,
+        disconns: existPlayerData.disconns,
+        wins: existPlayerData.wins,
+        goals: existPlayerData.goals,
+        assists: existPlayerData.assists,
+        ogs: existPlayerData.ogs,
+        losePoints: existPlayerData.losePoints,
+        balltouch: existPlayerData.balltouch,
+        passed: existPlayerData.passed,
+        gk: existPlayerData.gk,
+        goalsAgainstGk: existPlayerData.goalsAgainstGk,
+        hatTricks: existPlayerData.hatTricks,
+        perfectGk: existPlayerData.perfectGk,
+        assistsPerGame: existPlayerData.assistsPerGame,
+        goalsAgainstPerGame: existPlayerData.goalsAgainstPerGame,
+        goalsPerGame: existPlayerData.goalsPerGame,
+        goalsPlusAssistsPerGame: existPlayerData.goalsPlusAssistsPerGame,
+        loses: existPlayerData.loses,
+        oGsPerGame: existPlayerData.oGsPerGame,
+        passPercentage: existPlayerData.passPercentage,
+        winrate: existPlayerData.winrate
+    }, {
+        mute: existPlayerData.mute,
+        muteExpire: existPlayerData.muteExpire,
+        afkmode: false,
+        afkreason: '',
+        afkdate: 0,
+        malActCount: existPlayerData.malActCount,
+        superadmin: existPlayerData.superadmin,
+        role: getRole(existPlayerData.role),
+        roleExpire: existPlayerData.roleExpire
+    }, {
+        rejoinCount: existPlayerData.rejoinCount,
+        joinDate: 0,
+        leftDate: existPlayerData.leftDate,
+        matchEntryTime: 0
+    });
+    if (existPlayerData.warningCount > 0) {
+        newPlayer.warnings.push({reason: "falta previa", time: 0})
+    }
+    
+    return newPlayer;
 }
 
 // CRUDs with DB Server by injected functions from Node Main Application
 // register new player or update it
-export async function setPlayerDataToDB(playerStorage: PlayerStorage): Promise<void> {
-    const player: PlayerStorage | undefined = await window._readPlayerDB(window.gameRoom.config._RUID, playerStorage.auth);
+export async function setPlayerDataToDB(playerStorage: PlayerStorage): Promise<PlayerStorage | undefined> {
+    const player: PlayerStorage | undefined = await window._findPlayerByAuth(window.gameRoom.config._RUID, playerStorage.auth);
     if(player !== undefined) {
         //if already exist then update it
-        await window._updatePlayerDB(window.gameRoom.config._RUID, playerStorage);
+        return await window._updatePlayerDB(window.gameRoom.config._RUID, playerStorage);
     } else {
         // or create new one
-        await window._createPlayerDB(window.gameRoom.config._RUID, playerStorage);
+        return await window._createPlayerDB(window.gameRoom.config._RUID, playerStorage);
     }
+}
+
+// acjeck username
+export async function existUsername(username: string): Promise<boolean> {
+    return await window._existsPlayerByUsername(window.gameRoom.config._RUID, username);
 }
 
 // get player data
 export async function getPlayerDataFromDB(playerAuth: string): Promise<PlayerStorage | undefined> {
-    const player: PlayerStorage | undefined = await window._readPlayerDB(window.gameRoom.config._RUID, playerAuth);
+    const player: PlayerStorage | undefined = await window._findPlayerByAuth(window.gameRoom.config._RUID, playerAuth);
+    return player;
+}
+
+export async function findPlayerByUsername(playerName: string): Promise<PlayerStorage | undefined> {
+    const player: PlayerStorage | undefined = await window._findPlayerByUsername(window.gameRoom.config._RUID, playerName);
     return player;
 }
 

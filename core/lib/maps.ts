@@ -1,9 +1,9 @@
-import * as map1v1 from "./maps/1v1.hbs";
-import * as map3v3 from "./maps/3v3.hbs";
-import * as map4v4 from "./maps/4v4.hbs";
-import * as map6v6 from "./maps/6v6.hbs";
-import * as map7v7 from "./maps/7v7.hbs";
-import * as map10v10 from "./maps/10v10.hbs";
+import * as map1v1 from "./maps/temp0/1v1.hbs";
+import * as map3v3 from "./maps/temp0/3v3.hbs";
+import * as map4v4 from "./maps/temp0/4v4.hbs";
+import * as map6v6 from "./maps/temp0/6v6.hbs";
+import * as map7v7 from "./maps/temp0/7v7.hbs";
+import * as map10v10 from "./maps/temp0/10v10.hbs";
 import * as training from "./maps/training.hbs";
 import { stadiumInfo } from "./maps/stadiumInfo";
 

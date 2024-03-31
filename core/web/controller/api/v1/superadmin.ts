@@ -7,10 +7,14 @@ interface IGivenSuperAdminKey {
     ruid: string
     key: string
     description: string
+    singleUse: boolean
+    validDays: number
 }
 interface ISuperAdminKey {
     key: string
     description: string
+    singleUse: boolean
+    validDays: number
 }
 
 const dbConnAddr: string = (
@@ -46,7 +50,9 @@ export async function getAllList(ctx: Context) {
         getRes.forEach((item: IGivenSuperAdminKey) => {
             superAdminKeys.push({
                 key: item.key,
-                description: item.description
+                description: item.description,
+                singleUse: item.singleUse,
+                validDays: item.validDays
             });
         });
         ctx.body = superAdminKeys;
@@ -58,15 +64,17 @@ export async function getAllList(ctx: Context) {
 
 export async function registerKey(ctx: Context) {
     const { ruid } = ctx.params;
-    const { key, description } = ctx.request.body;
+    const { key, description, singleUse, validDays } = ctx.request.body;
     if(!key || !description) {
         ctx.status = 400; // Unfulfilled error
         return;
     }
     try {
         await client.post(`${dbConnAddr}room/${ruid}/superadmin`, {
-            key: key
-            ,description: description
+            key: key,
+            description: description,
+            singleUse: singleUse,
+            validDays: validDays
         });
         ctx.status = 204;
     } catch (error) {
