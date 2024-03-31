@@ -98,7 +98,7 @@ export function onPlayerChatListener(player: PlayerObject, message: string): boo
 export function sendChat(byPlayer: PlayerObject, message: string) {
     let player = window.gameRoom.playerList.get(byPlayer.id)!;
     let tier = decideTier(byPlayer.id)
-    let formattedTier = uEmojiParser.parseToUnicode(AsciiTable3.align(AlignmentEnum.CENTER, tier.avatar , 5));
+    let formattedTier = tier.avatar;
     let formattedRole =  "「" + player.permissions.role.label + "」"
     if (player.permissions.role.key != "player") {
         //console.log("no es player?" + role);
