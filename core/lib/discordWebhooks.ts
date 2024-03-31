@@ -3,7 +3,6 @@ import { TeamID } from "../game/model/GameObject/TeamID";
 import { decideTier } from "../game/model/Statistics/TierFunctions";
 import * as LangRes from "../game/resource/strings";
 import uEmojiParser from "universal-emoji-parser";
-import { AlignmentEnum, AsciiTable3 } from "ascii-table3"
 
 const gameWebhook: string = 'https://discord.com/api/webhooks/1206608221855424522/sobqEPinwweHNA9JrKvsIBBqflE5j1QE_Wv7i3RvJAipv5PdwC-tYK7CrofRBdMrBuLe'
 
@@ -64,7 +63,7 @@ function sendGameSummaryWebhook(placeholder: VictoryPlaceholder, recording: Game
             + "\n");
 
 
-    let table = createTable(gameName, "unicode-round", placeholder);
+    //let table = createTable(gameName, "unicode-round", placeholder);
     //revisar q paso con las anim
     // mostrar demoteados y promocionados - se juegan el ascenso
     
@@ -79,7 +78,23 @@ function sendGameSummaryWebhook(placeholder: VictoryPlaceholder, recording: Game
         window.gameRoom.logger.e("discord", "higlight: " + "**" + h.created + "** | " + h.description + " autor " + h.author + "\n");
     }
 
+
     var fields = [
+        {
+            name: uEmojiParser.parseToUnicode(placeholder.redTeam),
+            value: "Goles: " + placeholder.redScore + "\n" + "Poss: " + placeholder.possTeamRed,
+            inline: true
+        },
+        {
+            name: uEmojiParser.parseToUnicode(placeholder.blueTeam),
+            value: "Goles: " + placeholder.blueScore + "\n" + "Poss: " + placeholder.possTeamBlue,
+            inline: true
+        },
+        {
+            name: '**═══════════════════════════════════════════════**',
+            value: '',
+            inline: false,
+        },
         {
             name: uEmojiParser.parseToUnicode('\u{1F534} **Jugadores de Rojo**'),
             value: '**════════════════════════**\n' + redPlayers,
@@ -121,7 +136,7 @@ function sendGameSummaryWebhook(placeholder: VictoryPlaceholder, recording: Game
         embeds: [
             {
                 title: `${gameName}`,
-                description: "```\n" + table.toString() + "\n```\n",
+                description: "Resultados",
                 color: LangRes.style.colors.Golden,
                 fields: fields,
                 footer: {
@@ -151,36 +166,6 @@ function sendGameSummaryWebhook(placeholder: VictoryPlaceholder, recording: Game
 export interface GameRecording {
     replay: Uint8Array,
     date: Date
-}
-
-export function createTable(gameName: string, style:string, placeholder: VictoryPlaceholder): AsciiTable3 {
-    return new AsciiTable3("Resultados " + gameName)
-        .setWidths([11, 19, 19])
-        .setTitleAlign(AlignmentEnum.CENTER)
-        .setHeading("", uEmojiParser.parseToUnicode("ROJO"), uEmojiParser.parseToUnicode("AZUL"))
-        .setHeadingAlign(AlignmentEnum.LEFT)
-        .setAlign(1, AlignmentEnum.LEFT)
-        .setAlign(2, AlignmentEnum.CENTER)
-        .setAlign(3, AlignmentEnum.CENTER)
-        .setWrappings([true, false, false])
-        .setStyle(style)
-        .addRowMatrix([
-            [
-                "Equipos",
-                uEmojiParser.parseToUnicode(placeholder.redTeam),
-                uEmojiParser.parseToUnicode(placeholder.blueTeam)
-            ],
-            [
-                "Resultado",
-                placeholder.redScore,
-                placeholder.blueScore
-            ],
-            [
-                "Posesion",
-                placeholder.possTeamRed,
-                placeholder.possTeamBlue
-            ],
-        ]);
 }
 
 function sendGameRecordingWebhook(recording: GameRecording) {

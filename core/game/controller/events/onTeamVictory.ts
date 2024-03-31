@@ -10,7 +10,7 @@ import { convertToPlayerStorage, setPlayerDataToDB } from "../Storage";
 import { pickRandomElement } from "../../model/GameObject/Animation";
 import { Player } from "../../model/GameObject/Player";
 import { ScoreSharp } from "@material-ui/icons";
-import { createTable, sendGameToDiscord } from "../../../lib/discordWebhooks";
+import { sendGameToDiscord } from "../../../lib/discordWebhooks";
 import { ClipInfo } from "../../model/RoomObject/ClipInfo";
 import uEmojiParser from "universal-emoji-parser";
 
@@ -88,10 +88,10 @@ export async function onTeamVictoryListener(scores: ScoresObject): Promise<void>
     }
     placeholderVictory.teamID = winnerTeamID;
     winningMessage = Tst.maketext(LangRes.onVictory.victory, placeholderVictory);
-    winningMessage += uEmojiParser.parseToUnicode( "\n" + createTable(
-        placeholderVictory.redTeam + " VS " + placeholderVictory.blueTeam,
-        "unicode-double",
-        placeholderVictory).toString());
+    winningMessage += '\n' + Tst.maketext(LangRes.onVictory.teams, placeholderVictory);
+    winningMessage += '\n' + Tst.maketext(LangRes.onVictory.goals, placeholderVictory);
+    winningMessage += '\n' + Tst.maketext(LangRes.onVictory.possession, placeholderVictory);
+    winningMessage += '\n' + Tst.maketext(LangRes.onVictory.topScorer, placeholderVictory);
         
     winningMessage += "\n JUGADORES DEL PARTIDO 🐐 👟 ⚽ 🤡:";
     winningMessage += mvp ? "\n🐐 El crack: " + placeholderVictory.topScorer.name + " con " + placeholderVictory.topScorer.matchRecord.goals + (placeholderVictory.topScorer.matchRecord.goals > 1 ? " goles" : " gol") + "\n" : "" +
