@@ -7,7 +7,6 @@ import { getUnixTimestamp } from "../Statistics";
 import { convertTeamID2Name, TeamID } from "../../model/GameObject/TeamID";
 import { isIncludeBannedWords } from "../TextFilter";
 import { decideTier } from "../../model/Statistics/TierFunctions";
-import { AlignmentEnum, AsciiTable3 } from "ascii-table3";
 import uEmojiParser from "universal-emoji-parser";
 
 export function onPlayerChatListener(player: PlayerObject, message: string): boolean {
@@ -109,7 +108,7 @@ export function sendChat(byPlayer: PlayerObject, message: string) {
             null, 
             player.permissions.role.color, 
             player.permissions.role.style, 
-            null
+            1
         );
         return false;
     }
@@ -117,10 +116,10 @@ export function sendChat(byPlayer: PlayerObject, message: string) {
     
 
     if (byPlayer.team == TeamID.Blue) {
-        window.gameRoom._room.sendAnnouncement(formattedTier + " [🔵] " + byPlayer.name + ": " + message, null, 0x89cff0, "normal", null);
+        window.gameRoom._room.sendAnnouncement(formattedTier + " [🔵] " + byPlayer.name + ": " + message, null, 0x89cff0, "normal", 1);
     } else if (byPlayer.team == TeamID.Red) {
-        window.gameRoom._room.sendAnnouncement(formattedTier + " [🔴] " + byPlayer.name + ": " + message, null, 0xe38d7d, "normal", null);
+        window.gameRoom._room.sendAnnouncement(formattedTier + " [🔴] " + byPlayer.name + ": " + message, null, 0xe38d7d, "normal", 1);
     } else {
-        window.gameRoom._room.sendAnnouncement(formattedTier + " [⚪] " + byPlayer.name + ": " + message, null, 0x8F8F8F, "normal", null);
+        window.gameRoom._room.sendAnnouncement(formattedTier + " [⚪] " + byPlayer.name + ": " + message, null, 0x8F8F8F, "normal", 1);
     }
 }
