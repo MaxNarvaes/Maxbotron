@@ -105,9 +105,9 @@ export interface PlayerPermissions {
 }
 
 export interface PlayerCredentials {
-    username: string; // Is this player muted? If true, his/her messages will ignored.
-    password: string; // expiration date of mute. -1 means Permanent mute.. (unix timestamp)
-    currentAuth: string; // Is this player away from keyboards? If the player sets afk mode, the value is true. It is not a mean for auto dectecting and kicking afk players.
+    username: string | null; // Is this player muted? If true, his/her messages will ignored.
+    password: string | null; // expiration date of mute. -1 means Permanent mute.. (unix timestamp)
+    currentAuth: string | null; // Is this player away from keyboards? If the player sets afk mode, the value is true. It is not a mean for auto dectecting and kicking afk players.
     // admin permission is already decleared by admin: boolean.
 }
 
@@ -164,6 +164,6 @@ export interface PlayerStorage {
 
     warningCount: number;
 
-    username: string;
-    password: string;
+    username: string | null;
+    password: string | null;
 }

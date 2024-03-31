@@ -18,9 +18,7 @@ export class CmdSuper extends Command {
             LangRes.message("No puedes usar este comando sin estar registrado! Registrate usando !register <usuario> <contraseña> (solo letras y numeros)", byPlayer.id);
             return;
         }
-        // te saca cuando usas el !help adm
         // no podes empezar el partido con pocos jugadores
-        // fixear mensaje de error al registrar
         // chat spam no anda
 
         switch (message[1]) {

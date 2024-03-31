@@ -139,14 +139,14 @@ export class PlayerController {
     }
 
     public async addPlayer(ctx: Context) {
-        const validationResult = playerModelSchema.validate(ctx.request.body);
+        /* const validationResult = playerModelSchema.validate(ctx.request.body);
 
         if (validationResult.error) {
             ctx.status = 400;
             ctx.body = validationResult.error;
             winstonLogger.error(validationResult.error.message);
             return;
-        }
+        } */
 
         const { ruid } = ctx.params;
         const playerModel: PlayerModel = ctx.request.body as PlayerModel;
@@ -165,14 +165,14 @@ export class PlayerController {
     }
 
     public async updatePlayer(ctx: Context) {
-        const validationResult = playerModelSchema.validate(ctx.request.body);
+/*         const validationResult = playerModelSchema.validate(ctx.request.body);
 
         if (validationResult.error) {
             ctx.status = 400;
             winstonLogger.error(validationResult.error.message);
             ctx.body = validationResult.error;
             return;
-        }
+        } */
 
         const { ruid, auth } = ctx.params;
         const playerModel: PlayerModel = ctx.request.body as PlayerModel;

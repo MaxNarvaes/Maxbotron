@@ -78,9 +78,9 @@ export class Player implements PlayerObject {
         this.team = player.team;
         this.position = player.position;
         this.credentials = {
-            username: "",
-            password: "",
-            currentAuth: ""
+            username: null,
+            password: null,
+            currentAuth: null
         };
         this.warnings = [];
         this.matchRecord = { // Temporary stat record for current match

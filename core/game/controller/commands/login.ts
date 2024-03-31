@@ -23,12 +23,12 @@ export class CmdLogin extends Command {
                     savedPlayer.auth = byPlayer.auth;
                     setPlayerDataToDB(savedPlayer);
                 }
-                LangRes.message("Te logueaste correctamente " + username + "\nLas stats se van a seguir guardando en tu cuenta.", byPlayer.id, 2);
+                LangRes.importantMessage("Te logueaste correctamente " + username + "\nLas stats se van a seguir guardando en tu cuenta.", byPlayer.id, 2);
                 registerCommandTimeout(this.commandId + byPlayer.auth, this.timeout, player)
             }
-            LangRes.message("No pudimos loguearte, verificar tus datos e intenta nuevamente", byPlayer.id, 2);
+            LangRes.importantMessage("No pudimos loguearte, verificar tus datos e intenta nuevamente", byPlayer.id, 2);
         } catch (error) {
-            LangRes.message("Hubo un problema para loguearse!", byPlayer.id, 2);
+            LangRes.importantMessage("Hubo un problema para loguearse!", byPlayer.id, 2);
         }
     }
 }
