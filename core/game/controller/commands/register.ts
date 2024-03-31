@@ -35,8 +35,8 @@ export class CmdRegister extends Command {
         player.credentials.password = password;
         player.permissions.role = getRole("player")
 
-        var result = setPlayerDataToDB(convertToPlayerStorage(player));
-        if (await result != undefined) {
+        var result = await setPlayerDataToDB(convertToPlayerStorage(player));
+        if (result != undefined) {
             LangRes.importantMessage("Te registraste correctamente con el nombre de usuario " + username + "\nNo te olvides de tu password!", byPlayer.id, 2);
         }
     }

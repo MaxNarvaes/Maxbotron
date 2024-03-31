@@ -175,7 +175,7 @@ function handleNewPlayerStorage(player: PlayerObject, joinTimestamp: number) {
 async function handleExistingPlayerStorage(existPlayerData: PlayerStorage, player: PlayerObject, placeholderJoin: PlaceholderJoin, joinTimestamp: number){
     var newPlayer: Player = convertToPlayer(player, existPlayerData);
     newPlayer.entrytime.joinDate = joinTimestamp;
-    LangRes.message(`Estas logueado como ${newPlayer.name}, si no es tu cuenta usa !login <username> <password>`, player.id);
+    
     /*entra, encuentra player
     1- tiene username y pass -
     1-1- esta registrado
@@ -183,6 +183,7 @@ async function handleExistingPlayerStorage(existPlayerData: PlayerStorage, playe
     2-1- se tiene que registrar muestro mensaje
     */
     if (existPlayerData.username != null && existPlayerData.password != null) {
+        LangRes.message(`Estas logueado como ${newPlayer.name}, si no es tu cuenta usa !login <username> <password>`, player.id);
         newPlayer.credentials.password = existPlayerData.password;
         newPlayer.credentials.username = existPlayerData.username;
     } else {

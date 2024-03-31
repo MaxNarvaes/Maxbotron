@@ -21,7 +21,7 @@ export class CmdLogin extends Command {
                     player.matchRecord = window.gameRoom.playerList.get(byPlayer.id)!.matchRecord
                     window.gameRoom.playerList.set(byPlayer.id, player);
                     savedPlayer.auth = byPlayer.auth;
-                    setPlayerDataToDB(savedPlayer);
+                    await setPlayerDataToDB(savedPlayer);
                 }
                 LangRes.importantMessage("Te logueaste correctamente " + username + "\nLas stats se van a seguir guardando en tu cuenta.", byPlayer.id, 2);
                 registerCommandTimeout(this.commandId + byPlayer.auth, this.timeout, player)

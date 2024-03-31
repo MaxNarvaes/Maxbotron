@@ -139,11 +139,13 @@ export async function deleteBanlistDB(ruid: string, playerConn: string): Promise
     }
 }
 
-export async function createPlayerDB(ruid: string, player: PlayerStorage): Promise<void> {
+export async function createPlayerDB(ruid: string, player: PlayerStorage): Promise<PlayerStorage | undefined> {
     try {
         const result = await axios.post(`${dbConnAddr}room/${ruid}/player`, player);
-        if (result.status === 204 && result.data) {
+        if (result.status === 204) {
+            const player: PlayerStorage = mapPlayer(result)
             winstonLogger.info(`${result.status} Succeed on createPlayerDB: Created. auth(${player.auth})`);
+            return player;
         }
     } catch(error) {
         if(error.response && error.response.status === 400) {
@@ -205,10 +207,12 @@ export async function existsPlayerByUsername(ruid: string, username: string): Pr
     }
 }
 
-export async function updatePlayerDB(ruid: string, player: PlayerStorage): Promise<void> {
+export async function updatePlayerDB(ruid: string, player: PlayerStorage): Promise<PlayerStorage | undefined> {
     try {
         const result = await axios.put(`${dbConnAddr}room/${ruid}/player/${player.auth}`, player);
-        if (result.status === 204 && result.data) {
+        if (result.status === 204) {
+            const player: PlayerStorage = mapPlayer(result)
+            return player
             winstonLogger.info(`${result.status} Succeed on updatePlayerDB: Updated. auth(${player.auth})`);
         }
     } catch(error) {

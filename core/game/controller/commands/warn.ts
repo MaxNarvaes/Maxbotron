@@ -15,7 +15,7 @@ export class CmdWarn extends Command {
     public timeout: number = 1000;
 
     static millInAMinute: number = 60000;
-    execute(byPlayer: PlayerObject, message: string[]): void {
+    async execute(byPlayer: PlayerObject, message: string[]): Promise<void> {
         var expulsionMinutes = 30;
     const exclude = ["player", "visitor", "vip", "supervip"]
     if (authorizeCommand(byPlayer, this.commandId, exclude) == false) return;
@@ -45,7 +45,7 @@ export class CmdWarn extends Command {
                     }
                 );
                 warnedPlayer.warnings = [] as PlayerWarning[];
-                setPlayerDataToDB(convertToPlayerStorage(warnedPlayer));
+                await setPlayerDataToDB(convertToPlayerStorage(warnedPlayer));
                 LangRes.commentary("Al jugador " + warnedPlayer.name + " el arbitro le mostro la segunda amarilla!! razon: " + reason);
                 LangRes.importantMessage(Tst.maketext(LangRes.command.ban.fixedTermBan, { player: warnedPlayer!.name, mod: byPlayer.name}));
                 window.gameRoom._room.kickPlayer(warnedId, reason, false);

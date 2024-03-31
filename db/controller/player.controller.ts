@@ -26,7 +26,7 @@ export class PlayerController {
                 })
                 .catch((error) => {
                     ctx.status = 404;
-                    winstonLogger.error('error.message');
+                    winstonLogger.error(error.message);
                     ctx.body = { error: error.message };
                 });
         } else {
@@ -38,7 +38,7 @@ export class PlayerController {
                 })
                 .catch((error) => {
                     ctx.status = 404;
-                    winstonLogger.error('error.message');
+                    winstonLogger.error(error.message);
                     ctx.body = { error: error.message };
                 });
         }
@@ -57,7 +57,7 @@ export class PlayerController {
                 })
                 .catch((error) => {
                     ctx.status = 404;
-                    winstonLogger.error('error.message')
+                    winstonLogger.error(error.message);
                     ctx.body = { error: error.message };
                 });
         } else {
@@ -69,7 +69,7 @@ export class PlayerController {
                 })
                 .catch((error) => {
                     ctx.status = 404;
-                    winstonLogger.error('error.message')
+                    winstonLogger.error(error.message);
                     ctx.body = { error: error.message };
                 });
         }
@@ -88,7 +88,7 @@ export class PlayerController {
                 })
                 .catch((error) => {
                     ctx.status = 404;
-                    winstonLogger.error('error.message')
+                    winstonLogger.error(error.message);
                     ctx.body = { error: error.message };
                 });
         } else {
@@ -100,7 +100,7 @@ export class PlayerController {
                 })
                 .catch((error) => {
                     ctx.status = 404;
-                    winstonLogger.error('error.message')
+                    winstonLogger.error(error.message)
                     ctx.body = { error: error.message };
                 });
         }
@@ -117,7 +117,7 @@ export class PlayerController {
             })
             .catch((error) => {
                 ctx.status = 404;
-                winstonLogger.error('error.message')
+                winstonLogger.error(error.message)
                 ctx.body = { error: error.message };
             });
     }
@@ -133,20 +133,20 @@ export class PlayerController {
             })
             .catch((error) => {
                 ctx.status = 404;
-                winstonLogger.error('error.message');
+                winstonLogger.error(error.message);
                 ctx.body = { error: error.message };
             });
     }
 
     public async addPlayer(ctx: Context) {
-        /* const validationResult = playerModelSchema.validate(ctx.request.body);
+        const validationResult = playerModelSchema.validate(ctx.request.body);
 
         if (validationResult.error) {
             ctx.status = 400;
             ctx.body = validationResult.error;
             winstonLogger.error(validationResult.error.message);
             return;
-        } */
+        }
 
         const { ruid } = ctx.params;
         const playerModel: PlayerModel = ctx.request.body as PlayerModel;
@@ -159,20 +159,20 @@ export class PlayerController {
             })
             .catch((error) => {
                 ctx.status = 400;
-                winstonLogger.error('error.message');
+                winstonLogger.error(error.message);
                 ctx.body = { error: error.message };
             });
     }
 
     public async updatePlayer(ctx: Context) {
-/*         const validationResult = playerModelSchema.validate(ctx.request.body);
+         const validationResult = playerModelSchema.validate(ctx.request.body);
 
         if (validationResult.error) {
             ctx.status = 400;
             winstonLogger.error(validationResult.error.message);
             ctx.body = validationResult.error;
             return;
-        } */
+        } 
 
         const { ruid, auth } = ctx.params;
         const playerModel: PlayerModel = ctx.request.body as PlayerModel;
@@ -185,7 +185,7 @@ export class PlayerController {
             })
             .catch((error) => {
                 ctx.status = 404;
-                winstonLogger.error('error.message');
+                winstonLogger.error(error.message);
                 ctx.body = { error: error.message };
             });
     }
@@ -200,7 +200,7 @@ export class PlayerController {
             })
             .catch((error) => {
                 ctx.status = 404;
-                winstonLogger.error('error.message');
+                winstonLogger.error(error.message);
                 ctx.body = { error: error.message };
             });
     }

@@ -96,10 +96,19 @@ export function convertToPlayer(player: PlayerObject, existPlayerData: PlayerSto
 // CRUDs with DB Server by injected functions from Node Main Application
 // register new player or update it
 export async function setPlayerDataToDB(playerStorage: PlayerStorage): Promise<PlayerStorage | undefined> {
-    const player: PlayerStorage | undefined = await window._findPlayerByAuth(window.gameRoom.config._RUID, playerStorage.auth);
-    if(player !== undefined) {
+    
+    let player: PlayerStorage | undefined = undefined;
+    if (playerStorage.username != null && playerStorage.password != null) {
+        player = await window._findPlayerByUsername(window.gameRoom.config._RUID, playerStorage.username)
+        if (player == undefined) {
+            player = await window._findPlayerByAuth(window.gameRoom.config._RUID, playerStorage.auth);
+        }
+    } else {
+        player = await window._findPlayerByAuth(window.gameRoom.config._RUID, playerStorage.auth);
+    }
+    if(player != undefined) {
         //if already exist then update it
-        return await window._updatePlayerDB(window.gameRoom.config._RUID, playerStorage);
+            return await window._updatePlayerDB(window.gameRoom.config._RUID, playerStorage);
     } else {
         // or create new one
         return await window._createPlayerDB(window.gameRoom.config._RUID, playerStorage);
