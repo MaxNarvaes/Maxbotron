@@ -17,7 +17,7 @@ export function cmdList(byPlayer: PlayerObject, message: string[]): void {
                         placeholder.whoisResult += player.name + '#' + player.id + ', ';
                     });
                 }
-                window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.list.whoisList, placeholder), byPlayer.id, 0x479947, "normal", 1);
+                window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.list.whoisList, placeholder), byPlayer.id, 0xFFFF17, "normal", 1);
                 break;
             }
             case window.gameRoom.config.commands._listSubmute: {
@@ -28,7 +28,7 @@ export function cmdList(byPlayer: PlayerObject, message: string[]): void {
                         placeholder.whoisResult += player.name + '#' + player.id + ', ';
                     });
                 }
-                window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.list.whoisList, placeholder), byPlayer.id, 0x479947, "normal", 1);
+                window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.list.whoisList, placeholder), byPlayer.id, 0xFFFF17, "normal", 1);
                 break;
             }
             case window.gameRoom.config.commands._listSubred: {
@@ -47,7 +47,7 @@ export function cmdList(byPlayer: PlayerObject, message: string[]): void {
                         placeholder.whoisResult += player.name + '#' + player.id + muteFlag + afkFlag + ', ';
                     });
                 }
-                window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.list.whoisList, placeholder), byPlayer.id, 0x479947, "normal", 1);
+                window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.list.whoisList, placeholder), byPlayer.id, 0xFFFF17, "normal", 1);
                 break;
             }
             case window.gameRoom.config.commands._listSubblue: {
@@ -66,7 +66,7 @@ export function cmdList(byPlayer: PlayerObject, message: string[]): void {
                         placeholder.whoisResult += player.name + '#' + player.id + muteFlag + afkFlag + ', ';
                     });
                 }
-                window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.list.whoisList, placeholder), byPlayer.id, 0x479947, "normal", 1);
+                window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.list.whoisList, placeholder), byPlayer.id, 0xFFFF17, "normal", 1);
                 break;
             }
             case window.gameRoom.config.commands._listSubspec: {
@@ -85,7 +85,7 @@ export function cmdList(byPlayer: PlayerObject, message: string[]): void {
                         placeholder.whoisResult += player.name + '#' + player.id + muteFlag + afkFlag + ', ';
                     });
                 }
-                window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.list.whoisList, placeholder), byPlayer.id, 0x479947, "normal", 1);
+                window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.list.whoisList, placeholder), byPlayer.id, 0xFFFF17, "normal", 1);
                 break;
             }
             default: {

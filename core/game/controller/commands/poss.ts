@@ -8,5 +8,5 @@ export function cmdPoss(byPlayer: PlayerObject, message: string[]): void {
         possTeamRed: window.gameRoom.ballStack.possCalculate(TeamID.Red)
         ,possTeamBlue: window.gameRoom.ballStack.possCalculate(TeamID.Blue),
     }
-    window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.poss, placeholder), byPlayer.id, 0x479947, "normal", 1);
+    window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.poss, placeholder), byPlayer.id, 0x426AD6, "normal", 1);
 }

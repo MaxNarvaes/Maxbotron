@@ -3,7 +3,7 @@ export function SendRelato(message: string){
 }
 
 export function SendConsole(message: string){
-        window.gameRoom._room.sendAnnouncement("「🤖」MaxBot: " + message , null, style.colors.Green, "italic", 1);        
+        window.gameRoom._room.sendAnnouncement("SDH | " + message , null, style.colors.Green, "italic", 1);        
 }
 
 // YOU CAN USE A PLACEHOLDER FOR INTERPOLATION. FOR EXAMPLE, 'Hello, My name is {name}.'
@@ -30,15 +30,15 @@ export const scheduler = {
         '📢 Maxbot🤖 ',
         '                                        📍 Discord Oficial! ➡ https://discord.gg/KvfgRc7sfG ',
         '                                        📍 Nuestras Redes! ➡ https://linktr.ee/sindicatodelhax '  ,
-        'TIP: ¿Querés hablar con los pibes VIP? Entra al VC del discord: https://discord.com/channels/1122229514647371846/1189099455367094332',
-        ' 😮‍💨 Ingresa a nuestro discord para ver las reglas de la sala ➡ https://discord.gg/KvfgRc7sfG'
+        'SDH | ¿Querés hablar con los pibes? Entra al VC del discord: https://discord.com/channels/1122229514647371846/1122229516186697757',
+        'SDH | Reglas del host ➡ https://discord.gg/KvfgRc7sfG'
     ]
-    ,shutdown: '📢 La sala se esta por apagar. Gracias por jugar!'
-    ,afkKick: '📢 kickeado: AFK'
-    ,afkCommandTooLongKick: '📢 AFK por mas de 10 min'
-    ,afkDetect: '⚠️ CUIDADO! ⚠️ {targetName}, si no te moves en {time} segundos sale kick!'
-    ,autoUnmute: '🔊 Jugador @{targetName} ha sido desmuteado.'
-    ,banVoteAutoNotify: '🗳️ Votacion para ban esta en progreso (!vote #ID) : {voteList}'
+    ,shutdown: 'SDH 📢 La sala se esta por apagar. Gracias por jugar!'
+    ,afkKick: 'SDH 📢 Kickeado: AFK'
+    ,afkCommandTooLongKick: 'SDH 📢 Estuviste AFK por mas de 10 minutos!'
+    ,afkDetect: 'SDH ⚠️ {targetName}, si no te moves en {time} segundos, sale kick! ⚠️'
+    ,autoUnmute: 'SDH 🔊 El jugador @{targetName} ha sido desmuteado.'
+    ,banVoteAutoNotify: 'SDH 📢 La votación de ban está en progreso! (!vote #ID) : {voteList}'
 }
 
 export const teamName = {
@@ -49,144 +49,144 @@ export const teamName = {
 
 export const antitrolling = {
     joinFlood: {
-        banReason: '🚫 too much rejoin(5mins)'
-        ,floodWarning: '📢 If you reconnect several times in a short period of time, you may be kicked.'
+        banReason: 'SDH 🚫 Estas intentando entrar hace Duracion: (5mins)'
+        ,floodWarning: 'SDH 📢 Si se vuelve a conectar varias veces en un corto período de tiempo, sale kick.'
     }
     ,chatFlood: {
-        muteReason: '🔇 You are muted for too many chats.(3mins) Admin player can unmute it.'
+        muteReason: 'SDH 🔇 Estás silenciado por hacer flood. Duracion: (3 minutos)'
     }
     ,ogFlood: {
-        banReason: '🚫 too much OGs(10mins)'
+        banReason: 'SDH 🚫 Demasiadas letras raras. Duracion: (10mins)'
     }
     ,banNoPermission: {
-        banReason: '🚫 do not ban(30secs)'
+        banReason: 'SDH 🚫 No puedes banear(? Duración: (30secs)'
     }
     ,kickAbusing: {
-        banReason: '🚫 too much kicks(5mins)'
-        ,abusingWarning: '📢 You might be kicked if you kicked other players too much.'
+        banReason: 'SDH 🚫 too much kicks(5mins)'
+        ,abusingWarning: 'SDH 📢 Es posible que seas kickeado si expulsas seguido a la gente!'
     }
     ,insufficientStartAbusing: {
-        banReason: '🚫 start with insufficient players(5mins)'
-        ,abusingWarning: '📢 You might be kicked if you start game without sufficient players.'
+        banReason: 'SDH 🚫 Empezar sin suficientes jugadores. Duracion: (5mins)'
+        ,abusingWarning: 'SDH 📢 Es posible que te kickeen si comienzas el juego sin suficientes jugadores.'
     }
     ,afkAbusing: {
-        cannotReason: '❌ You can\'t use afk command during a game.'
+        cannotReason: 'SDH ❌ No puedes usar el comando AFK durante un juego.'
     }
     ,gameAbscond: {
-        banReason: '🚫 Abscond from game(5mins)'
+        banReason: 'SDH 🚫 Homacón del juego(5mins)'
     }
     ,malAct: {
-        banReason: '🚫 Malicious behaviour is detected'
+        banReason: 'SDH 🚫 Se detecta el comportamiento malicioso'
     }
 }
 
 export const command = {
-    _ErrorWrongCommand : '❌ Comando incorrecto. 📑 !help or !help COMMANDO para detalles'
-    ,_ErrorNoPermission: '❌ No sos admin. No podes usar este comando.'
-    ,_ErrorDisabled: '❌ Este comando esta desactivado.'
-    ,help: '📄 !about, notice, stats, showstats, statsreset, tier, afk, vote, poss, streak, scout, list\n📑 !help COMMANDO Para detalle. (ej. !help stats)\n📑 !help admin shows you commands list for administrator.'
-    ,helpadmin: '📄 !freeze, mute\n📑 !help COMMAND for detail.'
+    _ErrorWrongCommand : 'SDH ❌ Comando incorrecto. 📑 Usa !help para mas detalles!'
+    ,_ErrorNoPermission: 'SDH ❌ No sos admin. No podes usar este comando.'
+    ,_ErrorDisabled: 'SDH ❌ Este comando esta desactivado.'
+    ,help: 'SDH 📄 !about, notice, stats, showstats, statsreset, tier, afk, vote, poss, streak, scout, list\n📑 Usa !help para mas detalles. (ej. !help stats)\n📑 Usa !help admin para ver comandos de staff.'
+    ,helpadmin: 'SDH 📄 !freeze, mute\n📑 Usa !help para mas detalles.'
     ,helpman: { // detailed description for a command
-        _ErrorWrongMan : '❌ Failed to read manual about that command.'
-        ,help: '📑 !help COMMAND shows you how to use COMMAND command.'
-        ,about: '📑 !about shows you simple inforamtion of the bot running now.'
-        ,stats: '📑 !stats shows you your statistical information. 📑 If you want to reset, do !statsreset\n📑 !stats #ID : shows you statistical inforamtion of the player who has ID.\n📑 You can check IDs by command !list red,blue,spec'
-        ,statsreset: '📑 !statsreset resets your statistical information. It cannot be recovered.'
-        ,poss: '📑 !poss shows you possessions rate of both Read and Blue team.'
-        ,streak: '📑 !streak shows you which team is being on a winning streak.'
-        ,afk: '📑 !afk MSG switches to idle status. MSG is the reason, and it can be skipped. You might be kicked if sleep too long.'
-        ,list: '📑 !list red/blue/spec/mute/afk shows you all players list of that type.'
-        ,freeze: '📑 !freeze mutes or unmutes all players.'
-        ,mute: '📑 !mute #ID : prohibits the player whose id is ID to chat. Or unmute if the player is already muted. (eg: !mute #12)\n📑 You can check IDs by command !list red,blue,spec,mute'
-        ,scout: '📑 !scout shows you expectation of each teams by customed Pythagorean Expectation.'
-        ,vote: '📑 !vote shows you progress of the vote.\n📑 !vote #ID : vote for kick that player. (eg: !vote #12)'
-        ,tier: '📑 !tier shows you information of tier and rating system.'
-        ,notice: '📑 !notice shows you notice message.'
+        _ErrorWrongMan : 'SDH ❌ No se pudo leer este comando.'
+        ,help: 'SDH 📑 Usa !help (Comando) para ver detalles sobre este.'
+        ,about: 'SDH 📑 !about | Te muestra información simple del bot que se ejecuta ahora.'
+        ,stats: 'SDH 📑 !stats | Te muestra tus estadísticas. 📑 Si quieres reiniciarlas, usa !statsreset\n📑 !stats #ID : te muestra las estadísticas de un jugador en específico.'
+        ,statsreset: 'SDH 📑 !statsreset | Reinicia tus estadísticas. No se pueden recuperar!'
+        ,poss: 'SDH 📑 !poss | Muestra la posesión de los equipos.'
+        ,streak: 'SDH 📑 !streak | Muestra tu racha de victorias.'
+        ,afk: 'SDH 📑 !afk | Ponerse AFK!'
+        ,list: 'SDH 📑 !list | (Comando sin funcionamiento aún, no usar)'
+        ,freeze: 'SDH 📑 !freeze | Mutear o desmutear a todos los jugadores.'
+        ,mute: 'SDH 📑 !mute #ID : Prohíbe al jugador cuya identificación es ID para chatear. O inmerso si el jugador ya está silenciado. (ej: !mute #12)'
+        ,scout: 'SDH 📑 !scout Muestra la expectativa de cada equipo por expectativas de pitagoreas personalizadas.'
+        ,vote: 'SDH 📑 !vote | Te muestra el progreso de la votación.\n📑 !vote #ID : Vota por kickear algun jugador. (ej: !vote #12)'
+        ,tier: 'SDH 📑 !tier | Muestra información sobre tu nivel y el sistema de puntos!'
+        ,notice: 'SDH 📑 !notice | Te muestra el mensaje de notaciones.'
     } 
-    ,about: '📄 {RoomName} ({_LaunchTime})\n💬 This room is powered by Maxbotron🤖 bot.'
+    ,about: 'SDH 📄 {RoomName} ({_LaunchTime})\n💬 El sindicato es una pasión.'
     ,stats: {
-        _ErrorNoPlayer: '❌ Wrong player ID. You can only target numeric ID.(eg: !stats #12)\n📑 You can check IDs by command !list red,blue,spec'
-        ,statsMsg: '🏆 Rank: {targetStatsRatingAvatar}{targetStatsRatingName} 🎇Puntos: {targetPlayerPoints} \n🎮 Partidos: {targetStatsTotal} ✅ Ganados: {targetStatsWins} ❌ Perdidos: {targetStatsLoses} 🎉 Winrate: {targetStatsWinRate}% \n⚽️ Goles: {targetStatsGoals}  👟 Asistencias: {targetStatsAssists} 🥶En contra: {targetStatsOgs}\n⚽️ Goles x partido: {targetStatsGoalsPerGame}  👟 Asistencias x partido: {targetStatsAssistsPerGame} 🎯 G+A por partido: {targetPlayerGAPerGame} 🥶En contra x partido: {targetStatsOgsPerGame} \n 🧤 valla invicta: {targetPlayerPerfectGk} 🎢 goles recibidos: {targetPlayerGoalsAgainstPerGame} 🎲 goles recibidos x partido: {targetPlayerGoalsAgainstPerGame} 🧙Efectividad Pases: {targetStatsPassSuccess}%'
-        ,matchAnalysis: '📊 In this match, {targetStatsNowGoals}goals {targetStatsNowAssists}assists {targetStatsNowOgs}ogs. (Pass Success Rate {targetStatsNowPassSuccess}%)'
+        _ErrorNoPlayer: 'SDH ❌ ID Incorrecta. Utiliza el # para verlas correctamente.(ej: !stats #12)'
+        ,statsMsg: '🏆 Rango: {targetStatsRatingAvatar}{targetStatsRatingName} 🎇 Puntos: {targetPlayerPoints} \n🎮 Partidos: {targetStatsTotal} ✅ Ganados: {targetStatsWins} ❌ Perdidos: {targetStatsLoses} 🎉 Winrate: {targetStatsWinRate}% \n⚽️ Goles: {targetStatsGoals}  👟 Asistencias: {targetStatsAssists} 🥶 En contra: {targetStatsOgs}\n⚽️ Goles x partido: {targetStatsGoalsPerGame}  👟 Asistencias x partido: {targetStatsAssistsPerGame} 🎯 G+A por partido: {targetPlayerGAPerGame} 🥶En contra x partido: {targetStatsOgsPerGame} \n 🧤 valla invicta: {targetPlayerPerfectGk} 🎢 goles recibidos: {targetPlayerGoalsAgainstPerGame} 🎲 goles recibidos x partido: {targetPlayerGoalsAgainstPerGame} 🧙Efectividad Pases: {targetStatsPassSuccess}%'
+        ,matchAnalysis: 'SDH 📊 Estadísticas de el partido: Hubo {targetStatsNowGoals} Goles {targetStatsNowAssists} Asistencias {targetStatsNowOgs}ogs. (Porcentaje de pases concretados: {targetStatsNowPassSuccess}%)'
     }
-    ,statsreset: '📊 Reset for statistical information completed. You can\'t cancel it.'
-    ,poss: '📊 Ball possession : Red {possTeamRed}%, Blue {possTeamBlue}%.'
-    ,streak: '📊 {streakTeamName} is now hitting a winning streak of {streakTeamCount} games!'
+    ,statsreset: 'SDH 📊 Estadísticas reseteadas! No hay vuelta atrás'
+    ,poss: 'SDH 📊 Posesión de la pelota : Rojo: {possTeamRed}%, Azul: {possTeamBlue}%.'
+    ,streak: 'SDH 📊 {streakTeamName} ahora tiene una racha de victorias de {streakTeamCount} partidos!'
     ,afk: {
-        _WarnAfkTooLong: '📢 You might be kicked if sleep too long. (afk for 2mins)'
-        ,setAfk: '💤 {targetName}#{ticketTarget} is now away from keyboard. ({targetAfkReason})'
-        ,unAfk: '📢 {targetName}#{ticketTarget} has came back from afk mode!'
-        ,muteNotifyWarn: '❌ Notification messages for AFK will not be shown to other players when you are muted.'
-        ,startRecord: '📊 Enough players has joined, so the game\'s result will be recorded from now.'
-        ,stopRecord: '📊 Need more players. The game\'s result will not be recorded from now. (needs {gameRuleNeedMin} players at least)'
+        _WarnAfkTooLong: 'SDH 📢 Fuiste kickeado por estar mucho tiempo afk. (afk por 2mins)'
+        ,setAfk: 'SDH 💤 {targetName}#{ticketTarget} cagoneó y se fue AFK. Razón: ({targetAfkReason})'
+        ,unAfk: 'SDH 📢 {targetName}#{ticketTarget} volvió al partido!'
+        ,muteNotifyWarn: 'SDH ❌ Los mensajes de notificación para AFK no se mostrarán a otros jugadores cuando estés muteado.'
+        ,startRecord: 'SDH 📊 Suficientes jugadores se han unido, por lo que el resultado del juego se grabará a partir de ahora.'
+        ,stopRecord: 'SDH 📊 Se necesitan más jugadores. El resultado del juego no se grabará a partir de ahora. (Se necesitan: {gameRuleNeedMin} Jugadores al menos)'
     }
     ,mute: {
-        _ErrorNoPermission: '❌ You are not admin. You can\'t do this command.'
-        ,_ErrorNoPlayer: '❌ Wrong player ID. You can only target numeric ID.(eg: !mute #12)\n📑 You can check IDs by command !list red,blue,spec,mute'
-        ,successMute: '🔇 {targetName}#{ticketTarget} player is muted.(3mins) You can command it againt for release.'
-        ,successUnmute: '🔊 Player {targetName}#{ticketTarget} is unmuted.'
-        ,muteAbusingWarn: '❌ You can\'t mute again this player in too short time. (3mins)'
+        _ErrorNoPermission: 'SDH ❌ No sos admin. No podes usar este comando!'
+        ,_ErrorNoPlayer: 'SDH ❌ ID Incorrecta. Utiliza el # para verlas correctamente.(ej: !mute #12)'
+        ,successMute: 'SDH 🔇 El jugador {targetName}#{ticketTarget} fué silenciado por 3 minutos'
+        ,successUnmute: 'SDH 🔊 El jugador {targetName}#{ticketTarget} fué desilenciado.'
+        ,muteAbusingWarn: 'SDH ❌ No puede silenciar a este jugador en demasiado tiempo. (3mins)'
     }
     ,super: {
-        _ErrorWrongCommand: '❌ You did wrong command for super admin system.'
-        ,_ErrorNoPermission: '❌ You are not super admin. You can\'t do this command.'
-        ,_ErrorLoginAlready: '❌ You are already super admin. 📑 You can logout by command !super logout.'
-        ,defaultMessage: '📄 Super admin system for control Haxbotron bot in the game.'
-        ,loginSuccess: '🔑 Succeeded to login. You are super admin from now.'
-        ,logoutSuccess: '🔑 Succeeded to logout. You are not super admin from now.'
-        ,loginFail: '❌ Failed to login.'
-        ,loginFailNoKey: '❌ Failed to login. You should submit authentication key for login.'
+        _ErrorWrongCommand: 'SDH ❌ ¿Qué intentas hacer? Contactate con un Master para esto.'
+        ,_ErrorNoPermission: 'SDH ❌ No sos super admin. Contacta con un Master para esto.'
+        ,_ErrorLoginAlready: 'SDH ❌ Ahora sos super admin. 📑 Te lo podes sacar con el comando !super logout.'
+        ,defaultMessage: 'SDH 📄 Sistema de super admin para el control total en el juego.'
+        ,loginSuccess: 'SDH 🔑 Logeado correctamente. Ahora sos super admin'
+        ,logoutSuccess: 'SDH 🔑 Deslogeado correctamente. Ya no sos super admin'
+        ,loginFail: 'SDH ❌ Error al logear.'
+        ,loginFailNoKey: 'SDH ❌ Error al logear, fijate bien el codigo de login.'
         ,thor: {
-            noAdmins: '❌ There are no admin players to disqualify.'
-            ,complete: '🔑 Succeeded to get admin permission.'
-            ,deprive: '🔑 Succeeded to disqualify other admin players and make you admin.'
+            noAdmins: 'SDH ❌ No hay jugadores staff para moderar!'
+            ,complete: 'SDH 🔑 Logró obtener el permiso de administración.'
+            ,deprive: 'SDH 🔑 Logró descalificar a otros jugadores administrativos y hacerte administrador.'
         }
         ,kick: {
-            noID: '❌ Error: Wrong Player ID. You can only target numeric ID.(eg: !super kick #12)'
-            ,kickMsg: '📢 kicked from the game'
-            ,kickSuccess: '📢 That player is kicked.'
+            noID: 'SDH ❌ Error: ID Incorrecta. Utiliza el # para verlas correctamente.(ej: !super kick #12)'
+            ,kickMsg: 'SDH 📢 Kickeado de la sala'
+            ,kickSuccess: 'SDH 📢 Este jugador fué kickeado.'
         }
         ,ban: {
-            noID: '❌ Error: Wrong Player ID. You can only target numeric ID.(eg: !super ban #12)'
-            ,banMsg: '📢 banned from the game'
-            ,banSuccess: '📢 That player is banned.'
+            noID: 'SDH ❌ Error: ID Incorrecta. Utiliza el # para verlas correctamente.(ej: !super ban #12)'
+            ,banMsg: 'SDH 📢 Baneado de la sala'
+            ,banSuccess: 'SDH 📢 Este jugador fué baneado.'
         }
         ,banclear: {
-            noTarget: '❌ Error: You can\'t this. 📑 !super banclear all'
-            ,complete: '🔑 Succeeded to clear ban list.'
+            noTarget: 'SDH ❌ Error: No podes usar esto. 📑 !super banclear all'
+            ,complete: 'SDH 🔑 Se eliminaron los baneos.'
         }
         ,banlist: {
-            _ErrorNoOne: '❌ There\'s no one.'
-            ,whoisList: '📜 {whoisResult}'
+            _ErrorNoOne: 'SDH ❌ No hay baneos(?.'
+            ,whoisList: 'SDH 📜 {whoisResult}'
         }
     }
     ,list: {
-        _ErrorNoTeam: '❌ You can only request red,blue,spec,mute,afk players list.'
-        ,_ErrorNoOne: '❌ There\'s no one.'
-        ,whoisList: '📜 {whoisResult}'
+        _ErrorNoTeam: 'SDH ❌ Solo puede solicitar la lista de jugadores rojos, azules, espectadires, silenciados, AFK.'
+        ,_ErrorNoOne: 'SDH ❌ No hay lista de jugadores(?.'
+        ,whoisList: 'SDH 📜 {whoisResult}'
     }
     ,freeze: {
-        _ErrorNoPermission : '❌ You are not admin. You can\'t do this command.'
-        ,onFreeze: '🔇 The administrator freezed chatting on this room. Commands are available. 📄 !help'
-        ,offFreeze: '🔊 The administrator unfreezed chatting.' 
+        _ErrorNoPermission : 'SDH ❌ No sos admin. No podes usar este comando!'
+        ,onFreeze: 'SDH 🔇 Un administrador muteo el chat. Los comandos si funcionan. 📄 !help'
+        ,offFreeze: 'SDH 🔊 Un administrador desmuteo el chat.' 
     }
     ,scout: {
-        _ErrorNoMode : '❌ There are not enough players for calculating winning expectation.'
-        ,scouting: '📊 Pythagorean Expectation : Red {teamExpectationRed}%, Blue {teamExpectationBlue}%, Spec {teamExpectationSpec}%.'
+        _ErrorNoMode : 'SDH ❌ No hay suficientes jugadores como para calcular la victoria.'
+        ,scouting: 'SDH 📊 Expectativa pitagórica : Rojo {teamExpectationRed}%, Azul {teamExpectationBlue}%, Spec {teamExpectationSpec}%.'
     }
     ,vote: {
-        _ErrorNoPlayer: '❌ ❌ Wrong player ID. You can only target numeric ID. (eg: !vote #12)'
-        ,_ErrorNoPermission: '❌ There are not enough players for voting.'
-        ,voteBanMessage: '🚫 ban vote(30mins)'
-        ,voteComplete: '🗳️ You did vote to {targetName}#{targetID}. You can cancel the vote by type this command again.'
-        ,voteCancel: '🗳️ You have cancelled the vote for that player {targetName}#{targetID}.'
-        ,voteIntroduce : '🗳️ You can vote for or cancel a kick for a specific player. (eg: !vote #12)'
-        ,voteStatus : '🗳️ You have currently voted for kick {targetName}#{targetID}.'
-        ,voteAutoNotify: '🗳️ Voting to ban is in progress: {voteList}'
+        _ErrorNoPlayer: 'SDH ❌ ID Incorrecta. Usa el # para verlas correctamente. (ej: !vote #12)'
+        ,_ErrorNoPermission: 'SDH ❌ No hay suficientes jugadores para votar.'
+        ,voteBanMessage: 'SDH 🚫 Empezó una votación de baneo por 30 minutos!'
+        ,voteComplete: 'SDH 🗳️ Votaste a {targetName}#{targetID}. Puedes cancelar el voto escribiendo el mismo comando.'
+        ,voteCancel: 'SDH 🗳️ Cancelaste el voto por {targetName}#{targetID}.'
+        ,voteIntroduce : 'SDH 🗳️ Puedes votar o cancelar un ban para un jugador específico. (ej: !vote #12)'
+        ,voteStatus : 'SDH 🗳️ Votaste correctamente para banear a {targetName}#{targetID}.'
+        ,voteAutoNotify: 'SDH 🗳️ La votación de baneo sigue en progreso: {voteList}'
     }
-    ,tier: '📄 El rango es determinado por tu performance en los partidos. (!stats te muestra tu rango)\n'
+    ,tier: 'SDH 📄 El rango es determinado por tu performance en los partidos. (!stats te muestra tu rango)\n'
     ,notice: {
-        _ErrorNoMessage: '❌ No notice message.'
+        _ErrorNoMessage: 'SDH ❌ Sin mensaje de aviso.'
     }
     ,hc: {
         frases: [" {0} le robo el novio a {1}", 
@@ -223,31 +223,31 @@ export const command = {
     }
     ,memide: 'A {playerName} le mide {cm} cm'
     ,gk: {
-        missingGk: 'El equipo {teamId} no tiene arquero porque a {playerName} no le da!! Escribi !gk para serlo!!',
-        gkChange: '{playerName} es el nuevo arquero de {teamId}. Para liberar el puesto escribe !gk nuevamente.'
+        missingGk: 'SDH 📣 El equipo {teamId} no tiene arquero porque a {playerName} no le da! Escribí !gk para serlo!',
+        gkChange: 'SDH 📣 {playerName} es el nuevo arquero de {teamId}. Para liberar el puesto escribe !gk nuevamente.'
     }
-    ,bb: 'chau {player}, nos vemos amigo!'
+    ,bb: 'SDH 📣 Nos vemos {player}!'
     ,ban:  {
-        permanentBan: 'El jugador {player} fue baneado PERMANENTEMENTE por el admin {mod}.\n Razon: {reason}',
-        fixedTermBan: 'El jugador {player} fue baneado por el admin {mod}.'
+        permanentBan: 'SDH 📣 El jugador {player} fue baneado PERMANENTEMENTE por el admin {mod}.\n Razón: {reason}',
+        fixedTermBan: 'SDH 📣 El jugador {player} fue baneado por el admin {mod}.'
     }
 }
 
 export const funcUpdateAdmins = {
-    newAdmin: '📢 {playerName}#{playerID} has been new admin.\n📑 Changing stadium and banning other players are prohibited.\n📑 !help admin shows commands list for administrator.'
+    newAdmin: 'SDH 📢 {playerName}#{playerID} ahora es nuevo admin.\n📑 Cambiar el estadio o banear sin razón esta prohibido.\n📑 !help admin | Para ver los comandos.'
 }
 
 export const onJoin = {
-    welcome: '📢 Bienvenido, {playerName}#{playerID}! 📄 Podes ver info de los commandos con !help'
-    ,changename: '📢 #{playerID}{playerNameOld} se cambio el nombre, ahora es {playerName}'
-    ,startRecord: '📊 Enough players has joined, so the game\'s result will be recorded from now.'
-    ,stopRecord: '📊 Need more players. The game\'s result will not be recorded from now. (needs {gameRuleNeedMin} players at least)'
-    ,doubleJoinningMsg: '🚫 {playerName}#{playerID} has already joined.'
-    ,doubleJoinningKick: '🚫 No podes entrar 2 veces.'
-    ,tooLongNickname: '🚫 Tu nombre es muy largo.'
-    ,duplicatedNickname: '🚫 Nickname en uso'
-    ,bannedNickname: '🚫 Nickname baneado'
-    ,includeSeperator: '🚫 El mensaje incluye palabras baneadas. (|,|)'
+    welcome: 'SDH 📢 Bienvenido, {playerName}#{playerID}! 📄 Podes ver info de los commandos con !help'
+    ,changename: 'SDH 📢 #{playerID}{playerNameOld} se cambio el nombre, ahora es {playerName}'
+    ,startRecord: 'SDH 📊 Ya empezamos el partido. El juego se empezó a transmitir por Sindicato Sports!'
+    ,stopRecord: 'SDH 📊 Necesitamos mas jugadores. La grabación del partido finalizó! (Se necesitan: {gameRuleNeedMin} jugadores todavía)'
+    ,doubleJoinningMsg: 'SDH 🚫 {playerName}#{playerID} ya ha ingresado(?).'
+    ,doubleJoinningKick: 'SDH 🚫 No podes entrar 2 veces.'
+    ,tooLongNickname: 'SDH 🚫 Tu nombre es muy largo.'
+    ,duplicatedNickname: 'SDH 🚫 Nickname en uso'
+    ,bannedNickname: 'SDH 🚫 Nickname baneado'
+    ,includeSeperator: 'SDH 🚫 El mensaje incluye palabras baneadas. (|,|)'
     ,banList: {
         permanentBan: '{banListReason}'
         ,fixedTermBan: '{banListReason}'
@@ -255,51 +255,51 @@ export const onJoin = {
 }
 
 export const onLeft = {
-    startRecord: '📊 Enough players has joined, so the game\'s result will be recorded from now.'
-    ,stopRecord: '📊 Need more players. The game\'s result will not be recorded from now. (needs {gameRuleNeedMin} players at least)'
+    startRecord: 'SDH 📊 Suficiente jugadores se ha unido, por lo que el resultado del juego se grabará a partir de ahora.'
+    ,stopRecord: 'SDH 📊 SDH 📊 Necesitamos mas jugadores. La grabación del partido finalizó! (Se necesitan: {gameRuleNeedMin} jugadores todavía)'
 }
 
 export const onChat = {
-    mutedChat: '🔇 You are muted. You can\'t send message to others, and only can command by chat.'
-    ,tooLongChat: '🔇 Chat message is too long.'
-    ,bannedWords: '🚫 Chat message includes banned words.'
-    ,includeSeperator: '🚫 Chat message includes banned word. (|,|)'
+    mutedChat: 'SDH 🔇 Fuiste silenciado. No puedes enviar mensajes solo ver tus comandos.'
+    ,tooLongChat: 'SDH 🔇 El mensaje es muy largo...'
+    ,bannedWords: 'SDH 🚫 Pará flaco.'
+    ,includeSeperator: 'SDH 🚫 Escribiste caracteres prohibidos en el chat. (|,|)'
 }
 
 export const onTeamChange = {
-    afkPlayer: '🚫 Cannot to change team. {targetPlayerName}#{targetPlayerID} is away from keyboard. ({targetAfkReason})'
+    afkPlayer: 'SDH 🚫 No lo podes mover. {targetPlayerName}#{targetPlayerID} esta AFK. Razón: ({targetAfkReason})'
 }
 
 export const onStart = {
-    startRecord: '📊 Enough players has joined, so the game\'s result will be recorded from now.'
-    ,stopRecord: '📊 Need more players. The game\'s result will not be recorded from now. (needs {gameRuleNeedMin} players at least)'
-    ,expectedWinRate: '📊 The red team \'s expectation is {teamExpectationRed}%, and the blue\'s is {teamExpectationBlue}%. (Pythagorean Expectation)'
+    startRecord: 'SDH 📊 Suficiente jugadores se ha unido, por lo que el resultado del juego se grabará a partir de ahora.'
+    ,stopRecord: 'SDH 📊 Necesitamos mas jugadores. La grabación del partido finalizó! (Se necesitan: {gameRuleNeedMin} jugadores todavía)'
+    ,expectedWinRate: 'SDH 📊 Las expectativas del Rojo son de: {teamExpectationRed}%, y las del Azul de: {teamExpectationBlue}%. (Pythagorean Expectation)'
 }
 
 export const onStop = {
     feedSocialDiscordWebhook: {
-        replayMessage: '💽 Replay file from {roomName} ({replayDate})'
+        replayMessage: 'SDH 💽 Se envió la grabación al discord! | {roomName} ({replayDate})'
     }
 }
 
 export const onVictory = {
     victory:     '                                                          ¡EL PARTIDO TERMINA!'
     ,teams:      '                                               EQUIPOS: | {redTeam}🆚{blueTeam}'
-    ,goals:      '                                               GOLES:   | {redScore} : {blueScore}'
+    ,goals:      '                                               RESULTADO:   | {redScore} : {blueScore}'
     ,possession: '                                               POSESION:| {possTeamRed}% | {possTeamBlue}%'
-    ,topScorer:  '                                               GOLEADOR:| {topScorer}'
-    ,burning: '🔥 El equipo {streakTeamName} va ganando {streakTeamCount} partidos seguidos!!!'
-    ,reroll: '📢 Ahora los equipos se van a mezclar.'
+    ,topScorer:  '                                               MVP:| {topScorer}'
+    ,burning: 'SDH 🔥 El equipo {streakTeamName} va ganando {streakTeamCount} partidos seguidos!'
+    ,reroll: 'SDH 📢 Ahora los equipos se van a mezclar.'
 }
 
 export const onKick = {
-    cannotBan: '🚫 No podes banear otros jugadores. Usa kick.'
-    ,notifyNotBan: '🚫 Banear a {kickedName}#{kickedID} esta prohibido.'
+    cannotBan: 'SDH 🚫 No podes banear otros jugadores. Usa kick.'
+    ,notifyNotBan: 'SDH 🚫 Banear a {kickedName}#{kickedID} esta prohibido.'
 }
 
 export const onStadium = {
-    loadNewStadium: '📁 {stadiumName} fue cargado.'
-    ,cannotChange: '🚫 No podes cambiar el estadio.'
+    loadNewStadium: 'SDH 📁 {stadiumName} fue cargado.'
+    ,cannotChange: 'SDH 🚫 No podes cambiar el estadio.'
 }
 
 export const onTouch = {
@@ -328,14 +328,14 @@ export const onGoal = {
         " 😵 UFF! GOLAZO!! EN CONTRA DEL BOLUDO DE {ogName}"
     ]
     , hatTrick: [
-        " ⚽⚽⚽    TRIPLETE DEL CRACK {scorerName}"
+        " ⚽⚽⚽    HAT-TRICK DE {scorerName}"
     ]
 }
 
 export const onAdminChange = {
-    afknoadmin: '🚫 The player in afk mode can\'t be admin.'
+    afknoadmin: 'SDH 🚫 El reproductor en modo AFK no puede ser administrador.'
 }
 
 export const onGamePause = {
-    readyForStart: '📢 El partido empieza pronto!'
+    readyForStart: 'SDH 📢 El partido empieza pronto!'
 }

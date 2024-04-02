@@ -70,7 +70,7 @@ export class HeadlessBrowser {
 
         this._BrowserContainer.on('disconnected', () => {
             //winstonLogger.info("[core] The browser is closed. Core server will open new one automatically.");
-            winstonLogger.info("[core] The browser is closed.");
+            winstonLogger.info("[core] El navegador está cerrado.");
             this._BrowserContainer!.close();
             this._BrowserContainer = undefined;
             //this.initBrowser();
@@ -277,9 +277,9 @@ export class HeadlessBrowser {
     */
     public async openNewRoom(ruid: string, initHostRoomConfig: BrowserHostRoomInitConfig) {
         if (this.isExistRoom(ruid)) {
-            throw Error(`The room '${ruid}' is already exist.`);
+            throw Error(`Esta sala '${ruid}' ya existe!`);
         } else {
-            winstonLogger.info(`[core] New game room '${ruid}' will be opened.`);
+            winstonLogger.info(`[core] Una nueva sala llamada '${ruid}' ha abierto!`);
             await this.createPage(ruid, initHostRoomConfig);
         }
     }
@@ -289,10 +289,10 @@ export class HeadlessBrowser {
     */
     public async closeRoom(ruid: string) {
         if (this.isExistRoom(ruid)) {
-            winstonLogger.info(`[core] The game room '${ruid}' will be closed.`);
+            winstonLogger.info(`[core] La sala llamada '${ruid}' ha cerrado!`);
             await this.closePage(ruid);
         } else {
-            throw Error(`The room '${ruid}' is not exist.`);
+            throw Error(`Esta sala llamada '${ruid}' ya existe!`);
         }
     }
 
@@ -303,7 +303,7 @@ export class HeadlessBrowser {
         if (this.isExistRoom(ruid)) {
             return await this.fetchRoomURILink(ruid);
         } else {
-            throw Error(`The room '${ruid}' is not exist.`);
+            throw Error(`La sala llamada '${ruid}' no existe.`);
         }
     }
 
@@ -334,7 +334,7 @@ export class HeadlessBrowser {
                 }
             });
         } else {
-            throw Error(`The room '${ruid}' is not exist.`);
+            throw Error(`La sala llamada '${ruid}' no existe...`);
         }
     }
 
@@ -357,7 +357,7 @@ export class HeadlessBrowser {
                 }
             });
         } else {
-            throw Error(`The room '${ruid}' is not exist.`);
+            throw Error(`La sala llamada '${ruid}' no existe.`);
         }
     }
 
@@ -419,7 +419,7 @@ export class HeadlessBrowser {
                     await window._createBanlistDB(window.gameRoom.config._RUID, banItem);
                 }
                 window.gameRoom._room.kickPlayer(id, message, ban);
-                window.gameRoom.logger.i('system', `[Kick] #${id} has been ${ban ? 'banned' : 'kicked'} by operator. (duration: ${seconds}secs, reason: ${message})`);
+                window.gameRoom.logger.i('system', `SDH 📣 #${id} ha sido ${ban ? 'baneado' : 'kickeado'} por un Master. (Duracion: ${seconds}segs, Razon: ${message})`);
             }
         }, id, ban, message, seconds);
     }
@@ -430,7 +430,7 @@ export class HeadlessBrowser {
     public async broadcast(ruid: string, message: string): Promise<void> {
         await this._PageContainer.get(ruid)?.evaluate((message: string) => {
             window.gameRoom._room.sendAnnouncement(message, null, 0xFFFF00, "bold", 2);
-            window.gameRoom.logger.i('system', `[Broadcast] ${message}`);
+            window.gameRoom.logger.i('system', `SDH 📣 ${message}`);
         }, message);
     }
 
@@ -440,7 +440,7 @@ export class HeadlessBrowser {
     public async whisper(ruid: string, id: number, message: string): Promise<void> {
         await this._PageContainer.get(ruid)?.evaluate((id: number, message: string) => {
             window.gameRoom._room.sendAnnouncement(message, id, 0xFFFF00, "bold", 2);
-            window.gameRoom.logger.i('system', `[Whisper][to ${window.gameRoom.playerList.get(id)?.name}#${id}] ${message}`);
+            window.gameRoom.logger.i('system', `MSG PRIV 📣 [a ${window.gameRoom.playerList.get(id)?.name}#${id}] ${message}`);
         }, id, message);
     }
 
@@ -563,7 +563,7 @@ export class HeadlessBrowser {
     public async setChatFreeze(ruid: string, freeze: boolean) {
         await this._PageContainer.get(ruid)!.evaluate((freeze: boolean) => {
             window.gameRoom.isMuteAll = freeze;
-            window.gameRoom.logger.i('system', `[Freeze] Whole chat is ${freeze ? 'muted' : 'unmuted'} by Operator.`);
+            window.gameRoom.logger.i('system', `SDH 📣 El chat fue ${freeze ? 'muteado' : 'desmuteado'} por un Master.`);
             window._emitSIOPlayerStatusChangeEvent(0);
         }, freeze);
     }
@@ -579,7 +579,7 @@ export class HeadlessBrowser {
             window.gameRoom.playerList.get(id)!.permissions.mute = true;
             window.gameRoom.playerList.get(id)!.permissions.muteExpire = muteExpireTime;
 
-            window.gameRoom.logger.i('system', `[Mute] ${window.gameRoom.playerList.get(id)!.name}#${id} is muted by Operator.`);
+            window.gameRoom.logger.i('system', `SDH 📣 ${window.gameRoom.playerList.get(id)!.name}#${id} fue muteado por un Master.`);
             window._emitSIOPlayerStatusChangeEvent(id);
         }, id, muteExpireTime);
     }
@@ -593,7 +593,7 @@ export class HeadlessBrowser {
         await this._PageContainer.get(ruid)!.evaluate((id: number) => {
             window.gameRoom.playerList.get(id)!.permissions.mute = false;
 
-            window.gameRoom.logger.i('system', `[Mute] ${window.gameRoom.playerList.get(id)!.name}#${id} is unmuted by Operator.`);
+            window.gameRoom.logger.i('system', `SDH 📣 ${window.gameRoom.playerList.get(id)!.name}#${id} fue desmuteado por un Master.`);
             window._emitSIOPlayerStatusChangeEvent(id);
         }, id);
     }
@@ -642,7 +642,7 @@ export class HeadlessBrowser {
                 }
             }
 
-            window.gameRoom.logger.i('system', `[TeamColour] New team colour is set for Team ${team}.`);
+            window.gameRoom.logger.i('system', `SDH 📣 Se estableció un nuevo color para el equipo ${team}.`);
         }, team, angle, textColour, teamColour1, teamColour2, teamColour3);
     }
 

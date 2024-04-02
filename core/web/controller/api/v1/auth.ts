@@ -22,17 +22,17 @@ export async function login(ctx: Context) {
         // if no exist account or wrong password
         if(!storage) {
             ctx.status = 401;
-            ctx.body = { error: 'Any accounts are not found.' }
+            ctx.body = { error: 'No se encuentran ninguna cuenta.' }
             return;
         }
         if(isExistAdminAccount(storage, account) === false) {
             ctx.status = 401;
-            ctx.body = { error: `This account(${username}) is not found.` }
+            ctx.body = { error: `La cuenta(${username}) no se encontró.` }
             return;
         }
         if(await isCorrectPassword(storage, account) === false) {
             ctx.status = 401;
-            ctx.body = { error: 'Given password is not correct.' }
+            ctx.body = { error: 'La contraseña dada no es correcta.' }
             return;
         }
 

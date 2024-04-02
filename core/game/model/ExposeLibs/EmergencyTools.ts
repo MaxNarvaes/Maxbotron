@@ -11,28 +11,28 @@ export const EmergencyTools = {
     chat: function(msg: string, playerID?: number): void { // send chat
         if(playerID) {
             window.gameRoom._room.sendAnnouncement(msg, playerID, 0xFFFF00, "bold", 2);
-            console.log(`[EMERGENCY.CHAT] the message is sent to #${playerID}. message: ${msg}`);
+            console.log(`[EMERGENCY.CHAT] el mensaje fue enviado a #${playerID}. Mensaje: ${msg}`);
         } else {
             window.gameRoom._room.sendAnnouncement(msg, null, 0xFFFF00, "bold", 2);
-            console.log(`[EMERGENCY.CHAT] the message is sent. message: ${msg}`);
+            console.log(`[EMERGENCY.CHAT] el mensaje se envía. Mensaje: ${msg}`);
         }
     },
     kick: function(playerID: number, msg?: string): void { // kick the player
         if(msg) {
             window.gameRoom._room.kickPlayer(playerID, msg, false);
-            console.log(`[EMERGENCY.KICK] #${playerID} is kicked. reason:${msg}`);
+            console.log(`[EMERGENCY.KICK] #${playerID} fue kickeado. Razon:${msg}`);
         } else {
-            window.gameRoom._room.kickPlayer(playerID, 'by haxbotron', false);
-            console.log(`[EMERGENCY.BAN] #${playerID} is kicked.`);
+            window.gameRoom._room.kickPlayer(playerID, 'by Maxbotron', false);
+            console.log(`[EMERGENCY.BAN] #${playerID} fue kickeado.`);
         }
     },
     ban: function(playerID: number, msg?: string): void { // ban the player
         if(msg) {
             window.gameRoom._room.kickPlayer(playerID, msg, true);
-            console.log(`[EMERGENCY.BAN] #${playerID} is banned. reason:${msg}`);
+            console.log(`[EMERGENCY.BAN] #${playerID} fue baneado. Razon:${msg}`);
         } else {
-            window.gameRoom._room.kickPlayer(playerID, 'by haxbotron', true);
-            console.log(`[EMERGENCY.BAN] #${playerID} is banned.`);
+            window.gameRoom._room.kickPlayer(playerID, 'by Maxbotron', true);
+            console.log(`[EMERGENCY.BAN] #${playerID} fue baneado.`);
         }
     },
     /*
@@ -51,10 +51,10 @@ export const EmergencyTools = {
     password: function(password?: string): void { // set or clear the password key of the room
         if(password) {
             window.gameRoom._room.setPassword(password);
-            console.log(`[EMERGENCY.PASSWORD] password is changed. key:${password}`);
+            console.log(`[EMERGENCY.PASSWORD] la contraseña se ha cambiado. PW:${password}`);
         } else { // can be null
             window.gameRoom._room.setPassword(null);
-            console.log(`[EMERGENCY.PASSWORD] password is cleared.`);
+            console.log(`[EMERGENCY.PASSWORD] la contraseña se ha eliminado.`);
         }
     }
 }

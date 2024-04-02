@@ -205,10 +205,10 @@ function makeRoom(): void {
 }
 
 function printVc() {
-    var msg = "TIP: ¿Querés hablar con los pibes? Entra al VC del discord: ";
+    var msg = "SDH 📣 ¿Querés hablar con los pibes? Entra al VC del discord: ";
     window.gameRoom._room.sendAnnouncement(msg, null, 0x00FF00, null, null);
 }
 
 function printRules() {
-    window.gameRoom._room.sendAnnouncement(" 😮‍💨 Ingresa a nuestro discord para ver las reglas de la sala!", null, 0x8466FD, null, null);
+    window.gameRoom._room.sendAnnouncement("SDH 📣 Ingresa a nuestro discord para ver las reglas de la sala!", null, 0x8466FD, null, null);
 }

@@ -12,14 +12,14 @@ export class SuperAdminRepository implements IRepository<SuperAdmin> {
         } else {
             superlist = await repository.find({ ruid: ruid });
         }
-        if (superlist.length === 0) throw new Error('There are no registered superadmin keys.');
+        if (superlist.length === 0) throw new Error('No hay claves superadmin registradas.');
         return superlist;
     }
 
     public async findSingle(ruid: string, key: string): Promise<SuperAdmin | undefined> {
         const repository: Repository<SuperAdmin> = getRepository(SuperAdmin);
         let superadmin: SuperAdmin | undefined = await repository.findOne({ ruid: ruid, key: key});
-        if (superadmin === undefined) throw new Error('Such superadmin is not registered.');
+        if (superadmin === undefined) throw new Error('Tal superadmin no está registrada.');
         return superadmin;
     }
 
@@ -32,7 +32,7 @@ export class SuperAdminRepository implements IRepository<SuperAdmin> {
             newSuperadmin.key = superadmin.key;
             newSuperadmin.description = superadmin.description;
         } else {
-            throw new Error('Such superadmin is already registered.');
+            throw new Error('Tal SuperAdmin ya está registrada.');
         }
         return await repository.save(newSuperadmin);
     }
@@ -45,7 +45,7 @@ export class SuperAdminRepository implements IRepository<SuperAdmin> {
             newSuperadmin.key = superadmin.key;
             newSuperadmin.description = superadmin.description;
         } else {
-            throw new Error('Such player is not registered yet.');
+            throw new Error('Tal jugador aún no está registrado.');
         }
         return await repository.save(newSuperadmin);
     }
@@ -54,7 +54,7 @@ export class SuperAdminRepository implements IRepository<SuperAdmin> {
         const repository: Repository<SuperAdmin> = getRepository(SuperAdmin);
         let superadmin: SuperAdmin | undefined = await repository.findOne({ ruid: ruid, key: key });
         if (superadmin === undefined) {
-            throw new Error('Such player is not registered yet.');
+            throw new Error('Tal jugador aún no está registrado.');
         } else {
             await repository.remove(superadmin);
         }

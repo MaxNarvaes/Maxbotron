@@ -11,7 +11,7 @@ export function cmdScout(byPlayer: PlayerObject, message: string[]): void {
             ,teamExpectationRed: expectations[1]
             ,teamExpectationBlue: expectations[2]
         }
-        window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.scout.scouting, placeholder), byPlayer.id, 0x479947, "normal", 1);
+        window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.scout.scouting, placeholder), byPlayer.id, 0x426AD6, "normal", 1);
     } else {
         window.gameRoom._room.sendAnnouncement(LangRes.command.scout._ErrorNoMode, byPlayer.id, 0xFF7777, "normal", 2);
     }

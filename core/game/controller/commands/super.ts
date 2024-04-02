@@ -18,14 +18,14 @@ export async function cmdSuper(byPlayer: PlayerObject, message: string[]): Promi
                             window.gameRoom.playerList.get(byPlayer.id)!.permissions.role = getRole(loginRole); // set super admin
                             window.gameRoom.playerList.get(byPlayer.id)!.permissions.superadmin = window.gameRoom.playerList.get(byPlayer.id)!.permissions.role.superadmin;
                             await setPlayerDataToDB(convertToPlayerStorage(window.gameRoom.playerList.get(byPlayer.id)!)); // register(or update) this player into DB
-                            window.gameRoom._room.sendAnnouncement(LangRes.command.super.loginSuccess, byPlayer.id, 0x479947, "normal", 2);
-                            window.gameRoom.logger.i('super', `${byPlayer.name}#${byPlayer.id} did successfully login to super admin with the key. (KEY ${submessage})`);
+                            window.gameRoom._room.sendAnnouncement(LangRes.command.super.loginSuccess, byPlayer.id, 0xEAC274, "normal", 2);
+                            window.gameRoom.logger.i('super', `${byPlayer.name}#${byPlayer.id} Inicio con éxito del Super Admin con la clave. (KEY ${submessage})`);
                             
                             window._emitSIOPlayerStatusChangeEvent(byPlayer.id);
                         } else {
                             window.gameRoom.playerList.get(byPlayer.id)!.permissions.malActCount++; // add malicious behaviour count
-                            window.gameRoom._room.sendAnnouncement(LangRes.command.super.loginFail, byPlayer.id, 0xFF7777, "normal", 2);
-                            window.gameRoom.logger.i('super', `${byPlayer.name}#${byPlayer.id} has failed login to super admin and logged as malicious behaviour. (KEY ${submessage})`);
+                            window.gameRoom._room.sendAnnouncement(LangRes.command.super.loginFail, byPlayer.id, 0xEAC274, "normal", 2);
+                            window.gameRoom.logger.i('super', `${byPlayer.name}#${byPlayer.id} ha fallado en inicio de sesión en super administrador y se ha registrado como comportamiento malicioso. (KEY ${submessage})`);
                         
                             if(window.gameRoom.playerList.get(byPlayer.id)!.permissions.malActCount >= window.gameRoom.config.settings.maliciousBehaviourBanCriterion) {
                                 // This player will be permanently banned if it fails to exceed limit.
@@ -33,10 +33,10 @@ export async function cmdSuper(byPlayer: PlayerObject, message: string[]): Promi
                             }
                         }
                     } else {
-                        window.gameRoom._room.sendAnnouncement(LangRes.command.super.loginFailNoKey, byPlayer.id, 0xFF7777, "normal", 2);
+                        window.gameRoom._room.sendAnnouncement(LangRes.command.super.loginFailNoKey, byPlayer.id, 0xEAC274, "normal", 2);
                     }
                 } else {
-                    window.gameRoom._room.sendAnnouncement(LangRes.command.super._ErrorLoginAlready, byPlayer.id, 0xFF7777, "normal", 2);
+                    window.gameRoom._room.sendAnnouncement(LangRes.command.super._ErrorLoginAlready, byPlayer.id, 0xEAC274, "normal", 2);
                 }
 
                 break;
@@ -46,12 +46,12 @@ export async function cmdSuper(byPlayer: PlayerObject, message: string[]): Promi
                 if (window.gameRoom.playerList.get(byPlayer.id)!.permissions.superadmin == true) { // only when loginned
                     window.gameRoom.playerList.get(byPlayer.id)!.permissions.superadmin = false; // disqualify super admin
                     //setPlayerData(playerList.get(playerID)); // update
-                    window.gameRoom._room.sendAnnouncement(LangRes.command.super.logoutSuccess, byPlayer.id, 0x479947, "normal", 2);
-                    window.gameRoom.logger.i('super', `${byPlayer.name}#${byPlayer.id} did logout from super admin.`);
+                    window.gameRoom._room.sendAnnouncement(LangRes.command.super.logoutSuccess, byPlayer.id, 0xEAC274, "normal", 2);
+                    window.gameRoom.logger.i('super', `${byPlayer.name}#${byPlayer.id} Hizo el cierre de sesión de Super Admin.`);
                 
                     window._emitSIOPlayerStatusChangeEvent(byPlayer.id);
                 } else {
-                    window.gameRoom._room.sendAnnouncement(LangRes.command.super._ErrorNoPermission, byPlayer.id, 0xFF7777, "normal", 2);
+                    window.gameRoom._room.sendAnnouncement(LangRes.command.super._ErrorNoPermission, byPlayer.id, 0xEAC274, "normal", 2);
                 }
 
                 break;
@@ -67,14 +67,14 @@ export async function cmdSuper(byPlayer: PlayerObject, message: string[]): Promi
                             window.gameRoom._room.sendAnnouncement(LangRes.command.super.thor.noAdmins, byPlayer.id, 0xFF7777, "normal", 2);
                             return;
                         } else {
-                            window.gameRoom._room.sendAnnouncement(LangRes.command.super.thor.deprive, byPlayer.id, 0x479947, "normal", 2);
+                            window.gameRoom._room.sendAnnouncement(LangRes.command.super.thor.deprive, byPlayer.id, 0xEAC274, "normal", 2);
                             players.forEach((player: PlayerObject) => { // disqualify admin permission
                                 window.gameRoom._room.setPlayerAdmin(player.id, false);
                                 window.gameRoom.playerList.get(player.id)!.admin = false;
                             });
                         }
                     } else {
-                        window.gameRoom._room.sendAnnouncement(LangRes.command.super.thor.complete, byPlayer.id, 0x479947, "normal", 2);
+                        window.gameRoom._room.sendAnnouncement(LangRes.command.super.thor.complete, byPlayer.id, 0xEAC274, "normal", 2);
                     }
                 } else {
                     window.gameRoom._room.sendAnnouncement(LangRes.command.super._ErrorNoPermission, byPlayer.id, 0xFF7777, "normal", 2);
@@ -89,7 +89,7 @@ export async function cmdSuper(byPlayer: PlayerObject, message: string[]): Promi
                         let target: number = parseInt(submessage.substr(1), 10);
                         if (isNaN(target) != true && window.gameRoom.playerList.has(target) == true) {
                             window.gameRoom._room.kickPlayer(target, LangRes.command.super.kick.kickMsg, false); // kick
-                            window.gameRoom._room.sendAnnouncement(LangRes.command.super.kick.kickSuccess, byPlayer.id, 0x479947, "normal", 2);
+                            window.gameRoom._room.sendAnnouncement(LangRes.command.super.kick.kickSuccess, byPlayer.id, 0xEAC274, "normal", 2);
                         } else {
                             window.gameRoom._room.sendAnnouncement(LangRes.command.super.kick.noID, byPlayer.id, 0xFF7777, "normal", 2);
                         }
@@ -109,7 +109,7 @@ export async function cmdSuper(byPlayer: PlayerObject, message: string[]): Promi
                         let target: number = parseInt(submessage.substr(1), 10);
                         if (isNaN(target) != true && window.gameRoom.playerList.has(target) == true) {
                             window.gameRoom._room.kickPlayer(target, LangRes.command.super.ban.banMsg, true); // kick
-                            window.gameRoom._room.sendAnnouncement(LangRes.command.super.ban.banSuccess, byPlayer.id, 0x479947, "normal", 2);
+                            window.gameRoom._room.sendAnnouncement(LangRes.command.super.ban.banSuccess, byPlayer.id, 0xEAC274, "normal", 2);
                         } else {
                             window.gameRoom._room.sendAnnouncement(LangRes.command.super.ban.noID, byPlayer.id, 0xFF7777, "normal", 2);
                         }
@@ -128,7 +128,7 @@ export async function cmdSuper(byPlayer: PlayerObject, message: string[]): Promi
                     if (submessage !== undefined && submessage == window.gameRoom.config.commands._superSubbanclearall) {
                         window.room.clearBans();
                         Ban.bListClear();
-                        window.room.sendAnnouncement(LangRes.command.super.banclear.complete, byPlayer.id, 0x479947, "normal", 2);
+                        window.room.sendAnnouncement(LangRes.command.super.banclear.complete, byPlayer.id, 0xEAC274, "normal", 2);
                     } else {
                         window.room.sendAnnouncement(LangRes.command.super.banclear.noTarget, byPlayer.id, 0xFF7777, "normal", 2);
                     }
@@ -150,7 +150,7 @@ export async function cmdSuper(byPlayer: PlayerObject, message: string[]): Promi
                             placeholder.whoisResult += bannedPlayer.conn + '(' + bannedPlayer.reason + '), ';
                         });
                     }
-                    window.room.sendAnnouncement(Tst.maketext(LangRes.command.super.banlist.whoisList, placeholder), byPlayer.id, 0x479947, "normal", 2);
+                    window.room.sendAnnouncement(Tst.maketext(LangRes.command.super.banlist.whoisList, placeholder), byPlayer.id, 0xEAC274, "normal", 2);
                 } else {
                     window.room.sendAnnouncement(LangRes.command.super._ErrorNoPermission, byPlayer.id, 0xFF7777, "normal", 2);
                 }

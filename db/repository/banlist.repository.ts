@@ -12,14 +12,14 @@ export class BanListRepository implements IRepository<BanList> {
         } else {
             banlist = await repository.find({ ruid: ruid });
         }
-        if (banlist.length === 0) throw new Error('There are no banned players.');
+        if (banlist.length === 0) throw new Error('No hay jugadores prohibidos.');
         return banlist;
     }
 
     public async findSingle(ruid: string, conn: string): Promise<BanList | undefined> {
         const repository: Repository<BanList> = getRepository(BanList);
         let banPlayer: BanList | undefined = await repository.findOne({ ruid: ruid, conn: conn });
-        if (banPlayer === undefined) throw new Error('Such player is not banned.');
+        if (banPlayer === undefined) throw new Error('Ese jugador no está prohibido.');
         return banPlayer;
     }
 
@@ -34,7 +34,7 @@ export class BanListRepository implements IRepository<BanList> {
             newBan.register = banlist.register;
             newBan.expire = banlist.expire;
         } else {
-            throw new Error('Such player is already banned.');
+            throw new Error('Tal jugador ya está prohibido.');
         }
         return await repository.save(newBan);
     }
@@ -49,7 +49,7 @@ export class BanListRepository implements IRepository<BanList> {
             newBan.register = banlist.register;
             newBan.expire = banlist.expire;
         } else {
-            throw new Error('Such player is not banned yet.');
+            throw new Error('Tal jugador aún no está prohibido.');
         }
         return await repository.save(newBan);
     }
@@ -58,7 +58,7 @@ export class BanListRepository implements IRepository<BanList> {
         const repository: Repository<BanList> = getRepository(BanList);
         let banPlayer: BanList | undefined = await repository.findOne({ ruid: ruid, conn: conn });
         if (banPlayer === undefined) {
-            throw new Error('Such player is not banned yet.');
+            throw new Error('Tal jugador aún no está prohibido.');
         } else {
             await repository.remove(banPlayer);
         }

@@ -7,5 +7,5 @@ export function cmdAbout(byPlayer: PlayerObject, message: string[]): void {
         _LaunchTime: window.gameRoom.config._LaunchDate.toLocaleString()
         ,RoomName: window.gameRoom.config._config.roomName || "Untitled"
     }
-    window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.about, placeholder), byPlayer.id, 0x479947, "normal", 1);
+    window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.about, placeholder), byPlayer.id, 0xFFFF17, "normal", 1);
 }

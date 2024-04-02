@@ -7,10 +7,7 @@ import { TeamID } from "../../model/GameObject/TeamID";
 import { registerCommandTimeout } from "./commandHelper";
 
 const argTeams = [
-    //{ ID: TeamID.Red, shortName: "adm", longName: "Admins", country: "🇦🇷", uniform: [{ angle: 135, mainColor: [0x4187F2, 0X416EE8, 0x314EDE], avatarColor: 0xFFFFFF }] },
-    /* KSKS ADMINS VS USUARIOS EVENTO */
-    //{ ID: TeamID.Blue, shortName: "usrs", longName: "Usuarios", country: "🇦🇷", uniform: [{ angle: 135, mainColor: [0xE6FCFF, 0XE8E8E8, 0xD4D4D4], avatarColor: 0XFFB300 }] },
-    /*ksks futbol argentino*/
+    /*Futbol Argentino*/
     { ID: TeamID.Blue, shortName: "boca", longName: "Boca Juniors", country: "🇦🇷", uniform: [{ angle: 90, mainColor: [0x00366B, 0xF7FF00, 0x003352], avatarColor: 0xFFFFFF }] },
     { ID: TeamID.Blue, shortName: "rosario", longName: "Rosario Central", country: "🇦🇷", uniform: [{ angle: 0, mainColor: [0xD4CD00, 0x000F57, 0xD4CD00], avatarColor: 0xFFFFFF }] },
     { ID: TeamID.Red, shortName: "rvp", longName: "River Plate", country: "🇦🇷", uniform: [{ angle: 40, mainColor: [0xF2F2F2, 0xDE0000, 0xF2F2F2], avatarColor: 0x000000 }] },
@@ -40,11 +37,7 @@ const argTeams = [
     { ID: TeamID.Blue, shortName: "glp", longName: "Gimnasia de la Plata", country: "🇦🇷", uniform: [{ angle: 90, mainColor: [0xFFFFFF, 0x00253B, 0xFFFFFF], avatarColor: 0xFFFFFF }] },
     { ID: TeamID.Blue, shortName: "ars", longName: "Arsenal", country: "🇦🇷", uniform: [{ angle: 40, mainColor: [0x006FFF, 0xFF0000, 0x006FFF], avatarColor: 0xFFFFFF }] },
     { ID: TeamID.Red, shortName: "rie", longName: "Deportivo Riestra", country: "🇦🇷", uniform: [{ angle: 45, mainColor: [0x000000, 0xFFFFFF, 0x000000], avatarColor: 0x1C1C1C }] },
-    { ID: TeamID.Red, shortName: "cha", longName: "Chaco Forever", country: "🇦🇷", uniform: [{ angle: 180, mainColor: [0x000000, 0xFFFFFF, 0x000000], avatarColor: 0xFF6524 }] },
-    { ID: TeamID.Blue, shortName: "alma", longName: "Almagro", country: "🇦🇷", uniform: [{ angle: 180, mainColor: [0x0841FF, 0x000000, 0x0841FF], avatarColor: 0xFFFFFF }] },
-    { ID: TeamID.Blue, shortName: "alm", longName: "Almagro Visitante", country: "🇦🇷", uniform: [{ angle: 75, mainColor: [0x000000, 0x17D1FF, 0xFCFCFC], avatarColor: 0x080808 }] },
-
-    /*ksks liga española*/
+    /*La Liga*/
     { ID: TeamID.Red, shortName: "atm", longName: "Atlético de Madrid", country: "🇪🇸", uniform: [{ angle: 180, mainColor: [0xFF0F1F, 0XFFFFFF, 0xFF0F1F], avatarColor: 0X150B75 }] },
     { ID: TeamID.Blue, shortName: "cdv", longName: "Celta de Vigo", country: "🇪🇸", uniform: [{ angle: 90, mainColor: [0x75AFFA, 0X54A8CC, 0x75AFFA], avatarColor: 0XF5F6FF }] },
     { ID: TeamID.Red, shortName: "osa", longName: "Osasuna", country: "🇪🇸", uniform: [{ angle: 180, mainColor: [0xB5142F, 0X150A7A, 0xB5142F], avatarColor: 0XF5F6FF }] },
@@ -55,7 +48,7 @@ const argTeams = [
     { ID: TeamID.Red, shortName: "ath", longName: "Athletic Club", country: "🇪🇸", uniform: [{ angle: 180, mainColor: [0xFF0022, 0XFCFCFC, 0xFF0022], avatarColor: 0X000000 }] },
     { ID: TeamID.Red, shortName: "sev", longName: "Sevilla", country: "🇪🇸", uniform: [{ angle: 60, mainColor: [0XFFFFFF, 0XFFFFFF, 0XFFFFFF], avatarColor: 0XFF0000 }] },
     { ID: TeamID.Red, shortName: "bar", longName: "Barcelona", country: "🇪🇸", uniform: [{ angle: 0, mainColor: [0X013C7E, 0XAA0136, 0X013C7E], avatarColor: 0XFFFFFF }] },
-    /*ksks premier league*/
+    /*Premier League*/
     { ID: TeamID.Red, shortName: "mutd", longName: "Manchester United", country: "🇬🇧", uniform: [{ angle: 0, mainColor: [0xEB1515, 0XBA031C, 0xEB1515], avatarColor: 0xFFFFFF }] },
     { ID: TeamID.Blue, shortName: "mci", longName: "Manchester City", country: "🇬🇧", uniform: [{ angle: 0, mainColor: [0xAAE3FC, 0X5FBFED, 0XAAE3FC], avatarColor: 0x23233B }] },
     { ID: TeamID.Blue, shortName: "che", longName: "Chelsea", country: "🇬🇧", uniform: [{ angle: 0, mainColor: [0x3423CC], avatarColor: 0xF2F2F2 }] },
@@ -64,10 +57,9 @@ const argTeams = [
     { ID: TeamID.Blue, shortName: "ars", longName: "Arsenal", country: "🇬🇧", uniform: [{ angle: 180, mainColor: [0xD92531, 0XEBEBEB, 0xD92531], avatarColor: 0xD4D4D4 }] },
     { ID: TeamID.Blue, shortName: "brg", longName: "Brighton", country: "🇬🇧", uniform: [{ angle: 0, mainColor: [0x1D3EE0, 0XEBEBEB, 0x1D3EE0], avatarColor: 0x321FDB }] },
     { ID: TeamID.Red, shortName: "ast", longName: "Aston Villa", country: "🇬🇧", uniform: [{ angle: 0, mainColor: [0xA13C4C, 0X2BB5F0, 0xA13C4C], avatarColor: 0xFFFFFF }] },
-    /*ksks selecciones*/
+    /*Selecciones*/
     { ID: TeamID.Red, shortName: "ale", longName: "Alemania", country: "🇩🇪", uniform: [{ angle: 0, mainColor: [0xFFFFFF, 0x000000, 0xFFFFFF], avatarColor: 0XD19D0F }] },
     { ID: TeamID.Red, shortName: "bra", longName: "Brasil", country: "🇧🇷", uniform: [{ angle: 180, mainColor: [0xCCCC33, 0X006600, 0xCCCC33], avatarColor: 0XFFFFFF }] },
-    { ID: TeamID.Red, shortName: "bra2", longName: "Brasil Suplente", country: "🇧🇷", uniform: [{ angle: 60, mainColor: [0x2930FF, 0X1F24BF, 0x171B91], avatarColor: 0X30FF29 }] },
     { ID: TeamID.Blue, shortName: "arg", longName: "Argentina", country: "🇦🇷", uniform: [{ angle: 90, mainColor: [0X75AADB, 0XFFFFFF, 0x75AADB], avatarColor: 0X000000 }] },
     { ID: TeamID.Red, shortName: "esp", longName: "España", country: "🇪🇸", uniform: [{ angle: 90, mainColor: [0XFF0000, 0XEEC900, 0xFF0000], avatarColor: 0X000000 }] },
     { ID: TeamID.Red, shortName: "por", longName: "Portugal", country: "🇵🇹", uniform: [{ angle: 300, mainColor: [0x006400, 0X8B0000, 0x8B0000], avatarColor: 0xFFD700 }] },
@@ -79,7 +71,7 @@ const argTeams = [
     { ID: TeamID.Blue, shortName: "mex", longName: "México", country: "🇲🇽", uniform: [{ angle: 0, mainColor: [0x134F07, 0xFFFFFF, 0xD90000], avatarColor: 0x573131 }] },
     { ID: TeamID.Red, shortName: "chi", longName: "Chile", country: "🇨🇱", uniform: [{ angle: 0, mainColor: [0XF50000], avatarColor: 0XFFFFFF }] },
     { ID: TeamID.Red, shortName: "per", longName: "Perú", country: "🇵🇪", uniform: [{ angle: 35, mainColor: [0XFFFFFF, 0XFF0000, 0XFFFFFF], avatarColor: 0X000000 }] },
-    /*nuevas ksks*/
+    /*Variadas*/
     { ID: TeamID.Blue, shortName: "psg", longName: "París Saint-Germain", country: "🇫🇷", uniform: [{ angle: 180, mainColor: [0x000080, 0XB22222, 0x000080], avatarColor: 0xFFFFFF }] },
     { ID: TeamID.Red, shortName: "int", longName: "Inter de Miami", country: "🇺🇸", uniform: [{ angle: 60, mainColor: [0x000000, 0X121212, 0x000000], avatarColor: 0xFF00F7 }] },
     { ID: TeamID.Blue, shortName: "val", longName: "Valencia", country: "🇪🇸", uniform: [{ angle: 0, mainColor: [0xFFFFFF], avatarColor: 0X000000 }] },
@@ -95,8 +87,8 @@ const argTeams = [
     { ID: TeamID.Red, shortName: "mil", longName: "Milan", country: "🇮🇹", uniform: [{ angle: 0, mainColor: [0xEB0000, 0x000000, 0xEB0000], avatarColor: 0x989C27 }] },
     { ID: TeamID.Red, shortName: "peñ", longName: "Peñarol", country: "🇺🇾", uniform: [{ angle: 0, mainColor: [0xF3FF45, 0x000000, 0XFFFF38], avatarColor: 0xFFFFFF }] },
     { ID: TeamID.Blue, shortName: "nac", longName: "Nacional", country: "🇺🇾", uniform: [{ angle: 60, mainColor: [0x190AF0, 0xFFFFFF, 0X190AF0], avatarColor: 0xFF0000 }] },
-    { ID: TeamID.Blue, shortName: "juvv", longName: "Juventus Alternativa", country: "🇮🇹", uniform: [{ angle: 50, mainColor: [0x1C1C1C, 0x292929, 0X1C1C1C], avatarColor: 0xFFFFFF }] },
 ];
+
 const timeout = 30000;
 const commandId = "ksk";
 export function cmdKsk(byPlayer: PlayerObject | null, message: string[]): void {
