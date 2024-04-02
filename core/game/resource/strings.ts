@@ -49,34 +49,34 @@ export const teamName = {
 
 export const antitrolling = {
     joinFlood: {
-        banReason: 'SDH | 🚫 Estas intentando entrar hace Duracion: (5mins)'
-        ,floodWarning: 'SDH | 📢 Si se vuelve a conectar varias veces en un corto período de tiempo, sale kick.'
+        banReason: 'SDH 🚫 Estas intentando entrar hace Duracion: (5mins)'
+        ,floodWarning: 'SDH 📢 Si se vuelve a conectar varias veces en un corto período de tiempo, sale kick.'
     }
     ,chatFlood: {
-        muteReason: 'SDH | 🔇 Estás silenciado por hacer flood. Duracion: (3 minutos)'
+        muteReason: 'SDH 🔇 Estás silenciado por hacer flood. Duracion: (3 minutos)'
     }
     ,ogFlood: {
-        banReason: 'SDH | 🚫 Demasiadas letras raras. Duracion: (10mins)'
+        banReason: 'SDH 🚫 Demasiadas letras raras. Duracion: (10mins)'
     }
     ,banNoPermission: {
-        banReason: 'SDH | 🚫 No puedes banear(? Duración: (30secs)'
+        banReason: 'SDH 🚫 No puedes banear(? Duración: (30secs)'
     }
     ,kickAbusing: {
-        banReason: 'SDH | 🚫 too much kicks(5mins)'
-        ,abusingWarning: 'SDH | 📢 Es posible que seas kickeado si expulsas seguido a la gente!'
+        banReason: 'SDH 🚫 too much kicks(5mins)'
+        ,abusingWarning: 'SDH 📢 Es posible que seas kickeado si expulsas seguido a la gente!'
     }
     ,insufficientStartAbusing: {
-        banReason: 'SDH | 🚫 Empezar sin suficientes jugadores. Duracion: (5mins)'
-        ,abusingWarning: 'SDH | 📢 Es posible que te kickeen si comienzas el juego sin suficientes jugadores.'
+        banReason: 'SDH 🚫 Empezar sin suficientes jugadores. Duracion: (5mins)'
+        ,abusingWarning: 'SDH 📢 Es posible que te kickeen si comienzas el juego sin suficientes jugadores.'
     }
     ,afkAbusing: {
-        cannotReason: 'SDH | ❌ No puedes usar el comando AFK durante un juego.'
+        cannotReason: 'SDH ❌ No puedes usar el comando AFK durante un juego.'
     }
     ,gameAbscond: {
-        banReason: 'SDH | 🚫 Homacón del juego(5mins)'
+        banReason: 'SDH 🚫 Homacón del juego(5mins)'
     }
     ,malAct: {
-        banReason: 'SDH | 🚫 Se detecta el comportamiento malicioso'
+        banReason: 'SDH 🚫 Se detecta el comportamiento malicioso'
     }
 }
 
@@ -223,13 +223,13 @@ export const command = {
     }
     ,memide: 'A {playerName} le mide {cm} cm'
     ,gk: {
-        missingGk: 'SDH | El equipo {teamId} no tiene arquero porque a {playerName} no le da! Escribí !gk para serlo!',
-        gkChange: 'SDH | {playerName} es el nuevo arquero de {teamId}. Para liberar el puesto escribe !gk nuevamente.'
+        missingGk: 'SDH 📣 El equipo {teamId} no tiene arquero porque a {playerName} no le da! Escribí !gk para serlo!',
+        gkChange: 'SDH 📣 {playerName} es el nuevo arquero de {teamId}. Para liberar el puesto escribe !gk nuevamente.'
     }
-    ,bb: 'SDH | Nos vemos {player}!'
+    ,bb: 'SDH 📣 Nos vemos {player}!'
     ,ban:  {
-        permanentBan: 'SDH | El jugador {player} fue baneado PERMANENTEMENTE por el admin {mod}.\n Razón: {reason}',
-        fixedTermBan: 'SDH | El jugador {player} fue baneado por el admin {mod}.'
+        permanentBan: 'SDH 📣 El jugador {player} fue baneado PERMANENTEMENTE por el admin {mod}.\n Razón: {reason}',
+        fixedTermBan: 'SDH 📣 El jugador {player} fue baneado por el admin {mod}.'
     }
 }
 

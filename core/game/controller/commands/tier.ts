@@ -23,5 +23,5 @@ export function cmdTier(byPlayer: PlayerObject, message: string[]): void {
         ,tierCutoff2: window.gameRoom.config.HElo.tier.class_tier_2
         ,tierCutoff1: window.gameRoom.config.HElo.tier.class_tier_1
     }
-    window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.tier, null), byPlayer.id, 0x479947, "normal", 1);
+    window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.tier, null), byPlayer.id, 0xFFFF17, "normal", 1);
 }

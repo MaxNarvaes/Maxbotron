@@ -554,7 +554,7 @@ export function defaultPlayerAnimations(): PlayerAnimations{
                 frames: [
                     {
                         index: 0,
-                        bitmaps: ["🐐","🧞‍♂️"],
+                        bitmaps: ["🐐","⭐"],
                         animating: false,
                         delayInMs: 3000,
                         startedTimestamp: getUnixTimestamp()

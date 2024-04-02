@@ -12,14 +12,14 @@ export class PlayerRepository implements IRepository<Player> {
         } else {
             players = await repository.find({ ruid: ruid });
         }
-        if (players.length === 0) throw new Error('There are no players.');
+        if (players.length === 0) throw new Error('No hay jugadores.');
         return players;
     }
 
     public async findSingle(ruid: string, auth: string): Promise<Player | undefined> {
         const repository: Repository<Player> = getRepository(Player);
         let player: Player | undefined = await repository.findOne({ ruid: ruid, auth: auth });
-        if (player === undefined) throw new Error('Such player is not found.');
+        if (player === undefined) throw new Error('Ese jugador no se encuentra.');
         return player;
     }
 
@@ -55,7 +55,7 @@ export class PlayerRepository implements IRepository<Player> {
             newPlayer.perfectGk = player.perfectGk;
             newPlayer.hatTricks = player.hatTricks;
         } else {
-            throw new Error('Such player is exist already.');
+            throw new Error('Tal jugador ya existe.');
         }
         return await repository.save(newPlayer);
     }
@@ -91,7 +91,7 @@ export class PlayerRepository implements IRepository<Player> {
             newPlayer.perfectGk = player.perfectGk;
             newPlayer.hatTricks = player.hatTricks;
         } else {
-            throw new Error('Such player is not found.');
+            throw new Error('Ese jugador no se encuentra.');
         }
         return await repository.save(newPlayer);
     }
@@ -100,7 +100,7 @@ export class PlayerRepository implements IRepository<Player> {
         const repository: Repository<Player> = getRepository(Player);
         let player: Player | undefined = await repository.findOne({ ruid: ruid, auth: auth });
         if (player === undefined) {
-            throw new Error('Such player is not found.');
+            throw new Error('Ese jugador no se encuentra.');
         } else {
             await repository.remove(player);
         }

@@ -16,7 +16,7 @@ export function cmdBan(byPlayer: PlayerObject, message: string[]): void {
     var numericId: number = !isNaN(Number(id)) ? Number(id) : 0;
     var numericMinutes: number = 1440;
     if (numericId === 0) {
-        window.gameRoom._room.sendAnnouncement("Ban: formato de id invalido", byPlayer.id, LangRes.style.colors.Red, null, null);
+        window.gameRoom._room.sendAnnouncement("SDH 📣 Formato de ID invalido", byPlayer.id, LangRes.style.colors.Red, null, null);
         return;
     }
     var player = window.gameRoom.playerList.get(numericId);
@@ -26,7 +26,7 @@ export function cmdBan(byPlayer: PlayerObject, message: string[]): void {
     }
 
     if(numericMinutes < 0 && reason === null) {
-        window.gameRoom._room.sendAnnouncement("Ban: No podes banear permanente sin una razon.", byPlayer.id, LangRes.style.colors.Red, null, null);
+        window.gameRoom._room.sendAnnouncement("SDH 📣 No podes banear permanente sin una razon.", byPlayer.id, LangRes.style.colors.Red, null, null);
         return;
     } else { //permanent ban
         window.gameRoom._room.kickPlayer(numericId, reason!, true);

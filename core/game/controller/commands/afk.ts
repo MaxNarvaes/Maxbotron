@@ -19,10 +19,10 @@ export function cmdAfk(byPlayer: PlayerObject, message: string[]): void {
         window.gameRoom.playerList.get(byPlayer.id)!.afktrace = { exemption: false, count: 0 }; // reset for afk trace
 
         if (window.gameRoom.config.settings.antiAFKFlood === true && window.gameRoom.playerList.get(byPlayer.id)!.permissions.mute === true) {
-            window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.afk.unAfk, placeholder), byPlayer.id, 0x479947, "normal", 1);
+            window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.afk.unAfk, placeholder), byPlayer.id, 0xFF5E3B, "normal", 1);
             window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.afk.muteNotifyWarn, placeholder), byPlayer.id, 0xFF7777, "normal", 2);
         } else {
-            window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.afk.unAfk, placeholder), null, 0x479947, "normal", 1);
+            window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.afk.unAfk, placeholder), null, 0xFF5E3B, "normal", 1);
         }
     } else { // if this player is not AFK (in active) equilibrar teams meter un spec
         if (window.gameRoom.config.settings.antiAFKAbusing === true && window.gameRoom.playerList.get(byPlayer.id)!.team !== TeamID.Spec) {
@@ -49,14 +49,14 @@ export function cmdAfk(byPlayer: PlayerObject, message: string[]): void {
         }
 
         if (window.gameRoom.config.settings.antiAFKFlood === true && window.gameRoom.playerList.get(byPlayer.id)!.permissions.mute === true) {
-            window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.afk.setAfk, placeholder), byPlayer.id, 0x479947, "normal", 1);
-            window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.afk.muteNotifyWarn, placeholder), byPlayer.id, 0xFF7777, "normal", 2);
+            window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.afk.setAfk, placeholder), byPlayer.id, 0xFF5E3B, "normal", 1);
+            window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.afk.muteNotifyWarn, placeholder), byPlayer.id, 0xFF5E3B, "normal", 2);
         } else {
-            window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.afk.setAfk, placeholder), null, 0x479947, "normal", 1);
+            window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.command.afk.setAfk, placeholder), null, 0xFF5E3B, "normal", 1);
         }
 
         if (window.gameRoom.config.settings.afkCommandAutoKick === true) {
-            window.gameRoom._room.sendAnnouncement(LangRes.command.afk._WarnAfkTooLong, byPlayer.id, 0x479947, "normal", 1);
+            window.gameRoom._room.sendAnnouncement(LangRes.command.afk._WarnAfkTooLong, byPlayer.id, 0xFF5E3B, "normal", 1);
         }
     }
     // check number of players and change game mode

@@ -15,5 +15,5 @@ export async function cmdStatsReset(byPlayer: PlayerObject, message: string[]): 
     window.gameRoom.playerList.get(byPlayer.id)!.stats.passed = 0;
     await setPlayerDataToDB(convertToPlayerStorage(window.gameRoom.playerList.get(byPlayer.id)!));
 
-    window.gameRoom._room.sendAnnouncement(LangRes.command.statsreset, byPlayer.id, 0x479947, "normal", 1);
+    window.gameRoom._room.sendAnnouncement(LangRes.command.statsreset, byPlayer.id, 0x426AD6, "normal", 1);
 }
