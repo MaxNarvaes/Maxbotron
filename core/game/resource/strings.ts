@@ -3,7 +3,7 @@ export function SendRelato(message: string){
 }
 
 export function SendConsole(message: string){
-        window.gameRoom._room.sendAnnouncement("SDH | " + message , null, style.colors.Green, "italic", 1);        
+        window.gameRoom._room.sendAnnouncement("SDH | " + message , null, style.colors.LigthBlue, "italic", 1);        
 }
 
 // YOU CAN USE A PLACEHOLDER FOR INTERPOLATION. FOR EXAMPLE, 'Hello, My name is {name}.'

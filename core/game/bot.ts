@@ -122,7 +122,7 @@ var scheduledTimer5 = setInterval(() => {
         // check muted player and unmute when it's time to unmute
         if (player.permissions.mute === true && player.permissions.muteExpire !== -1 && nowTimeStamp > player.permissions.muteExpire) {
             player.permissions.mute = false; //unmute
-            window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.scheduler.autoUnmute, placeholderScheduler), null, 0x479947, "normal", 0); //notify it
+            window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.scheduler.autoUnmute, placeholderScheduler), null, LangRes.style.colors.LigthBlue, "normal", 0); //notify it
             window._emitSIOPlayerStatusChangeEvent(player.id);
         }
 
@@ -149,7 +149,7 @@ function checkAfk(player: Player, placeholderScheduler: { targetID: number; targ
             } else {
                 if (player.afktrace.count >= 1) { // only when the player's count is not 0(in activity)
                     placeholderScheduler.time = (window.gameRoom.config.settings.afkCountLimit - player.afktrace.count) * 5
-                    window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.scheduler.afkDetect, placeholderScheduler), player.id, 0xFF7777, "bold", 2); // warning for all
+                    window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.scheduler.afkDetect, placeholderScheduler), player.id, LangRes.style.colors.Orange, "bold", 2); // warning for all
                 }
                 player.afktrace.count++; // add afk detection count
             }
@@ -160,8 +160,8 @@ function checkAfk(player: Player, placeholderScheduler: { targetID: number; targ
                 window.gameRoom._room.kickPlayer(player.id, Tst.maketext(LangRes.scheduler.afkKick, placeholderScheduler), false); // kick
             } else {
                 if (player.afktrace.count >= 1) { // only when the player's count is not 0(in activity)
-                    window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.scheduler.afkDetect, placeholderScheduler), player.id, 0xFF7777, "bold", 2); // warning for all
-                    window.gameRoom._room.sendAnnouncement(player.admin + " y " + player.permissions.role.key + " y " + player.permissions.superadmin, player.id, 0xFF7777, "bold", 2); // warning for all
+                    window.gameRoom._room.sendAnnouncement(Tst.maketext(LangRes.scheduler.afkDetect, placeholderScheduler), player.id, LangRes.style.colors.Orange, "bold", 2); // warning for all
+                    window.gameRoom._room.sendAnnouncement(player.admin + " y " + player.permissions.role.key + " y " + player.permissions.superadmin, player.id, LangRes.style.colors.Orange, "bold", 2); // warning for all
                 }
                 player.afktrace.count++;
             }
@@ -206,9 +206,9 @@ function makeRoom(): void {
 
 function printVc() {
     var msg = "SDH 📣 ¿Querés hablar con los pibes? Entra al VC del discord: ";
-    window.gameRoom._room.sendAnnouncement(msg, null, 0x00FF00, null, null);
+    window.gameRoom._room.sendAnnouncement(msg, null, LangRes.style.colors.Yellow, null, null);
 }
 
 function printRules() {
-    window.gameRoom._room.sendAnnouncement("SDH 📣 Ingresa a nuestro discord para ver las reglas de la sala!", null, 0x8466FD, null, null);
+    window.gameRoom._room.sendAnnouncement("SDH 📣 Ingresa a nuestro discord para ver las reglas de la sala!", null, LangRes.style.colors.LigthBlue, null, null);
 }
